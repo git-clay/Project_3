@@ -1,4 +1,4 @@
-var exress	= require('express'),
+var express	= require('express'),
 	app		= express();
 
 /*********************** Served up directories ******************************/
