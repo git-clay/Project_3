@@ -1,9 +1,9 @@
 # Project_3
 SEAN stack travel app
 
-## [Heroku App](#)
-## [Trello Board](#)
-## [Wireframes](#)
+#### [Heroku App](#)
+#### [Trello Board](#)
+#### [Wireframes](#)
 
 Basically a simplified tripadvisor using their api for travel information and google's api to search for activities.
 User's can login and save custom trips to their profile. 
