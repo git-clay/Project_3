@@ -1,7 +1,7 @@
-var expect	= require('chai').expect,
-	api		= require('#');	// depends where we are sending api requests from
+var expect		= require('chai').expect,
+	card		= require('#');	// js file to test?
 
-describe('Testing API', function(){
+describe('Testing travel card', function(){
 	it('should...', function(){
 		expect();
 	});
