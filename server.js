@@ -74,7 +74,7 @@ app.get('/api/posts', function (req, res) {
 
 app.post('/auth/signup', function (req, res) {
 	    console.log('POST auth/signup',req.body)
-console.log('User: ',User,'database: ',db)
+console.log('User: ',User)
   // User.findOne({ email: req.body.email }, function (err, existingUser) {
     // if (existingUser) {
     //   return res.status(409).send({ message: 'Email is already taken.' });
@@ -82,7 +82,7 @@ console.log('User: ',User,'database: ',db)
     User.create(req.body)
     	.then(function(user){
     		if(!user) return error(res, "not saved");
-    		res.json(user);
+    		res.json(req.body);
   		});
 
       // res.send({ token: auth.createJWT(result) });
@@ -127,8 +127,8 @@ var yelp = new Yelp({
 // See http://www.yelp.com/developers/documentation/v2/search_api
 yelp.search({ term: 'food', location: 'Montreal' })
 .then(function (data) {
-  console.log(data.businesses[0].location.display_address);
-  console.log(data.businesses[0])
+  // console.log(data.businesses[0].location.display_address);
+  // console.log(data.businesses[0])
 })
 .catch(function (err) {
   console.error(err);
