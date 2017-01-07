@@ -1,97 +1,20 @@
+
+
 angular
   .module('roamrrApp', ['ui.router','satellizer']) //sets main app and dependancies
   .controller('MainController', MainController)
   .controller('HomeController', HomeController)
   .controller('LoginController', LoginController)
-  .controller('RegisterController', RegisterController)
+  .controller('SignupController', SignupController)
   .controller('LogoutController', LogoutController)
   .controller('ProfileController', ProfileController)
   .service('Account', Account)
   .config(configRoutes)
   ;
 
-console.log('USER-CONTROLLER . JS')
-/************* ROUTES *********************/
-configRoutes.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider"]; // minification protection
-function configRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
-console.log('config routes')
-  //this allows us to use routes without hash params!
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
-  });
-
-  // for any unmatched URL redirect to /
-  $urlRouterProvider.otherwise("/");
-
-  $stateProvider
-    .state('home', {
-      url: '/',
-      templateUrl: '../views/templates/home.html',
-      controller: 'HomeController',
-      controllerAs: 'home'
-    })
-    .state('register', {
-      url: '/register',
-      templateUrl: '../views/templates/register.html',
-      controller: 'RegisterController',
-      controllerAs: 'rc',
-      resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
-      }
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: '../views/templates/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc',
-      resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
-      }
-    })
-    .state('logout', {
-      url: '/logout',
-      template: null,
-      controller: 'LogoutController',
-      resolve: {
-        loginRequired: loginRequired
-      }
-    })
-    .state('profile', {
-      url: '/profile',
-      templateUrl: '../views/templates/profile.html',
-      controller: 'ProfileController',
-      controllerAs: 'profile',
-      resolve: {
-        loginRequired: loginRequired
-      }
-    });
-
-
-    function skipIfLoggedIn($q, $auth) {
-      var deferred = $q.defer();
-      if ($auth.isAuthenticated()) {
-        deferred.reject();
-      } else {
-        deferred.resolve();
-      }
-      return deferred.promise;
-    }
-
-    function loginRequired($q, $location, $auth) {
-      var deferred = $q.defer();
-      if ($auth.isAuthenticated()) {
-        deferred.resolve();
-      } else {
-        $location.path('/login');
-      }
-      return deferred.promise;
-    }
-
-}
+console.log('USER-CONTROLLER . JS');
 
 /********** CONTROLLERS ***************/
-
 MainController.$inject = ["Account"]; // minification protection
 function MainController (Account) {
   var vm = this;
@@ -100,7 +23,6 @@ console.log('main controller');
   vm.currentUser = function() {
    return Account.currentUser();
   };
-
 }
 
 HomeController.$inject = ["$http"]; // minification protection
@@ -108,13 +30,13 @@ function HomeController ($http) {
   console.log('home controller');
 
   var vm = this;
-  vm.posts = [];
-  vm.new_post = {}; // form data
+  // vm.posts = [];
+  // vm.new_post = {}; // form data
 
-  $http.get('/api/posts')
-    .then(function (response) {
-      vm.posts = response.data;
-    });
+  // $http.get('/api/posts')
+  //   .then(function (response) {
+  //     vm.posts = response.data;
+  //   });
 }
 
 LoginController.$inject = ["Account",'$location']; // minification protection
@@ -131,19 +53,16 @@ function LoginController (Account,$location) {
       });
   };
 }
-
-RegisterController.$inject = ["Account",'$location']; // minification protection
-function RegisterController (Account,$location) {
+SignupController.$inject = ["Account",'$location']; // minification protection
+function SignupController (Account,$location) {
   var vm = this;
   vm.new_user = {}; // form data
-console.log('register controller');
+console.log('signup controller');
   vm.signup = function() {
     Account
       .signup(vm.new_user)
       .then(function () {
-          // TODO #9: clear sign up form
           vm.new_user={};
-          // TODO #10: redirect to '/profile'
           $location.path('/profile');
         }
       );
@@ -181,11 +100,9 @@ function Account($http, $q, $auth,$location) {
   self.currentUser = currentUser;
   self.getProfile = getProfile;
   self.updateProfile = updateProfile;
-
+console.log('account')
   function signup(userData) {
-    // TODO #8: signup (https://github.com/sahat/satellizer#authsignupuser-options)
-    // then, set the token (https://github.com/sahat/satellizer#authsettokentoken)
-    // returns a promise
+    console.log('signup',userData)
     return (
       $auth
         .signup(userData) 
@@ -194,7 +111,6 @@ function Account($http, $q, $auth,$location) {
             console.log(response.data.token);
             $auth.setToken(response.data.token);
           },
-
           function onError(error) {
             console.error(error);
           }
@@ -208,6 +124,7 @@ function Account($http, $q, $auth,$location) {
         .login(userData) // login (https://github.com/sahat/satellizer#authloginuser-options)
         .then(
           function onSuccess(response) {
+            console.log('onSuccess')
             //TODO #3: set token (https://github.com/sahat/satellizer#authsettokentoken)
             console.log(response.data.token);
             $auth.setToken(response.data.token);
@@ -272,3 +189,5 @@ function Account($http, $q, $auth,$location) {
     );
   }
 }
+
+

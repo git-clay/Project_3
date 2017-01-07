@@ -1,5 +1,5 @@
 var express			= require('express'),
-	router			= express.Router(),
+	app				= express(),
 	bodyParser		= require('body-parser'),
 	auth 			= require('../controllers/auth.js');
 
@@ -15,17 +15,18 @@ var express			= require('express'),
 //   .post('/users',userController.postRegister);
 /*********************** User auth ******************************/
 // require User and Post models
+console.log('routes.js')
 var User = require('../models/user');
 
 
-router.get('/api/me', auth.ensureAuthenticated, function (req, res) {
+app.get('/api/me', auth.ensureAuthenticated, function (req, res) {
 	console.log('api me')
   User.findById(req.user, function (err, user) {
     res.send(user.populate('posts'));
   });
 });
 
-router.put('/api/me', auth.ensureAuthenticated, function (req, res) {
+app.put('/api/me', auth.ensureAuthenticated, function (req, res) {
   User.findById(req.user, function (err, user) {
     if (!user) {
       return res.status(400).send({ message: 'User not found.' });
@@ -39,25 +40,25 @@ router.put('/api/me', auth.ensureAuthenticated, function (req, res) {
   });
 });
 
-router.get('/api/posts', function (req, res) {
-  res.json([
-  {
-    title: "Hardcoded Title",
-    content: "Here is some great hardcoded content for the body of a blog post. Happy coding!"
-  },
-  {
-    title: "Another Post",
-    content: "MEAN stack is the best stack."
-  }
-  ]);
-});
+// app.get('/api/posts', function (req, res) {
+//   res.json([
+//   {
+//     title: "Hardcoded Title",
+//     content: "Here is some great hardcoded content for the body of a blog post. Happy coding!"
+//   },
+//   {
+//     title: "Another Post",
+//     content: "MEAN stack is the best stack."
+//   }
+//   ]);
+// });
 
 
 /*
  * Auth Routes
  */
 
-router.post('/auth/register', function (req, res) {
+app.post('/auth/signup', function (req, res) {
   User.findOne({ email: req.body.email }, function (err, existingUser) {
     if (existingUser) {
       return res.status(409).send({ message: 'Email is already taken.' });
@@ -77,7 +78,7 @@ router.post('/auth/register', function (req, res) {
   });
 });
 
-router.post('/auth/login', function (req, res) {
+app.post('/auth/login', function (req, res) {
   User.findOne({ email: req.body.email }, '+password', function (err, user) {
     if (!user) {
       return res.status(401).send({ message: 'Invalid email or password.' });
@@ -90,3 +91,4 @@ router.post('/auth/login', function (req, res) {
     });
   });
 });
+
