@@ -20,17 +20,18 @@
 	<!-- Angular / Angular-router -->
 		<script src='/bower_components/angular/angular.min.js'></script>
 		<script src='/bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
-		
+		<script src='/bower_components/angular-route/angular-route.min.js'></script>
 	<!-- Angular Satellizer -->
 		<script src='/bower_components/satellizer/dist/satellizer.min.js'></script>
+	<!-- Custom js -->
+		<script src='/js/front.js'></script>
 	<!-- Angular Controllers -->
 		<script src='/js/controllers/user-controller.js'></script>
-	<!-- Custom js -->
 
 </head>
 <body ng-app="roamrrApp">
-<h1>hey</h1>
-<ng-view></ng-view>
+<h1>Main page</h1>
+<ui-view></ui-view>
 
 </body>
 </html>
