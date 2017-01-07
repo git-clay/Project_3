@@ -20,11 +20,11 @@ $stateProvider
       controller: 'HomeController', //using homecontroller
       controllerAs: 'home'  // call the controller using 'home'
     })
-    .state('register', {
-      url: '/register',
-      templateUrl: '../views/templates/register.html',
-      controller: 'RegisterController',
-      controllerAs: 'rc',
+    .state('signup', {
+      url: '/signup',
+      templateUrl: '../views/templates/signup.html',
+      controller: 'SignupController',
+      controllerAs: 'sc',
       resolve: {
         skipIfLoggedIn: skipIfLoggedIn
       }

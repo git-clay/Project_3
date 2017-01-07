@@ -1,6 +1,6 @@
 var jwt = require('jwt-simple'),
     moment = require('moment');
-
+console.log('auth.js')
 module.exports = {
   /*
   * Login Required Middleware
@@ -12,7 +12,7 @@ module.exports = {
 
     var token = req.headers.authorization.split(' ')[1];
     var payload = null;
-
+    console.log('ensureauth')
     try {
       payload = jwt.decode(token, process.env.TOKEN_SECRET);
     }

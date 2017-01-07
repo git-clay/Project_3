@@ -1,9 +1,11 @@
+
+
 angular
   .module('roamrrApp', ['ui.router','satellizer']) //sets main app and dependancies
   .controller('MainController', MainController)
   .controller('HomeController', HomeController)
   .controller('LoginController', LoginController)
-  .controller('RegisterController', RegisterController)
+  .controller('SignupController', SignupController)
   .controller('LogoutController', LogoutController)
   .controller('ProfileController', ProfileController)
   .service('Account', Account)
@@ -51,13 +53,12 @@ function LoginController (Account,$location) {
       });
   };
 }
-
-RegisterController.$inject = ["Account",'$location']; // minification protection
-function RegisterController (Account,$location) {
+SignupController.$inject = ["Account",'$location']; // minification protection
+function SignupController (Account,$location) {
   var vm = this;
   vm.new_user = {}; // form data
-console.log('register controller');
-  vm.register = function() {
+console.log('signup controller');
+  vm.signup = function() {
     Account
       .signup(vm.new_user)
       .then(function () {
@@ -93,26 +94,23 @@ function Account($http, $q, $auth,$location) {
   var self = this;
   self.user = null;
 
-  self.register = register;
+  self.signup = signup;
   self.login = login;
   self.logout = logout;
   self.currentUser = currentUser;
   self.getProfile = getProfile;
   self.updateProfile = updateProfile;
-
-  function register(userData) {
-    // TODO #8: signup (https://github.com/sahat/satellizer#authsignupuser-options)
-    // then, set the token (https://github.com/sahat/satellizer#authsettokentoken)
-    // returns a promise
+console.log('account')
+  function signup(userData) {
+    console.log('signup',userData)
     return (
       $auth
-        .register(userData) 
+        .signup(userData) 
         .then(
           function onSuccess(response) {
             console.log(response.data.token);
             $auth.setToken(response.data.token);
           },
-
           function onError(error) {
             console.error(error);
           }
@@ -126,6 +124,7 @@ function Account($http, $q, $auth,$location) {
         .login(userData) // login (https://github.com/sahat/satellizer#authloginuser-options)
         .then(
           function onSuccess(response) {
+            console.log('onSuccess')
             //TODO #3: set token (https://github.com/sahat/satellizer#authsettokentoken)
             console.log(response.data.token);
             $auth.setToken(response.data.token);
@@ -190,3 +189,5 @@ function Account($http, $q, $auth,$location) {
     );
   }
 }
+
+

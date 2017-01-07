@@ -15,6 +15,7 @@ var express			= require('express'),
 //   .post('/users',userController.postRegister);
 /*********************** User auth ******************************/
 // require User and Post models
+console.log('routes.js')
 var User = require('../models/user');
 
 
@@ -57,7 +58,7 @@ app.put('/api/me', auth.ensureAuthenticated, function (req, res) {
  * Auth Routes
  */
 
-app.post('/auth/register', function (req, res) {
+app.post('/auth/signup', function (req, res) {
   User.findOne({ email: req.body.email }, function (err, existingUser) {
     if (existingUser) {
       return res.status(409).send({ message: 'Email is already taken.' });
@@ -90,3 +91,4 @@ app.post('/auth/login', function (req, res) {
     });
   });
 });
+

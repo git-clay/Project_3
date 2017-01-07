@@ -1,17 +1,19 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://claybin@localhost:5432/tunr_models'),
-    bcrypt = require('bcryptjs');
-console.log('user model . js')
-var userModel = sequelize.define('User',{
-  created:  Sequelize.DATE,
-  updated: Sequelize.DATE,
-  email: { type: Sequelize.STRING, unique: true, lowercase: true },
-  password: { type: Sequelize.STRING, select: false },
-  displayName: Sequelize.STRING,
-  username: Sequelize.STRING,
-  picture: Sequelize.STRING
-});
+console.log('user model . js');
 
+module.exports = function(sequelize, Sequelize){
+console.log('sequelized user');
+	var userModel = sequelize.define('User',{
+	  created:  Sequelize.DATE,
+	  updated: Sequelize.DATE,
+	  email: Sequelize.STRING,
+	  // email: { type: Sequelize.STRING, unique: true, lowercase: true },
+	  password: { type: Sequelize.STRING, select: false },
+	  displayName: Sequelize.STRING,
+	  username: Sequelize.STRING,
+	  picture: Sequelize.STRING
+	});
+	return userModel;
+};
 // userModel.pre('save', function (next) {
 //   // set created and updated
 //   now = new Date();
@@ -39,5 +41,4 @@ var userModel = sequelize.define('User',{
 //   });
 // };
 
-var User = sequelize.model('User', userModel);
-module.exports = User;
+
