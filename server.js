@@ -6,7 +6,8 @@ var   express		= require('express'),
 	    // auth 		= require('./controllers/auth.js');
 
 // require and load dotenv
-require('dotenv').load();
+// require('dotenv').load();
+
 // configure bodyParser (for receiving form data)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -21,10 +22,11 @@ app.use(routes,function(req,res,next){
 	console.log('server routes')
  next();
 });
-/****************************************/
+/**************** DATABASE ************************/
 var db		= require('./models'),
 	User 	= db.models.User;
 
+	db.sequelize.sync();
 
 
 /*
@@ -71,7 +73,6 @@ app.get('/api/posts', function (req, res) {
 
 app.post('/auth/signup', function (req, res) {
 	    console.log('POST auth/signup',req.body)
-console.log('User: ',User,'database: ',db)
   // User.findOne({ email: req.body.email }, function (err, existingUser) {
     // if (existingUser) {
     //   return res.status(409).send({ message: 'Email is already taken.' });
@@ -79,7 +80,9 @@ console.log('User: ',User,'database: ',db)
     User.create(req.body)
     	.then(function(user){
     		if(!user) return error(res, "not saved");
-    		res.json(user);
+    		console.log(user.dataValues)
+
+    		res.json(user.dataValues);
   		});
 
       // res.send({ token: auth.createJWT(result) });

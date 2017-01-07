@@ -1,5 +1,3 @@
-
-
 angular
   .module('roamrrApp', ['ui.router','satellizer']) //sets main app and dependancies
   .controller('MainController', MainController)
@@ -28,7 +26,6 @@ console.log('main controller');
 HomeController.$inject = ["$http"]; // minification protection
 function HomeController ($http) {
   console.log('home controller');
-
   var vm = this;
   // vm.posts = [];
   // vm.new_post = {}; // form data
@@ -108,6 +105,7 @@ console.log('account')
         .signup(userData) 
         .then(
           function onSuccess(response) {
+            console.log(response.data)
             console.log(response.data.token);
             $auth.setToken(response.data.token);
           },
@@ -125,7 +123,6 @@ console.log('account')
         .then(
           function onSuccess(response) {
             console.log('onSuccess')
-            //TODO #3: set token (https://github.com/sahat/satellizer#authsettokentoken)
             console.log(response.data.token);
             $auth.setToken(response.data.token);
           },

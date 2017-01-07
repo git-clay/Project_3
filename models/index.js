@@ -1,5 +1,3 @@
-console.log('hit index.js in models');
-
 var Sequelize = require('sequelize'),
 	sequelize = new Sequelize('postgres://claybin@localhost:5432/roamrr_models'),
     bcrypt = require('bcryptjs');
@@ -9,7 +7,7 @@ var Sequelize = require('sequelize'),
 module.exports.Sequelize = Sequelize;
 module.exports.sequelize = sequelize;
 
-var User = sequelize.import("./user");
+var User = sequelize.import("./user.js");
 
 module.exports.models = {
 	User : User
