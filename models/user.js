@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://claybin@localhost:5432/tunr_models'),
     bcrypt = require('bcryptjs');
-
+console.log('user model . js')
 var userModel = sequelize.define('User',{
   created:  Sequelize.DATE,
   updated: Sequelize.DATE,
