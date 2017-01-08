@@ -108,6 +108,7 @@ console.log('account')
         .signup(userData) 
         .then(
           function onSuccess(response) {
+            console.log(response.data)
             console.log(response.data.token);
             $auth.setToken(response.data.token);
           },

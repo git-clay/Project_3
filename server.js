@@ -3,7 +3,8 @@ var   express		= require('express'),
 
 	    bodyParser	= require('body-parser'),
 	    auth 		= require('./controllers/auth.js'),
-      Yelp = require('yelp');
+      Yelp = require('yelp'),
+      bcrypt 		= require('bcryptjs');
 
 // require and load dotenv
 require('dotenv').load();
@@ -73,18 +74,30 @@ app.get('/api/posts', function (req, res) {
  */
 
 app.post('/auth/signup', function (req, res) {
-	    console.log('POST auth/signup',req.body)
-console.log('User: ',User)
+	    console.log('POST auth/signup password',req.body.password)
   // User.findOne({ email: req.body.email }, function (err, existingUser) {
     // if (existingUser) {
     //   return res.status(409).send({ message: 'Email is already taken.' });
     // }
+
+      // encrypt password
+
+  bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.hash(req.body.password, salt, function (err, hash) {
+      req.body.password = hash;
+        console.log('hashed',req.body.password)
+
+
+  console.log(req.body.password)
     User.create(req.body)
     	.then(function(user){
     		if(!user) return error(res, "not saved");
-    		res.json(req.body);
-  		});
+    		console.log(user.dataValues)
 
+    		res.json(user.dataValues);
+  		});
+    });
+  });
       // res.send({ token: auth.createJWT(result) });
     });
 // });
