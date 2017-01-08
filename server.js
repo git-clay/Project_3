@@ -81,24 +81,23 @@ app.post('/auth/signup', function (req, res) {
     // }
 
       // encrypt password
-
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(req.body.password, salt, function (err, hash) {
       req.body.password = hash;
         console.log('hashed',req.body.password)
 
 
-  console.log(req.body.password)
-    User.create(req.body)
-    	.then(function(user){
-    		if(!user) return error(res, "not saved");
-    		console.log(user.dataValues)
+	  console.log(req.body.password)
+	    User.create(req.body)
+	    	.then(function(user){
+	    		if(!user) return error(res, "not saved");
+	    		console.log(user.dataValues)
+      res.send({ token: auth.createJWT(user) });
 
-    		res.json(user.dataValues);
+	    		// res.json(user.dataValues);
   		});
     });
   });
-      // res.send({ token: auth.createJWT(result) });
     });
 // });
 
