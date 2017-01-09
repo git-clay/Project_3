@@ -68,15 +68,50 @@ app.put('/api/me', auth.ensureAuthenticated, function(req, res) {
 	});
 });
 
+var yelp = new Yelp({
+	consumer_key: '5eu-uFPxtc1RtmeJCAlmUQ',
+	consumer_secret: 'ZwJB35PXcr0_oPYt2-l-XDCd6TE',
+	token: 'INavbmqjPrFTdqM3i5ZTNkjyfeInIWfl',
+	token_secret: 'pGqF4hywcR8_4HFGn05hZbxYKrU',
+});
+
+
+var city;
 
 app.post('/api/post', function (req, res) {
   console.log(req.body.lat, req.body.lng);
   var latReal = req.body.lat;
   var lngReal = req.body.lng;
   var city = cities.gps_lookup(latReal, lngReal).city;
-  console.log(city);
+  yelpgo(city);
   return city;
 });
+
+
+function yelpgo(city){
+	yelp.search({
+		term: 'food',
+		location: city
+	})
+	.then(function(data) {
+		console.log(data.businesses)
+	})
+	.catch(function(err) {
+		// console.error(err);
+	});
+
+
+	console.log(city+ "you did it boss");
+};
+
+// var yelp = new Yelp({
+// 	consumer_key: '5eu-uFPxtc1RtmeJCAlmUQ',
+// 	consumer_secret: 'ZwJB35PXcr0_oPYt2-l-XDCd6TE',
+// 	token: 'INavbmqjPrFTdqM3i5ZTNkjyfeInIWfl',
+// 	token_secret: 'pGqF4hywcR8_4HFGn05hZbxYKrU',
+// });
+
+// See http://www.yelp.com/developers/documentation/v2/search_api
 
 
 
@@ -165,25 +200,6 @@ app.get(['/', '/signup', '/login', '/profile', '/logout'], function(req, res) {
 
 /*********************** Yelp request function ******************************/
 
-var yelp = new Yelp({
-	consumer_key: '5eu-uFPxtc1RtmeJCAlmUQ',
-	consumer_secret: 'ZwJB35PXcr0_oPYt2-l-XDCd6TE',
-	token: 'INavbmqjPrFTdqM3i5ZTNkjyfeInIWfl',
-	token_secret: 'pGqF4hywcR8_4HFGn05hZbxYKrU',
-});
-
-// See http://www.yelp.com/developers/documentation/v2/search_api
-yelp.search({
-		term: 'food',
-		location: 'Montreal'
-	})
-	.then(function(data) {
-		// console.log(data.businesses[0].location.display_address);
-		// console.log(data.businesses[0])
-	})
-	.catch(function(err) {
-		// console.error(err);
-	});
 
 // cities.gps_lookup(lat, lng);
 // var city = cities.gps_lookup(lat, lng).city;
