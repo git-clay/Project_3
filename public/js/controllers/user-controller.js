@@ -8,7 +8,7 @@ angular
   .controller('SignupController', SignupController)
   .controller('LogoutController', LogoutController)
   .controller('ProfileController', ProfileController)
-  // .controller('ActivityController', ActivityController)
+  .controller('ActivityController', ActivityController)
   .service('Account', Account)
   .config(configRoutes)
   ;
@@ -40,8 +40,21 @@ function HomeController ($http) {
   //   });
 }
 
+
+
+LoginController.$inject = ["Account",'$location']; // minification protection
+function ActivityController (Account,$location) {
+console.log('activity controller')
+
+}
+
+
+
+
+
 LoginController.$inject = ["Account",'$location']; // minification protection
 function LoginController (Account,$location) {
+  console.log('login2')
   var vm = this;
   vm.new_user = {}; // form data
   console.log('LoginController')
