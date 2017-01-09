@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RoamRR</title>
+    <!-- ***** CSS ****** -->
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<body ng-app="roamrrApp">
+
+<div class="activity_div">
+
+    <div class="blue"></div>
+    <div class="logobox">
+        <span class="logo"> Roamrr</span>
+    </div>
+
+        <form>
+            <!--        Slider Box -->
+            <div class="sliderbox">
+
+                <h3> How Many Days Will You Be in {{Location}}?</h3>
+
+                <!--  Slider -->
+                <input type="range" name="days" min="0" max="14">
+                <output for="days" onforminput="value = days.valueAsNumber;"></output>
+                <div class="container space-between">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>
+                    <div>10</div>
+                    <div>11</div>
+                    <div>12</div>
+                    <div>13</div>
+                    <div>14</div>
+                </div>
+                <!--  Slider -->
+
+                <!--             Headline Box -->
+                <div class="actvty_HdBox">
+                    <h4>What kind of adventures are you interested in?</h4>
+                    <h6>Check options below and we'll put together a few ideas for you.</h6>
+                </div>
+                <!--         End of Headline Box -->
+
+            </div>
+            <!-- End of Slider Box -->
+
+            <!-- Beginning of Select Box Row -->
+            <div class="selectBoxRow">
+
+                <div class="selectBox col-md-6 col-lg-6">
+                    <div class="well">
+                        <h5 class="text-center">THE SCENIC ROUTE</h5>
+                        <ul id="check-list-box" class="list-group checked-list-box">
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">Water Fun</li>
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">Outdoor Activities</li>
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">Local Color</li>
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">Historical & Cultural HotSpots</li>
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">Whatever's Awesome</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+                <div class="selectBox col-md-6 col-lg-6">
+                    <div class="well">
+                        <h5 class="text-center">THE CITY LIFE</h5>
+                        <ul id="check-list-box" class="list-group checked-list-box">
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">The Food Scene</li>
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">After Dark</li>
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">Local Color</li>
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">Historical & Cultural HotSpots</li>
+                            <li class="list-group-item">
+                                <input type="checkbox" ng-model="checkboxModel">Whatever's Awesome</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <br>
+                <div id="continue-button">
+                 <button type="button" class="btn btn-primary btn-md outline" data-toggle="modal" data-target="#loginReg">Continue</button></form>
+                </div>
+            </div>
+            <!-- end of Select Box Row -->
+</div><!--     End of Activity Page Container Div -->
+
+<!-- Large modal -->
+<div class="modal fade" id="loginReg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×</button>
+                       <h4 class="modal-title" id="login-reg">
+                        Login/Registration </h4>                  
+          
+                </div>
+            <div class="modal-body">
+                <div class="row">
+
+        <!-- Left Content Area for Pop Up -->
+                    <div class="col-md-4">
+                                <div >
+
+                                    We're putting your itinerary together, but in the meantime please create an account with us.
+                                    <br>
+                                    Thanks!
+                                     <br>
+                                       <br>
+                                    <span font-style="italic">-The Team at </span>
+                                    <br>
+                                         <span class="logo">Roamrr</span> 
+                                      <br>
+                                        <br>
+                                </div>
+                    </div> 
+
+<!-- End of Left Content Area -->
+                    <div class="col-md-8" style="border-left: 1px dotted #C2C2C2;padding-right: 30px;">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#Login" data-toggle="tab">Login</a></li>
+                            <li class="nav-item active"><a href="#Registration" data-toggle="tab">Register</a></li>
+                        </ul>
+
+                <!-- Login Tab Content -->
+                        <div class="tab-content">
+                            <div class="tab-pane" id="Login">
+                                <form role="form" class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label">
+                                        Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="email1" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-sm-2 control-label">
+                                        Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="password" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary btn-md outline">
+                                            Submit</button>
+                                        <a href="#">Forgot your password?</a>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>          
+               <!-- End of Login Tab -->
+                    <!-- Registration Tab Content-->               
+                            <div class="tab-pane active" id="Registration">
+                                <form role="form" class="form-horizontal">
+                                 <div class="form-group">
+                                    <label for="name" class="col-sm-2 control-label">
+                                        Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="name" placeholder="First Name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label">
+                                        Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="email" placeholder="" />
+                                    </div>
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label for="password" class="col-sm-2 control-label">
+                                        Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="password" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <button type="button" class="btn btn-primary btn-md outline">
+                                            Save & Continue</button>
+                                        <button type="button" class="btn btn-secondary btn-md outline">
+                                            Cancel</button>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+<!--                  End of Registration Tab -->
+                    
+                    </div>   <!--     Tab class closing div -->
+              
+            </div> <!-- Col 8 CLosing div -->
+        </div><!--  Row closing Div -->
+</div> <!-- Modal Body Closing Div -->
+</div> <!--  Modal-content Closing Div -->
+</div> <!-- Modal-dialog Closing Div -->
+</div> <!-- Modal fade Closing Div -->
+
+
+<!-- End Of Modal -->
+
+
+    <!-- ***** SCRIPTs ****** -->
+    <!-- jQuery -->
+    <!-- (switched link for more upto date library-gw) -->
+     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <!--  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script> -->
+    <!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Angular / Angular-router -->
+    <script src='../bower_components/angular/angular.min.js'></script>
+    <script src='../bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+    <!-- Angular Satellizer -->
+    <script src='../bower_components/satellizer/dist/satellizer.min.js'></script>
+    <!-- Angular Controllers -->
+    <script src='../js/controllers/user-controller.js'></script>
+    <!-- Custom js -->
+    <script src="../js/front.js"></script>
+
+    <!-- ***** SCRIPTs ****** -->
+</body>
+
+</html>
