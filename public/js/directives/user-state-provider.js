@@ -64,7 +64,7 @@ $stateProvider
     .state('choices',{
       url: '/choices',
       templateUrl: '../views/templates/choices.html',
-      controller: 'choicesController',
+      controller: 'ChoicesController',
       controllerAs: 'choices'
     });
 

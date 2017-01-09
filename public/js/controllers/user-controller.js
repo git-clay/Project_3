@@ -9,6 +9,7 @@ angular
   .controller('LogoutController', LogoutController)
   .controller('ProfileController', ProfileController)
   .controller('ActivityController', ActivityController)
+  .controller('ChoicesController',ChoicesController)
   .service('Account', Account)
   .config(configRoutes)
   ;
@@ -42,13 +43,17 @@ function HomeController ($http) {
 
 
 
-LoginController.$inject = ["Account",'$location']; // minification protection
+ActivityController.$inject = ["Account",'$location']; // minification protection
 function ActivityController (Account,$location) {
 console.log('activity controller')
 
 }
 
+ChoicesController.$inject = ["Account",'$location']; // minification protection
+function ChoicesController (Account,$location) {
+console.log('choices controller')
 
+}
 
 
 
@@ -63,6 +68,7 @@ function LoginController (Account,$location) {
       .login(vm.new_user)
       .then(function(){
          vm.new_user={}; // clears form
+
           $location.path('/choices'); // directs to profile page
       });
   };
