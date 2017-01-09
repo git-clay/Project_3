@@ -43,7 +43,7 @@ LoginController.$inject = ["Account",'$location']; // minification protection
 function LoginController (Account,$location) {
   var vm = this;
   vm.new_user = {}; // form data
-
+  console.log('LoginController')
   vm.login = function() {
     Account
       .login(vm.new_user)
@@ -108,6 +108,7 @@ console.log('account')
         .signup(userData) 
         .then(
           function onSuccess(response) {
+            console.log(response.data.user)
             console.log(response.data.token);
             $auth.setToken(response.data.token);
           },
@@ -119,13 +120,13 @@ console.log('account')
   }
 
   function login(userData) {
+    console.log('Acount.login',userData)
     return (
       $auth
         .login(userData) // login (https://github.com/sahat/satellizer#authloginuser-options)
         .then(
           function onSuccess(response) {
             console.log('onSuccess')
-            //TODO #3: set token (https://github.com/sahat/satellizer#authsettokentoken)
             console.log(response.data.token);
             $auth.setToken(response.data.token);
           },
