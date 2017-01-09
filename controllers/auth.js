@@ -2,9 +2,7 @@ var jwt = require('jwt-simple'),
     moment = require('moment');
 console.log('auth.js')
 module.exports = {
-  /*
-  * Login Required Middleware
-  */
+  /* Login Required Middleware */
   ensureAuthenticated: function (req, res, next) {
     if (!req.headers.authorization) {
       return res.status(401).send({ message: 'Please make sure your request has an Authorization header.' });

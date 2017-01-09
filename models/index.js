@@ -9,8 +9,22 @@ var Sequelize = require('sequelize'),
 module.exports.Sequelize = Sequelize;
 module.exports.sequelize = sequelize;
 
-var User = sequelize.import("./user");
+var User 	= sequelize.import("./user");
+var Event	= sequelize.import('./event-model.js');
+var Trip	= sequelize.import('./trip-model.js');
+
+Event.belongsTo(User);
+User.hasMany(Event);
+
+Trip.belongsTo(User);
+User.hasMany(Event);
+
+Event.belongsTo(Trip);
+Trip.hasMany(Event);
+
 
 module.exports.models = {
-	User : User
+	User : User,
+	Event : Event,
+	Trip : Trip
 };

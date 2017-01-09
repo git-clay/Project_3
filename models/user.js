@@ -4,43 +4,48 @@ var    bcrypt = require('bcryptjs');
 module.exports = function(sequelize, Sequelize){
 console.log('sequelized user');
 
-	var userModel = sequelize.define('User',{
-	  created:  Sequelize.DATE,
-	  email: { type: Sequelize.STRING, unique: true, lowercase: true },
-	  password: { type: Sequelize.STRING, select: false },
-	  displayName: Sequelize.STRING,
-	  username: Sequelize.STRING,
-	  picture: Sequelize.STRING
-	});
+var User = sequelize.define('user',{
+  email: { type: Sequelize.STRING, unique: true, lowercase: true },
+  password: Sequelize.STRING,
+  displayName: Sequelize.STRING,
+  username: Sequelize.STRING,
+  picture: Sequelize.STRING},{
+  instanceMethods:{
+  		generateHash:function(password){
+  			return bcrypt.hashSync(password,bcrypt.genSaltSync(8),null);
+  		}, comparePassword: function(password,password2,done){
+  			console.log(password);
+  			console.log(password2);
+  			bcrypt.compare(password,password2,function(err,isMatch){
+  				console.log(err)
+  				console.log(isMatch)
+  			});
+  		}
+  }
+});
 
-// userModel.pre('save', function (next) {
+// model.pre('save', function (next) {
 //   // set created and updated
 //   now = new Date();
 //   this.updated = now;
 //   if (!this.created) {
 //     this.created = now;
 //   }
-
-  // // encrypt password
-  // var user = this;
-  // console.log(userModel)
-  // if (!user.isModified('password')) {
-  //   return next();
-  // }
-  // bcrypt.genSalt(10, function (err, salt) {
-  //   bcrypt.hash(userModel.password, salt, function (err, hash) {
-  //     userModel.password = hash;
-  //     next();
-  //   });
-  // });
+//  bcrypt.genSalt(10, function (err, salt) {
+//     bcrypt.hash(user.password, salt, function (err, hash) {
+//       user.password = hash;
+//       next();
+//     });
+//   });
 // });
 
-// user.methods.comparePassword = function (password, done) {
-//   bcrypt.compare(password, this.password, function (err, isMatch) {
+// model.comparePassword = function (password, done) {
+// 	console.log(password)
+// return  bcrypt.compare(password, this.password, function (err, isMatch) {
 //     done(err, isMatch);
 //   });
 // };
-	return userModel;
+	return User;
 
 };
 
