@@ -16,7 +16,7 @@ var User = sequelize.define('user',{
   		}, comparePassword: function(password,password2,done){
   			console.log(password);
   			console.log(password2);
-  			bcrypt.compare(password,password2,function(err,isMatch){
+  			bcrypt.compare(password2,password,function(err,isMatch){
   				console.log(err)
   				console.log(isMatch)
   			});
