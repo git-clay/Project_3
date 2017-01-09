@@ -207,7 +207,7 @@ function initMap() {
             position: location,
             map: map,
             draggable: true,
-            icon: "./images/pin.png"
+            icon: "../views/images/pin.png"
         });
         nLat = marker.getPosition().lat();
         nLng = marker.getPosition().lng();

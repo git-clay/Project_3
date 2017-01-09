@@ -16,7 +16,7 @@ console.log('config routes');
 $stateProvider
     .state('home', {
       url: '/', //when '/'
-      templateUrl: '../views/templates/home.html',  //append this template to ui-router on index.html
+      templateUrl: '../views/templates/map.html',  //append this template to ui-router on index.html
       controller: 'HomeController', //using homecontroller
       controllerAs: 'home'  // call the controller using 'home'
     })
