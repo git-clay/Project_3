@@ -213,6 +213,8 @@ function initMap() {
         map.setCenter(marker.getPosition());
         marker.setMap(map);
         markers.push(marker);
+        postFunc(nLat,nLng)
+
 
         marker.addListener('dragend', function() {
         map.setZoom(8);
@@ -225,25 +227,24 @@ function initMap() {
         nLatArr.push(nLat);
         nLngArr.push(nLng);
         console.log(nLngArr[0]);
+
+        postFunc(nLat,nLng)
+     
+  });
+     function postFunc(nLat,nLng){ 
         $.ajax({
      method: 'POST',
      url: '/api/post',
      data: {lat: nLat, lng: nLng},
      success: console.log('success')
    });
-
-     
-  });
-        
-
-       
+     }  
     }
-    console.log('hello');
 
 
     
     
-    addMarker ();
+    // addMarker ();
     // NEED TO FINISH---- convert the lat, long to a searchable yelp address using the google geocoder api.    Having trouble  pulling out the lat long variable, even though i defined at global scope...
     //Use (0) reverse GeoCoder to covnert Long/Lat into city address: https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyB47TKXs1AAflxa1PA-WNj6UZ2Ylfd48DE
     // https://developers.google.com/maps/documentation/geocoding/intro#GeocodingRequests

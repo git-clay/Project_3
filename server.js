@@ -1,18 +1,19 @@
-var   express		= require('express'),
-      app			= express(),
+var express = require('express'),
+	app = express(),
 
-	    bodyParser	= require('body-parser'),
-	    auth 		= require('./controllers/auth.js'),
-      Yelp = require('yelp'),
-      bcrypt 		= require('bcryptjs'),
-      cities = require('cities');
-      // jQuery = require('jQuery'),
-      // jsdom = require('jsdom');
+	bodyParser = require('body-parser'),
+	auth = require('./controllers/auth.js'),
+	Yelp = require('yelp'),
+	bcrypt = require('bcryptjs'),
+	cities = require('cities');
+
 
 // require and load dotenv
 require('dotenv').load();
 // configure bodyParser (for receiving form data)
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 app.use(bodyParser.json());
 
 /*********************** Served up directories ******************************/
@@ -23,14 +24,14 @@ app.set('views', '/views');
 
 /*********************** ROUTES ******************************/
 var routes = require('./routes/routes.js');
-app.use(routes,function(req,res,next){
+app.use(routes, function(req, res, next) {
 	console.log('server routes')
- next();
+	next();
 });
 
 /****************************************/
-var db		= require('./models'),
-	User 	= db.models.User;
+var db = require('./models'),
+	User = db.models.User;
 
 
 /***************Importing the lat and long variables from front.js*****************/
@@ -45,25 +46,28 @@ var db		= require('./models'),
  * API Routes
  */
 
-app.get('/api/me', auth.ensureAuthenticated, function (req, res) {
-  User.findById(req.user, function (err, user) {
-    res.send(user.populate('posts'));
-  });
+app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
+	User.findById(req.user, function(err, user) {
+		res.send(user.populate('posts'));
+	});
 });
 
-app.put('/api/me', auth.ensureAuthenticated, function (req, res) {
-  User.findById(req.user, function (err, user) {
-    if (!user) {
-      return res.status(400).send({ message: 'User not found.' });
-    }
-    user.displayName = req.body.displayName || user.displayName;
-    user.username = req.body.username || user.username;
-    user.email = req.body.email || user.email;
-    user.save(function(err) {
-      res.send(user);
-    });
-  });
+app.put('/api/me', auth.ensureAuthenticated, function(req, res) {
+	User.findById(req.user, function(err, user) {
+		if (!user) {
+			return res.status(400).send({
+				message: 'User not found.'
+			});
+		}
+		user.displayName = req.body.displayName || user.displayName;
+		user.username = req.body.username || user.username;
+		user.email = req.body.email || user.email;
+		user.save(function(err) {
+			res.send(user);
+		});
+	});
 });
+
 
 app.post('/api/post', function (req, res) {
   console.log(req.body.lat, req.body.lng);
@@ -71,7 +75,7 @@ app.post('/api/post', function (req, res) {
   var lngReal = req.body.lng;
   var city = cities.gps_lookup(latReal, lngReal).city;
   console.log(city);
-  return city
+  return city;
 });
 
 
@@ -80,41 +84,35 @@ app.post('/api/post', function (req, res) {
  * Auth Routes
  */
 // app.get('/users')
-app.post('/auth/signup', function (req, res) {
-	    console.log('POST auth/signup password',req.body.email);
-	     // encrypt password
-	  // bcrypt.genSalt(10, function (err, salt) {
-	    // bcrypt.hash(req.body.password, salt, function (err, hash) {
-	    //   req.body.password = hash;
-	    //     console.log('hashed',req.body.password);
-		  	// console.log(req.body.password);
-   		//  });
+app.post('/auth/signup', function(req, res) {
+	console.log('POST auth/signup password', req.body.email);
+	User.create(req.body)
+		.then(function(user) {
+			if (!user) return error(res, "not saved");
+			console.log(user.dataValues);
+			auth.createJWT(user);
+
+			res.send({
+				token: auth.createJWT(user),
+				user: user
+			});
+		});
+	//  User.findOne({ 
+	//  	where: {email: req.body.email }})
+	//  	.spread(function (user,created) {
+	//  		console.log(user.get({
+	//  			plain:true
+	//  		}))
+	//  		console.log('created: ',created)
+	//    if (created ===false) {
+	//    	console.log('FAAAAAIIIIILLLL')
+	//      return res.status(409).send({ message: 'Email is already taken.' });
+	//    } else {
 
 
-	        User.create(req.body)
-		    	.then(function(user){
-		    		if(!user) return error(res, "not saved");
-		    		console.log(user.dataValues);
-		    		auth.createJWT(user);
-
-	      			res.send({ token: auth.createJWT(user),user:user });
-      			});
- //  User.findOne({ 
- //  	where: {email: req.body.email }})
- //  	.spread(function (user,created) {
- //  		console.log(user.get({
- //  			plain:true
- //  		}))
- //  		console.log('created: ',created)
- //    if (created ===false) {
- //    	console.log('FAAAAAIIIIILLLL')
- //      return res.status(409).send({ message: 'Email is already taken.' });
- //    } else {
-
-
-	});
-  // });
-app.post('/auth/login', function (req, res) {
+});
+// });
+app.post('/auth/login', function(req, res) {
 	// bcrypt.genSalt(10, function (err, salt) {
 	//     bcrypt.hash(req.body.password, salt, function (err, hash) {
 	//       req.body.password = hash;
@@ -122,49 +120,45 @@ app.post('/auth/login', function (req, res) {
 	// 	  	console.log(req.body.password);
 	// 	  });
 	// 	 });
-  User.findOne({where:{ email: req.body.email }}).then (function (user) {
-var compare = 'user.$modelOptions.instanceMethods.comparePassword'
-
-    if (!user) {
-      return res.status(401).send({ message: 'Invalid email or password.' });
-    }
-
-//     comparePassword = function (password, done) {
-// 		console.log('stored from db: ',user.dataValues.password)
-// 		console.log('password from login form: ',req.body.password)
-// 		return  bcrypt.compare(password, this.password, function (err, isMatch) {
-//     done(err, isMatch);
-//   });
-// };
-// comparePassword();
-var p1=user.dataValues.password,
-	p2=req.body.password;
-	// user.$modelOptions.instanceMethods.comparePassword(p1,p2);
-
-
-validPassword = function(){
-	console.log('stored from db: ',user.dataValues.password)
-console.log('password from login form: ',req.body.password)
-	bcrypt.compare( req.body.password,user.dataValues.password,function(err,isMatch){
-		console.log(isMatch)
-		if(isMatch===true){
-			res.send({ token: auth.createJWT(user) });
+	User.findOne({
+		where: {
+			email: req.body.email
 		}
-	});
-};
-validPassword();
+	}).then(function(user) {
+		var compare = 'user.$modelOptions.instanceMethods.comparePassword'
 
-  });
+		if (!user) {
+			return res.status(401).send({
+				message: 'Invalid email or password.'
+			});
+		}
+		var p1 = user.dataValues.password,
+			p2 = req.body.password;
+		// user.$modelOptions.instanceMethods.comparePassword(p1,p2);
+
+
+		validPassword = function() {
+			console.log('stored from db: ', user.dataValues.password)
+			console.log('password from login form: ', req.body.password)
+			bcrypt.compare(req.body.password, user.dataValues.password, function(err, isMatch) {
+				console.log(isMatch)
+				if (isMatch === true) {
+					res.send({
+						token: auth.createJWT(user)
+					});
+				}
+			});
+		};
+		validPassword();
+
+	});
 });
 
 
 
 
-
-
-
-app.get(['/', '/signup', '/login', '/profile','/logout'], function (req, res) {
-  res.sendFile(__dirname + '/public/views/index.html');
+app.get(['/', '/signup', '/login', '/profile', '/logout'], function(req, res) {
+	res.sendFile(__dirname + '/public/views/index.html');
 
 });
 
@@ -172,22 +166,24 @@ app.get(['/', '/signup', '/login', '/profile','/logout'], function (req, res) {
 /*********************** Yelp request function ******************************/
 
 var yelp = new Yelp({
-  consumer_key: '5eu-uFPxtc1RtmeJCAlmUQ',
-  consumer_secret: 'ZwJB35PXcr0_oPYt2-l-XDCd6TE',
-  token: 'INavbmqjPrFTdqM3i5ZTNkjyfeInIWfl',
-  token_secret: 'pGqF4hywcR8_4HFGn05hZbxYKrU',
+	consumer_key: '5eu-uFPxtc1RtmeJCAlmUQ',
+	consumer_secret: 'ZwJB35PXcr0_oPYt2-l-XDCd6TE',
+	token: 'INavbmqjPrFTdqM3i5ZTNkjyfeInIWfl',
+	token_secret: 'pGqF4hywcR8_4HFGn05hZbxYKrU',
 });
 
 // See http://www.yelp.com/developers/documentation/v2/search_api
-yelp.search({ term: 'food', location: 'Montreal' })
-.then(function (data) {
-  // console.log(data.businesses[0].location.display_address);
-  // console.log(data.businesses[0])
-})
-.catch(function (err) {
-  // console.error(err);
-});
-
+yelp.search({
+		term: 'food',
+		location: 'Montreal'
+	})
+	.then(function(data) {
+		// console.log(data.businesses[0].location.display_address);
+		// console.log(data.businesses[0])
+	})
+	.catch(function(err) {
+		// console.error(err);
+	});
 
 // cities.gps_lookup(lat, lng);
 // var city = cities.gps_lookup(lat, lng).city;
@@ -202,4 +198,4 @@ app.listen(process.env.PORT || 3000, function() {
 	console.log('BOOM, Express is firing on all cylinders');
 });
 
-module.exports = app;	//for testing
+module.exports = app; //for testing
