@@ -4,7 +4,10 @@ var   express		= require('express'),
 	    bodyParser	= require('body-parser'),
 	    auth 		= require('./controllers/auth.js'),
       Yelp = require('yelp'),
-      bcrypt 		= require('bcryptjs');
+      bcrypt 		= require('bcryptjs'),
+      cities = require('cities');
+      // jQuery = require('jQuery'),
+      // jsdom = require('jsdom');
 
 // require and load dotenv
 require('dotenv').load();
@@ -28,6 +31,13 @@ app.use(routes,function(req,res,next){
 /****************************************/
 var db		= require('./models'),
 	User 	= db.models.User;
+
+
+/***************Importing the lat and long variables from front.js*****************/
+// var myModule = require('./public/js/front.js');  
+// var lat = myModule.lat;
+
+// console.log(lat);
 
 
 
@@ -55,18 +65,15 @@ app.put('/api/me', auth.ensureAuthenticated, function (req, res) {
   });
 });
 
-app.get('/api/posts', function (req, res) {
-  res.json([
-  {
-    title: "Hardcoded Title",
-    content: "Here is some great hardcoded content for the body of a blog post. Happy coding!"
-  },
-  {
-    title: "Another Post",
-    content: "MEAN stack is the best stack."
-  }
-  ]);
+app.post('/api/post', function (req, res) {
+  console.log(req.body.lat, req.body.lng);
+  var latReal = req.body.lat;
+  var lngReal = req.body.lng;
+  var city = cities.gps_lookup(latReal, lngReal).city;
+  console.log(city);
+  return city
 });
+
 
 
 /*
@@ -180,6 +187,11 @@ yelp.search({ term: 'food', location: 'Montreal' })
 .catch(function (err) {
   // console.error(err);
 });
+
+
+// cities.gps_lookup(lat, lng);
+// var city = cities.gps_lookup(lat, lng).city;
+// console.log(city);
 
 
 

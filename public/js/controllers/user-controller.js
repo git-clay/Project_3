@@ -35,10 +35,11 @@ function HomeController ($http) {
   // vm.posts = [];
   // vm.new_post = {}; // form data
 
-  // $http.get('/api/posts')
-  //   .then(function (response) {
-  //     vm.posts = response.data;
-  //   });
+  $http.post('/api/posts')
+    .then(function (response) {
+      vm.posts = response.data;
+    });
+    console.log(response.data);
 }
 
 
