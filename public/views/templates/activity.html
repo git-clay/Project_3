@@ -134,7 +134,7 @@
 
                 <!-- Login Tab Content -->
                         <div class="tab-content">
-                            <div class="tab-pane" id="Login">
+                            <div class="tab-pane" id="Login" ng-controller='LoginController as lc'>
                    
                                 <form role="form" class="form-horizontal"  ng-submit="lc.login()">
                                 <div class="form-group">
@@ -155,17 +155,18 @@
                                     <div class="col-sm-2">
                                     </div>
                                     <div class="col-sm-10">
-                                        <input type="submit" value="Log In" class="btn btn-primary btn-md outline"  >
+                                        <input type="submit" value="Log In" class="btn btn-primary btn-md outline" data-toggle="modal" data-target="#loginReg">
 
                                        
                                         <a href="#">Forgot your password?</a>
                                     </div>
                                 </div>
                                 </form>
-                            </div>          
+                            </div>   
+
                <!-- End of Login Tab -->
                     <!-- Registration Tab Content-->               
-                            <div class="tab-pane active" id="Registration">
+                            <div class="tab-pane active" id="Registration" ng-controller='SignupController as sc'>
 
 
 
@@ -178,10 +179,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="col-sm-2 control-label" ng-model="sc.new_user.email">
+                                    <label for="email" class="col-sm-2 control-label">
                                         Email</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" placeholder="" />
+                                        <input type="email" class="form-control" id="email" placeholder=""  ng-model="sc.new_user.email"/>
                                     </div>
                                 </div>
                     
@@ -197,7 +198,7 @@
                                     <div class="col-sm-2">
                                     </div>
                                     <div class="col-sm-10">
-                                        <input type="submit" value="Sign Up" class="btn btn-primary btn-md outline" >
+                                        <input type="submit" value="Sign Up" class="btn btn-primary btn-md outline" aria-hidden="true" data-toggle="modal" data-target="#loginReg">
 
 
                                         <button type="button" class="btn btn-secondary btn-md outline">

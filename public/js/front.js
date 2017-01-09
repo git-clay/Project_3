@@ -20,8 +20,6 @@ jQuery(document).ready(function() {
         }
     });
 // Modal function for login/registration 
-$('#myModal').modal('show');
-
 // Javscript for Slider
     var el, newPoint, newPlace, offset;
     // Select all range inputs, watch for change
