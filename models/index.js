@@ -1,0 +1,30 @@
+console.log('hit index.js in models');
+
+var Sequelize = require('sequelize'),
+	sequelize = new Sequelize('postgres://claybin@localhost:5432/roamrr_models'),
+    bcrypt = require('bcryptjs');
+
+
+//Export models and Sequelize for seed and dbSetup
+module.exports.Sequelize = Sequelize;
+module.exports.sequelize = sequelize;
+
+var User 	= sequelize.import("./user");
+var Event	= sequelize.import('./event-model.js');
+var Trip	= sequelize.import('./trip-model.js');
+
+Event.belongsTo(User);
+User.hasMany(Event);
+
+Trip.belongsTo(User);
+User.hasMany(Event);
+
+Event.belongsTo(Trip);
+Trip.hasMany(Event);
+
+
+module.exports.models = {
+	User : User,
+	Event : Event,
+	Trip : Trip
+};
