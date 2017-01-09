@@ -1,92 +1,51 @@
+@git-clay @GisellaBella
+RawBlameHistory     
+68 lines (51 sloc)  2.65 KB
 <!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RoamRR</title>
     <!-- ***** CSS ****** -->
     <!-- Bootstrap CSS -->
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <!-- <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
-
-  <!-- Custom Fonts -->
+    <!-- Custom Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="../css/style.css">
-      <!-- ***** SCRIPTs ****** -->
-    <!-- jQuery -->
-    <script src='../bower_components/jquery/dist/jquery.min.js'></script>
-    <!-- Bootstrap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Angular / Angular-router -->
-    <script src='../bower_components/angular/angular.min.js'></script>
-    <script src='../bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
-    <script src='/bower_components/angular-route/angular-route.min.js'></script>
-    <!-- Angular Satellizer -->
-    <script src='../bower_components/satellizer/dist/satellizer.min.js'></script>
-    <!-- Angular Controllers -->
-    <script src='../js/controllers/user-controller.js'></script>
-    <!-- Custom js -->
-    <script src="../js/front.js"></script>
-    <!-- Google Maps -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB47TKXs1AAflxa1PA-WNj6UZ2Ylfd48DE&libraries=places&callback=initMap">
-    </script>
-    <!-- Angular directives / Controllers  -->
-    <script src='/js/directives/user-state-provider.js'></script>
-    <script src='/js/controllers/user-controller.js'></script>
-  
- 
 </head>
 
 <body ng-app="roamrrApp">
 
-    <!-- Top of Header -->
-    <header>
-        <div class="row">
-            <div class="blue"></div>
-            <div class="logobox">
-                <span class="logo">Roamrr</span>
-            </div>
-        </div>
-
-
-        <div class="intro-text">
-            <div class="intro-heading">Where do you want
-                <br>to go today?</div>
-            <br>
-            <a href="#mapdiv" class="page-scroll"> <img src="../views/images/down_circle.svg" />
-            </a>
-
-
-    <!-- Bottom of Header -->
-
-
-    <!-- Map Section -->
-    <section id="mapdiv">
-        <div class="blue1"> Roamrr...like a local.</div>
-        <div id="map"></div>
-        <div class="blue2">
-            Drop & drag your pin to the destination above you would like to explore.
-            <br>
-            <a href="activity_selection.html" type="button" class="btn btn-primary btn-sm outline">Let's Go </a>
-            <br>
-        </div>
-
-
-    </section>
-    <!-- Bottom of Map Section
- -->
-
-    <ui-view></ui-view>
 
 
 
 
+<ui-view></ui-view>
 
+    <!-- jQuery -->
+    <script src='/bower_components/jquery/dist/jquery.min.js'></script>
+    <!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Angular / Angular-router -->
+    <script src='/bower_components/angular/angular.min.js'></script>
+    <script src='/bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+    <script src='/bower_components/angular-route/angular-route.min.js'></script>
+    <!-- Angular Satellizer -->
+    <script src='/bower_components/satellizer/dist/satellizer.min.js'></script>
+  
+    <!-- Custom js -->
+    <script src="/js/front.js"></script>
+    <!-- Google Maps -->
+<!--     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB47TKXs1AAflxa1PA-WNj6UZ2Ylfd48DE&libraries=places&callback=initMap">
+    </script> -->
+    <!-- Angular directives / Controllers  -->
+    <script src='/js/directives/user-state-provider.js'></script>
+    <script src='/js/controllers/user-controller.js'></script>
 </body>
 
 </html>

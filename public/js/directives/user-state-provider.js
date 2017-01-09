@@ -16,7 +16,7 @@ console.log('config routes');
 $stateProvider
     .state('home', {
       url: '/', //when '/'
-      templateUrl: '../views/templates/home.html',  //append this template to ui-router on index.html
+      templateUrl: '../views/templates/map.html',  //append this template to ui-router on index.html
       controller: 'HomeController', //using homecontroller
       controllerAs: 'home'  // call the controller using 'home'
     })
@@ -54,6 +54,18 @@ $stateProvider
       resolve: {
         loginRequired: loginRequired
       }
+    })
+    .state('activity',{
+      url: '/activity',
+      templateUrl: '../views/templates/activity.html',
+      controller: 'ActivityController',
+      controllerAs: 'activity'
+    })
+    .state('choices',{
+      url: '/choices',
+      templateUrl: '../views/templates/choices.html',
+      controller: 'ChoicesController',
+      controllerAs: 'choices'
     });
 
 

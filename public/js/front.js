@@ -20,8 +20,6 @@ jQuery(document).ready(function() {
         }
     });
 // Modal function for login/registration 
-$('#myModal').modal('show');
-
 // Javscript for Slider
     var el, newPoint, newPlace, offset;
     // Select all range inputs, watch for change
@@ -199,15 +197,15 @@ function initMap() {
     });
     // Adds a marker to the map and push to the array.
     var markers = [];
-    var nLat;
-    var nLng;
+    var nLatArr = [];
+    var nLngArr = [];
 
     function addMarker(location) {
         var marker = new google.maps.Marker({
             position: location,
             map: map,
             draggable: true,
-            icon: "./images/pin.png"
+            icon: "../views/images/pin.png"
         });
         nLat = marker.getPosition().lat();
         nLng = marker.getPosition().lng();
@@ -215,12 +213,38 @@ function initMap() {
         map.setCenter(marker.getPosition());
         marker.setMap(map);
         markers.push(marker);
-       console.log(nLat, nLng);
+        postFunc(nLat,nLng)
+
+
+        marker.addListener('dragend', function() {
+        map.setZoom(8);
+        nLat = marker.getPosition().lat();
+        nLng = marker.getPosition().lng();
+        map.setCenter(marker.getPosition());
+        marker.setMap(map);
+        markers.push(marker);
+        console.log(nLat, nLng);
+        nLatArr.push(nLat);
+        nLngArr.push(nLng);
+        console.log(nLngArr[0]);
+
+        postFunc(nLat,nLng)
      
-        return nLat, nLng;
+  });
+     function postFunc(nLat,nLng){ 
+        $.ajax({
+     method: 'POST',
+     url: '/api/post',
+     data: {lat: nLat, lng: nLng},
+     success: console.log('success')
+   });
+     }  
     }
+
+
     
-    addMarker ();
+    
+    // addMarker ();
     // NEED TO FINISH---- convert the lat, long to a searchable yelp address using the google geocoder api.    Having trouble  pulling out the lat long variable, even though i defined at global scope...
     //Use (0) reverse GeoCoder to covnert Long/Lat into city address: https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyB47TKXs1AAflxa1PA-WNj6UZ2Ylfd48DE
     // https://developers.google.com/maps/documentation/geocoding/intro#GeocodingRequests

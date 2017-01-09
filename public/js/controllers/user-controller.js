@@ -6,6 +6,8 @@ angular
   .controller('SignupController', SignupController)
   .controller('LogoutController', LogoutController)
   .controller('ProfileController', ProfileController)
+  .controller('ActivityController', ActivityController)
+  .controller('ChoicesController',ChoicesController)
   .service('Account', Account)
   .config(configRoutes);
 
@@ -30,23 +32,41 @@ function HomeController($http) {
   // vm.posts = [];
   // vm.new_post = {}; // form data
 
-  // $http.get('/api/posts')
+  // $http.post('/api/posts')
   //   .then(function (response) {
   //     vm.posts = response.data;
   //   });
 }
 
-LoginController.$inject = ["Account", '$location']; // minification protection
-function LoginController(Account, $location) {
+
+
+
+ActivityController.$inject = ["Account",'$location']; // minification protection
+function ActivityController (Account,$location) {
+console.log('activity controller')
+
+}
+
+ChoicesController.$inject = ["Account",'$location']; // minification protection
+function ChoicesController (Account,$location) {
+console.log('choices controller')
+
+}
+
+
+
+LoginController.$inject = ["Account",'$location']; // minification protection
+function LoginController (Account,$location) {
+  console.log('login2')
   var vm = this;
   vm.new_user = {}; // form data
   console.log('LoginController')
   vm.login = function() {
     Account
       .login(vm.new_user)
-      .then(function() {
-        vm.new_user = {}; // clears form
-        $location.path('/profile'); // directs to profile page
+      .then(function(){
+         vm.new_user={}; // clears form
+          $location.path('/choices'); // directs to profile page
       });
   };
 }
@@ -58,10 +78,11 @@ function SignupController(Account, $location) {
   vm.signup = function() {
     Account
       .signup(vm.new_user)
-      .then(function() {
-        vm.new_user = {};
-        $location.path('/profile');
-      });
+      .then(function () {
+          vm.new_user={};
+          $location.path('/choices');
+        }
+      );
   };
 }
 
