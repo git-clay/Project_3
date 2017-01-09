@@ -199,8 +199,8 @@ function initMap() {
     });
     // Adds a marker to the map and push to the array.
     var markers = [];
-    var nLat;
-    var nLng;
+    var nLatArr = [];
+    var nLngArr = [];
 
     function addMarker(location) {
         var marker = new google.maps.Marker({
@@ -215,10 +215,35 @@ function initMap() {
         map.setCenter(marker.getPosition());
         marker.setMap(map);
         markers.push(marker);
-       console.log(nLat, nLng);
+
+        marker.addListener('dragend', function() {
+        map.setZoom(8);
+        nLat = marker.getPosition().lat();
+        nLng = marker.getPosition().lng();
+        map.setCenter(marker.getPosition());
+        marker.setMap(map);
+        markers.push(marker);
+        console.log(nLat, nLng);
+        nLatArr.push(nLat);
+        nLngArr.push(nLng);
+        console.log(nLngArr[0]);
+        $.ajax({
+     method: 'POST',
+     url: '/api/post',
+     data: {lat: nLat, lng: nLng},
+     success: console.log('success')
+   });
+
      
-        return nLat, nLng;
+  });
+        
+
+       
     }
+    console.log('hello');
+
+
+    
     
     addMarker ();
     // NEED TO FINISH---- convert the lat, long to a searchable yelp address using the google geocoder api.    Having trouble  pulling out the lat long variable, even though i defined at global scope...
