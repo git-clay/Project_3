@@ -6,30 +6,33 @@
 	<title></title>
 	<!-- ***** STYLE LINKs ****** -->
 	<!-- Bootstrap -->
-
+		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<!-- Font -->
-
+		
 	<!-- CSS -->
 
 
 	<!-- ***** SCRIPTs ****** -->
 	<!-- jQuery -->
-
+		<script src='/bower_components/jquery/dist/jquery.min.js'></script>
 	<!-- Bootstrap -->
-
+		<script src='/bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
 	<!-- Angular / Angular-router -->
-
+		<script src='/bower_components/angular/angular.min.js'></script>
+		<script src='/bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+		<script src='/bower_components/angular-route/angular-route.min.js'></script>
 	<!-- Angular Satellizer -->
-
-	<!-- Angular Controllers -->
-
+		<script src='/bower_components/satellizer/dist/satellizer.min.js'></script>
 	<!-- Custom js -->
+		<script src='/js/front.js'></script>
+	<!-- Angular directives / Controllers  -->
+		<script src='/js/directives/user-state-provider.js'></script>
+		<script src='/js/controllers/user-controller.js'></script>
 
 </head>
-<body>
-
-
-
+<body ng-app="roamrrApp">
+<p>Main page (Angular, please put a cool nav bar here. OH! and put some cool effects as well. thanks)</p>
+<ui-view></ui-view>
 
 </body>
 </html>
