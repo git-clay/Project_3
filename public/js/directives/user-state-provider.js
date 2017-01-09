@@ -54,6 +54,18 @@ $stateProvider
       resolve: {
         loginRequired: loginRequired
       }
+    })
+    .state('activity',{
+      url: '/activity',
+      templateUrl: '../views/templates/activity.html',
+      controller: 'ActivityController',
+      controllerAs: 'activity'
+    })
+    .state('choices',{
+      url: '/choices',
+      templateUrl: '../views/templates/choices.html',
+      controller: 'choicesController',
+      controllerAs: 'choices'
     });
 
 
