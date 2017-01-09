@@ -8,6 +8,7 @@ angular
   .controller('SignupController', SignupController)
   .controller('LogoutController', LogoutController)
   .controller('ProfileController', ProfileController)
+  // .controller('ActivityController', ActivityController)
   .service('Account', Account)
   .config(configRoutes)
   ;
@@ -49,7 +50,7 @@ function LoginController (Account,$location) {
       .login(vm.new_user)
       .then(function(){
          vm.new_user={}; // clears form
-          $location.path('/profile'); // directs to profile page
+          $location.path('/choices'); // directs to profile page
       });
   };
 }
@@ -63,7 +64,7 @@ console.log('signup controller');
       .signup(vm.new_user)
       .then(function () {
           vm.new_user={};
-          $location.path('/profile');
+          $location.path('/choices');
         }
       );
   };
