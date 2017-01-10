@@ -105,32 +105,15 @@ function yelpgo(city, res){
 	.catch(function(err) {
 		// console.error(err);
 	});
-
-};
-
-
-app.post('/auth/signup', function (req, res) {
-	    // console.log('POST auth/signup',req.body)
-  // User.findOne({ email: req.body.email }, function (err, existingUser) {
-    // if (existingUser) {
-    //   return res.status(409).send({ message: 'Email is already taken.' });
-    // }
-    User.create(req.body)
-    	.then(function(user){
-    		if(!user) return error(res, "not saved");
-    		// console.log(user.dataValues)
-
-    		res.json(user.dataValues);
-  		});
-
-      // res.send({ token: auth.createJWT(result) });
-    });
-
 	console.log(city+ "you did it boss");
+
 }
 
 
-// });
+
+
+
+
 
 
 

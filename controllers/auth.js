@@ -4,6 +4,7 @@ console.log('auth.js')
 module.exports = {
   /* Login Required Middleware */
   ensureAuthenticated: function (req, res, next) {
+    console.log('in auth ensureAuthenticated')
     if (!req.headers.authorization) {
       return res.status(401).send({ message: 'Please make sure your request has an Authorization header.' });
     }

@@ -22,6 +22,23 @@ $stateProvider
       templateUrl: '../views/templates/map.html',  //append this template to ui-router on index.html
       controller: 'HomeController', //using homecontroller
       controllerAs: 'home'  // call the controller using 'home'
+    }).state('signup', {
+      url: '/signup',
+      templateUrl: '../views/templates/signup.html',
+      controller: 'SignupController',
+      controllerAs: 'sc',
+      resolve: {
+        skipIfLoggedIn: skipIfLoggedIn
+      }
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: '../views/templates/login.html',
+      controller: 'LoginController',
+      controllerAs: 'lc',
+      resolve: {
+        skipIfLoggedIn: skipIfLoggedIn
+      }
     })
     .state('logout', {
       url: '/logout',
@@ -62,6 +79,7 @@ $stateProvider
 
 
     function skipIfLoggedIn($q, $auth) {
+      console.log('skipIfLoggedIn')
       var deferred = $q.defer();
       if ($auth.isAuthenticated()) {
         deferred.reject();

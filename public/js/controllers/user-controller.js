@@ -71,7 +71,7 @@ SignupController.$inject = ["Account", '$location']; // minification protection
 function SignupController(Account, $location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('signup controller');
+  console.log('signup controller',vm.new_user);
   vm.signup = function() {
     Account
       .signup(vm.new_user)
