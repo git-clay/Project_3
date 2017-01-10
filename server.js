@@ -93,7 +93,7 @@ app.post('/api/yelp', function(req, res){
 
 function yelpgo(city, res){
 	yelp.search({
-		term: 'food',
+		term: '',
 		location: city
 	})
 	.then(function(data) {
