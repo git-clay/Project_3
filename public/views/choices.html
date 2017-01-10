@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RoamRR</title>
+    <!-- ***** CSS ****** -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<body ng-app="roamrrApp">
+
+<div class="choices-div">
+
+        <div class="blue"></div>
+        <div class="logobox">
+            <span class="logo"> Roamrr</span>
+        </div>
+        <div class="headline-box col-lg-8-offset-md-2">
+            <h3> Thanks {{Name}} for registering!</h3><h4>Here are your itinerary suggestions.</h4>
+        </div>
+
+            <div class="card-container col-lg-8"> <!-- Card Container -->
+            
+                <!-- RESULT     -->
+                <div id="result" class="col-lg-4">
+                    <div class="result-card">
+                        <div id="pic">
+                            <img src="images/zipline.jpg" alt="">
+                        </div>
+                        <div id="card-content">
+                            <h3 class="result-title">AVA Cliffside Zipline</h3>
+                            <br>
+                            <span class="detail">Address: 431 CO-103, Idaho Springs,
+                            <br>
+                            CO 80452
+                            <br>
+                            Phone: (970) 423-7031
+                            <br>
+                            Website: <a href="http://www.coloradozipline.net">http://www.coloradozipline.net</a>
+                            </span>
+                        </div>
+                        <div class="stars">
+                            <img src="images/stars_4.png"/>
+                        </div>
+                          <p class="description">
+                           "So much fun! Tony and Travis made the experience easy and fun. It was cool that there was other "optional" things to do throughout the course. I'd definitely go back again!"
+                            </p>
+                        <hr>
+                            <span class="acqua"><h4>COST</h4></span>
+                            <p class="price">
+                                $89 per person for adults and $79 for children (12 and under) for a half day trip
+                            </p>
+                            <br>
+                    </div>
+                </div>   <!-- END OF RESULT     -->
+              
+             </div>    <!-- End of Card Container -->
+             
+        
+     <div id="fixed-button">
+    <button type="button" class="btn btn-primary btn-md outline">
+                                            Save</button>
+     </div>
+
+            <!-- Board Div -->
+            <div id="board">
+                <h3> Drag any activities that look good to you-here.<br>
+                Save when you've finished.</h3>
+            </div>
+            <!-- End of Board Div -->
+
+
+
+</div>
+        <!-- End Of Choices-Div -->
+
+        <!-- ***** SCRIPTs ****** -->
+        <!-- jQuery -->
+        <!-- (switched link for more upto date library-gw) -->
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+        <!--  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekApngPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script> -->
+        <!-- Bootstrap -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!-- Angular / Angular-router -->
+        <script src='../bower_components/angular/angular.min.js'></script>
+        <script src='../bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+        <!-- Angular Satellizer -->
+        <script src='../bower_components/satellizer/dist/satellizer.min.js'></script>
+        <!-- Angular Controllers -->
+        <script src='../js/controllers/user-controller.js'></script>
+        <!-- Custom js -->
+        <script src="../js/front.js"></script>
+
+        <!-- ***** SCRIPTs ****** -->
+</body>
+
+</html>
