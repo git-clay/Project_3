@@ -94,7 +94,7 @@ function yelpgo(city){
 		location: city
 	})
 	.then(function(data) {
-		console.log(data.businesses)
+		console.log(data.businesses[0])
 	})
 	.catch(function(err) {
 		// console.error(err);
