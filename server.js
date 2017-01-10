@@ -80,22 +80,33 @@ app.post('/api/post', function (req, res) {
   var latReal = req.body.lat;
   var lngReal = req.body.lng;
   var city = cities.gps_lookup(latReal, lngReal).city;
-  yelpgo(city);
-  return city;
+  yelpgo(city, res);
+  
+});
+
+app.post('/api/yelp', function(req, res){
+		var businesses = yelpResults;
+		res.send(businesses[0]);
+	console.log(req.body);
 });
 
 
-function yelpgo(city){
+function yelpgo(city, res){
 	yelp.search({
 		term: 'food',
 		location: city
 	})
 	.then(function(data) {
-		console.log(data.businesses)
+		var yelpResults = data.businesses;
+		res.json(yelpResults);
+		// console.log(yelpResults);
+		
 	})
 	.catch(function(err) {
 		// console.error(err);
 	});
+
+};
 
 
 app.post('/auth/signup', function (req, res) {
@@ -121,7 +132,10 @@ app.post('/auth/signup', function (req, res) {
 
 // });
 
-// See http://www.yelp.com/developers/documentation/v2/search_api
+
+
+
+
 
 
 
@@ -202,9 +216,9 @@ app.get(['/'], function(req, res) {	// one page app -- angular appends to index.
 // var city = cities.gps_lookup(lat, lng).city;
 // console.log(city);
 
-// claybin@localhost:5432/roamrr_models
 
-console.log('env',process.env.LOGNAME)
+
+//console.log('env',process.env.LOGNAME)
 
 /*********************** SERVER ******************************/
 app.listen(process.env.PORT || 3000, function() {

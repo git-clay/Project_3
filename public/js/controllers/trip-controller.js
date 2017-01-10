@@ -4,6 +4,9 @@ angular
   .module('roamrrApp') //sets main app and dependancies
   .controller('ChoicesController',ChoicesController)
     .controller('EventsController',EventsController)
+    .factory('YelpFactory', function($resource){
+    return $resource('http://localhost:3000/api/post')
+  })
     //  .directive('wdiCard', wdiCard);
 
 ;
@@ -20,8 +23,18 @@ angular
 //   return directive;
 // }
 ChoicesController.$inject = ["$http",'$location']; // minification protection
-function ChoicesController ($http,$location) {
+function ChoicesController ($http,$location, YelpFactory) {
 console.log('choices controller');
+  var vm = this;
+  vm.activitiesList =[];
+
+    function queryEvents(){
+      var activityGet = YelpFactory.query({}, function(response){
+        console.log('its the response for yelp' + response);
+        vm.activitiesList = response;
+      })
+    }
+    queryEvents()
 
 
     function getAllApiEvents(){
