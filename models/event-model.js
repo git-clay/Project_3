@@ -4,9 +4,13 @@ module.exports = function(sequelize, Sequelize){
 console.log('sequelized event');
 
 	var eventModel = sequelize.define('Event',{
-	  created:  Sequelize.DATE,
-	  email: { type: Sequelize.STRING, unique: true, lowercase: true },
-
+	name: Sequelize.STRING,
+	created:  Sequelize.DATE,
+	address: Sequelize.STRING,
+	phone: Sequelize.STRING,
+	website:Sequelize.STRING,
+	reviews:Sequelize.STRING,
+	cost:Sequelize.STRING
 	});
 
 	return eventModel;

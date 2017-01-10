@@ -1,15 +1,12 @@
 var express = require('express'),
 	app = express(),
-
 	bodyParser = require('body-parser'),
 	auth = require('./controllers/auth.js'),
 	Yelp = require('yelp'),
 	bcrypt = require('bcryptjs'),
 	cities = require('cities');
 
-
-// require and load dotenv
-require('dotenv').load();
+require('dotenv').load();// require and load dotenv
 // configure bodyParser (for receiving form data)
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -20,8 +17,6 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 app.set('views', '/views');
 
-
-
 /*********************** ROUTES ******************************/
 var routes = require('./routes/routes.js');
 app.use(routes, function(req, res, next) {
@@ -29,30 +24,23 @@ app.use(routes, function(req, res, next) {
 	next();
 });
 
-/****************************************/
+/**************** DB ************************/
 var db = require('./models'),
 	User = db.models.User;
-
-
-/***************Importing the lat and long variables from front.js*****************/
-// var myModule = require('./public/js/front.js');  
-// var lat = myModule.lat;
-
-// console.log(lat);
-
-
 
 /*
  * API Routes
  */
 
 app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
+	console.log('api/me')
 	User.findById(req.user, function(err, user) {
 		res.send(user.populate('posts'));
 	});
 });
 
 app.put('/api/me', auth.ensureAuthenticated, function(req, res) {
+	console.log('api/me "put"')
 	User.findById(req.user, function(err, user) {
 		if (!user) {
 			return res.status(400).send({
@@ -121,6 +109,12 @@ function yelpgo(city){
 // app.get('/users')
 app.post('/auth/signup', function(req, res) {
 	console.log('POST auth/signup password', req.body.email);
+		bcrypt.genSalt(10, function (err, salt) {
+	    bcrypt.hash(req.body.password, salt, function (err, hash) {
+	      req.body.password = hash;
+	        console.log('hashed',req.body.password);
+		  	console.log(req.body.password);
+	
 	User.create(req.body)
 		.then(function(user) {
 			if (!user) return error(res, "not saved");
@@ -132,29 +126,13 @@ app.post('/auth/signup', function(req, res) {
 				user: user
 			});
 		});
-	//  User.findOne({ 
-	//  	where: {email: req.body.email }})
-	//  	.spread(function (user,created) {
-	//  		console.log(user.get({
-	//  			plain:true
-	//  		}))
-	//  		console.log('created: ',created)
-	//    if (created ===false) {
-	//    	console.log('FAAAAAIIIIILLLL')
-	//      return res.status(409).send({ message: 'Email is already taken.' });
-	//    } else {
+			  });
+		 });
+
 
 
 });
-// });
 app.post('/auth/login', function(req, res) {
-	// bcrypt.genSalt(10, function (err, salt) {
-	//     bcrypt.hash(req.body.password, salt, function (err, hash) {
-	//       req.body.password = hash;
-	//         console.log('hashed',req.body.password);
-	// 	  	console.log(req.body.password);
-	// 	  });
-	// 	 });
 	User.findOne({
 		where: {
 			email: req.body.email
@@ -171,7 +149,6 @@ app.post('/auth/login', function(req, res) {
 			p2 = req.body.password;
 		// user.$modelOptions.instanceMethods.comparePassword(p1,p2);
 
-
 		validPassword = function() {
 			console.log('stored from db: ', user.dataValues.password)
 			console.log('password from login form: ', req.body.password)
@@ -185,16 +162,14 @@ app.post('/auth/login', function(req, res) {
 			});
 		};
 		validPassword();
-
 	});
 });
 
 
 
 
-app.get(['/', '/signup', '/login', '/profile', '/logout'], function(req, res) {
+app.get(['/'], function(req, res) {	// one page app -- angular appends to index.html using ui-view
 	res.sendFile(__dirname + '/public/views/index.html');
-
 });
 
 
