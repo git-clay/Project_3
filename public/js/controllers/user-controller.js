@@ -59,6 +59,9 @@ function LoginController (Account,$location) {
     Account
       .login(vm.new_user)
       .then(function(){
+        document.body.className=document.body.className.replace('modal-open',''); //kills modal
+        var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
+
          vm.new_user={}; // clears form
           $location.path('/choices'); // directs to profile page
       });
@@ -73,6 +76,8 @@ function SignupController(Account, $location) {
     Account
       .signup(vm.new_user)
       .then(function () {
+        document.body.className=document.body.className.replace('modal-open',''); //kills modal
+        var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
           vm.new_user={};
           $location.path('/choices');
         }

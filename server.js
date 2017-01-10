@@ -135,7 +135,6 @@ app.post('/auth/login', function(req, res) {
 
 app.get(['/'], function(req, res) {	// one page app -- angular appends to index.html using ui-view
 	res.sendFile(__dirname + '/public/views/index.html');
-
 });
 
 

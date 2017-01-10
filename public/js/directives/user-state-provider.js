@@ -76,7 +76,8 @@ $stateProvider
       if ($auth.isAuthenticated()) {
         deferred.resolve();
       } else {
-        $location.path('/login');
+        console.log('fail')
+        // $location.path('/login');
       }
       return deferred.promise;
     }

@@ -4,8 +4,21 @@ angular
   .module('roamrrApp') //sets main app and dependancies
   .controller('ChoicesController',ChoicesController)
     .controller('EventsController',EventsController)
+    //  .directive('wdiCard', wdiCard);
+
 ;
 
+// function wdiCard(){
+//   var directive = {
+//     restrict: 'E',
+//     replace: true,
+//     templateUrl: 'templates/cardDirective.html',
+//     scope: {
+//       question:'@'  //when 'question' show from questionList
+//     }
+//   };
+//   return directive;
+// }
 ChoicesController.$inject = ["$http",'$location']; // minification protection
 function ChoicesController ($http,$location) {
 console.log('choices controller');
