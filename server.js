@@ -34,6 +34,13 @@ var db = require('./models'),
  * API Routes
  */
 
+//used to bypass login
+app.get('/choices', function(req, res) {
+	
+		res.sendFile(__dirname+'/public/views/templates/choices.html');
+	});
+
+
 app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
 	console.log('api/me')
 	User.findById(req.user, function(err, user) {
@@ -92,7 +99,7 @@ function yelpgo(city){
 
 
 app.post('/auth/signup', function (req, res) {
-	    console.log('POST auth/signup',req.body)
+	    // console.log('POST auth/signup',req.body)
   // User.findOne({ email: req.body.email }, function (err, existingUser) {
     // if (existingUser) {
     //   return res.status(409).send({ message: 'Email is already taken.' });
@@ -100,7 +107,7 @@ app.post('/auth/signup', function (req, res) {
     User.create(req.body)
     	.then(function(user){
     		if(!user) return error(res, "not saved");
-    		console.log(user.dataValues)
+    		// console.log(user.dataValues)
 
     		res.json(user.dataValues);
   		});
@@ -195,9 +202,9 @@ app.get(['/'], function(req, res) {	// one page app -- angular appends to index.
 // var city = cities.gps_lookup(lat, lng).city;
 // console.log(city);
 
+// claybin@localhost:5432/roamrr_models
 
-
-
+console.log('env',process.env.LOGNAME)
 
 /*********************** SERVER ******************************/
 app.listen(process.env.PORT || 3000, function() {
