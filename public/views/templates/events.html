@@ -1,24 +1,4 @@
-<section ng-controller='EventsController'>
-<div class="choices_div">
-
-    <div class="blue"></div>
-    <div class="logobox">
-        <span class="logo"> Roamrr</span>
-    </div>
-
-<div class="card-container col-lg-8"> <!-- Card Container -->
-    <div class="flex-row row">
-<!-- RESULT     -->
-
-
-<div>
-    {{stuff}}{{name.name}}{{name}}{{name2}}{{name2.name}}
-</div>
-<div ng-repeat='st in stuff'>
-    {{st.address}}{{st.date}}{{st.phone}}
-</div>
-
-<div class="container">
+<div class="container" ng-show='event'>
     <div class="row">
         <div class="col-xs-6 col-sm-4 col-lg-3">
             <div class="result-card">
@@ -56,15 +36,3 @@
         </div>
      </div>
 </div>
-<!-- END OF RESULT     -->
-
-
-
-
-<!-- END OF RESULT     -->
-</div>
-     </div> <!-- End of Card Container -->
-
-</div> <!-- End Of choices div -->
-
-</section>

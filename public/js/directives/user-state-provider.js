@@ -1,4 +1,7 @@
 console.log('state provider')
+angular
+  .module('roamrrApp', ['ui.router', 'satellizer']) //sets main app and dependancies
+  .config(configRoutes);
 
 /************* ROUTES *********************/
 configRoutes.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider"]; // minification protection
@@ -19,24 +22,6 @@ $stateProvider
       templateUrl: '../views/templates/map.html',  //append this template to ui-router on index.html
       controller: 'HomeController', //using homecontroller
       controllerAs: 'home'  // call the controller using 'home'
-    })
-    .state('signup', {
-      url: '/signup',
-      templateUrl: '../views/templates/signup.html',
-      controller: 'SignupController',
-      controllerAs: 'sc',
-      resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
-      }
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: '../views/templates/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc',
-      resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
-      }
     })
     .state('logout', {
       url: '/logout',
@@ -66,6 +51,13 @@ $stateProvider
       templateUrl: '../views/templates/choices.html',
       controller: 'ChoicesController',
       controllerAs: 'choices'
+    })
+    /******** Activity controller directives ***********/
+    .state('events',{
+      url: '/events',
+      templateUrl: '../views/templates/events.html',
+      controller: 'EventsController',
+      controllerAs: 'event'
     });
 
 

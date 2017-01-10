@@ -1,5 +1,5 @@
 angular
-  .module('roamrrApp', ['ui.router', 'satellizer']) //sets main app and dependancies
+  .module('roamrrApp') //sets main app and dependancies
   .controller('MainController', MainController)
   .controller('HomeController', HomeController)
   .controller('LoginController', LoginController)
@@ -7,9 +7,8 @@ angular
   .controller('LogoutController', LogoutController)
   .controller('ProfileController', ProfileController)
   .controller('ActivityController', ActivityController)
-  .controller('ChoicesController',ChoicesController)
-  .service('Account', Account)
-  .config(configRoutes);
+  .service('Account', Account);
+  // .config(configRoutes);
 
 console.log('USER-CONTROLLER . JS');
 
@@ -26,7 +25,7 @@ function MainController(Account) {
 
 HomeController.$inject = ["$http"]; // minification protection
 function HomeController($http) {
-  console.log('home controller');
+  // console.log('home controller');
 
   var vm = this;
   // vm.posts = [];
@@ -47,17 +46,12 @@ console.log('activity controller')
 
 }
 
-ChoicesController.$inject = ["Account",'$location']; // minification protection
-function ChoicesController (Account,$location) {
-console.log('choices controller')
 
-}
 
 
 
 LoginController.$inject = ["Account",'$location']; // minification protection
 function LoginController (Account,$location) {
-  console.log('login2')
   var vm = this;
   vm.new_user = {}; // form data
   console.log('LoginController')
