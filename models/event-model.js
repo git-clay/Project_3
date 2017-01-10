@@ -11,7 +11,6 @@ console.log('sequelized event');
 	website:Sequelize.STRING,
 	reviews:Sequelize.STRING,
 	cost:Sequelize.STRING
-
 	});
 
 	return eventModel;
