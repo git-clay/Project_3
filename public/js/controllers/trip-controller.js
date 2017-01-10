@@ -43,12 +43,12 @@ console.log('choices controller');
   EventsController.$inject = ["$http",'$location','$scope']; // minification protection
 function EventsController ($http,$location,$scope) {
 console.log('events controller');
-var vm = this;
+// var vm = this;
 $scope.name2 = {name:'billy'};
-vm.name = {name:'clay'}
+// vm.name = {name:'clay'}
  $scope.stuff =[
     {
-      created:  11/12/12,
+  created:  11/12/12,
   address: '123 angular',
   phone: '123-123-1234',
   website: 'www.www.com',
@@ -56,7 +56,7 @@ vm.name = {name:'clay'}
   cost:'1 million dollars'  
     },
     {
-    created:  01/12/42,
+  created:  01/12/42,
   address: '123 angular',
   phone: '123-123-1234',
   website:'www.111ww.com',
@@ -80,7 +80,7 @@ vm.name = {name:'clay'}
   cost:'10 million dollars'  
     },
     {
-     created:  07/07/07,
+  created:  07/07/07,
   address: '123 angular',
   phone: '123-123-1234',
   website: 'www.junk.com',
