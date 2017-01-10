@@ -1,57 +1,50 @@
 var request		= require('request'),
 	chai		= require('chai'),
 	chaiHttp	= require('chai-http'),
-	server		= require('../server.js'),
+	// server		= require('../server'),
 	expect		= chai.expect,
-	should		= chai.should()
-	// user		= require('../public/js/controllers/user-controller.js')	// which js file to test??????
-	// auth 		= require('#')
-	;
+	should		= chai.should();
+	User		= require('../models/user.js');	// which js file to test??????
+
 chai.use(chaiHttp);	
+
+var DB = require("../models").models;
+
+var userCreate = function() {
+	return DB.User.create({
+	  displayName:  'Cool name goes here',
+	  email: 'clay@gmail.com',
+	  password: '1234'
+  });
+};
+
+
 
 describe('User', function(){
 	// fake user info goes here
-	// var johnny = new User("Johnny");
+	var user = userCreate();
+	user = user._boundTo.dataValues
+	console.log(user)
 	// beforeEach(function(done) {
 
-	// })
+ // Set up the module
+ // beforeEach(module('roamrrApp'));
 
-
-	describe('Testing /register', function(){
+	describe('Testing /signup', function(){
 		var response;
-		it('should respond with status 200', function(done){
-			chai.request(server)
-				.get('register')
-				.end(function(err,res){
+	
 
-				})
-			expect(response.statusCode).to.equal(200);	
+	    it("should create a new object", function() {   
+	      expect(typeof(user)).to.equal("object");
+	    });
+	    it("should have a name", function() {
+      		expect(user.displayName).to.not.be.empty;
+    	});
+	    it("should have an email", function() {
+      		expect(user.email).to.not.be.empty;
+    	});
 
-		});
-		it('should get info from html form', function(){
-			request({
-				url:'http://localhost3000/register',
-				method: 'POST'
-			}, function(err,res,body){
-				console.log('post',res,body)
-					expect(res).to.equal('1');	
-			});
-		});
-		it('should save something to database', function(){
-			expect();
-		});
-		it('should salt password', function(){
-			expect();
-		});
-		it('should redirect to next page', function(){
-			expect();
-		});
-		it('should save to database', function(){
-			expect();
-		});
-		it('should change authentication status', function(){
-			expect();
-		});
+
 	});
 
 	describe('Testing login', function(){

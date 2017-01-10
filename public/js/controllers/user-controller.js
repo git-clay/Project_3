@@ -24,8 +24,8 @@ function MainController(Account) {
 }
 
 HomeController.$inject = ["$http"]; // minification protection
-function HomeController($http) {
-  // console.log('home controller');
+function HomeController ($http) {
+  console.log('home controller');
 
   var vm = this;
   // vm.posts = [];
@@ -206,3 +206,10 @@ function Account($http, $q, $auth, $location) {
     );
   }
 }
+
+
+
+
+
+
+

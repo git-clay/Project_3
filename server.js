@@ -1,3 +1,4 @@
+
 var express = require('express'),
 	app = express(),
 	bodyParser = require('body-parser'),
@@ -23,6 +24,7 @@ app.use(routes, function(req, res, next) {
 	console.log('server routes')
 	next();
 });
+/**************** DATABASE ************************/
 
 /**************** DB ************************/
 var db = require('./models'),
@@ -31,6 +33,13 @@ var db = require('./models'),
 /*
  * API Routes
  */
+
+//used to bypass login
+app.get('/choices', function(req, res) {
+	
+		res.sendFile(__dirname+'/public/views/templates/choices.html');
+	});
+
 
 app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
 	console.log('api/me')
@@ -100,7 +109,28 @@ function yelpgo(city, res){
 };
 
 
+app.post('/auth/signup', function (req, res) {
+	    // console.log('POST auth/signup',req.body)
+  // User.findOne({ email: req.body.email }, function (err, existingUser) {
+    // if (existingUser) {
+    //   return res.status(409).send({ message: 'Email is already taken.' });
+    // }
+    User.create(req.body)
+    	.then(function(user){
+    		if(!user) return error(res, "not saved");
+    		// console.log(user.dataValues)
+
+    		res.json(user.dataValues);
+  		});
+
+      // res.send({ token: auth.createJWT(result) });
+    });
+
 	console.log(city+ "you did it boss");
+}
+
+
+// });
 
 
 
@@ -188,7 +218,7 @@ app.get(['/'], function(req, res) {	// one page app -- angular appends to index.
 
 
 
-
+//console.log('env',process.env.LOGNAME)
 
 /*********************** SERVER ******************************/
 app.listen(process.env.PORT || 3000, function() {
