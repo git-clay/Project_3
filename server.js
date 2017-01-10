@@ -71,35 +71,41 @@ app.post('/api/post', function (req, res) {
   var latReal = req.body.lat;
   var lngReal = req.body.lng;
   var city = cities.gps_lookup(latReal, lngReal).city;
-  yelpgo(city);
-  return city;
+  yelpgo(city, res);
+  
+});
+
+app.post('/api/yelp', function(req, res){
+		var businesses = yelpResults;
+		res.send(businesses[0]);
+	console.log(req.body);
 });
 
 
-function yelpgo(city){
+function yelpgo(city, res){
 	yelp.search({
 		term: 'food',
 		location: city
 	})
 	.then(function(data) {
-		console.log(data.businesses)
+		var yelpResults = data.businesses;
+		res.json(yelpResults);
+		// console.log(yelpResults);
+		
 	})
 	.catch(function(err) {
 		// console.error(err);
 	});
 
-
-	console.log(city+ "you did it boss");
 };
 
-// var yelp = new Yelp({
-// 	consumer_key: '5eu-uFPxtc1RtmeJCAlmUQ',
-// 	consumer_secret: 'ZwJB35PXcr0_oPYt2-l-XDCd6TE',
-// 	token: 'INavbmqjPrFTdqM3i5ZTNkjyfeInIWfl',
-// 	token_secret: 'pGqF4hywcR8_4HFGn05hZbxYKrU',
-// });
 
-// See http://www.yelp.com/developers/documentation/v2/search_api
+	console.log(city+ "you did it boss");
+
+
+
+
+
 
 
 
