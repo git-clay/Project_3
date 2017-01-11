@@ -56,8 +56,8 @@ var thisComputer = process.env.LOGNAME;
 
 
 var Sequelize = require('sequelize'),
-	sequelize = new Sequelize(
-		'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
+	sequelize = new Sequelize( process.env.ROAMRR_DB_URL ||
+		'postgres://'+thisComputer+'@localhost:5432/roamrr_models' ),
     bcrypt = require('bcryptjs');
 
 
