@@ -57,7 +57,6 @@ app.post('/api/post', function(req, res) {
 
 
 
-
 function yelpgo(city, res, cityProp, scenicProp) {
 
    yelp.search({

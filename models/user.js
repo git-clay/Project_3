@@ -5,7 +5,7 @@ module.exports = function(sequelize, Sequelize){
 console.log('sequelized user');
 
 //might need to capitalize user
-var User = sequelize.define('users',{
+var User = sequelize.define('user',{
 
   email: { type: Sequelize.STRING, unique: true, lowercase: true },
   password: Sequelize.STRING,
