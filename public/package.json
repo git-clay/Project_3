@@ -1,0 +1,14 @@
+{
+  "name": "travel-p3",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "postinstall": "bower cache clean && bower install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.6.x"
+  }
+}
