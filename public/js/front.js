@@ -248,9 +248,10 @@ function initMap() {
          url: '/api/post',
          data: {lat: nLat, lng: nLng},
          success: function (data){
-            console.log(data)},
+            console.log(data);
+        },
          error: function(data) {
-                console.log(data)
+                console.log(data);
                 console.log('oops');
             },
          

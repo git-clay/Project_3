@@ -23,10 +23,13 @@
     <section id="mapdiv" ng-show='home'>
         <div class="blue1"> Roamrr...like a local.</div>
         <div id="map"></div>
-        <div class="blue2">
+        <div class="blue2" ng-controller='HomeController as hm'>
             Drop & drag your pin to the destination above you would like to explore.
             <br>
-            <a href="/activity" type="button" class="btn btn-primary btn-sm outline">Let's Go </a>
+            <form ng-submit='hm.mapFunc()'>
+            <input type="submit"  class='btn btn-primary btn-sm outline' name="Let's Go">
+            </form>
+          <!--   <a href="/activity" type="button" class="btn btn-primary btn-sm outline" ng-model=''>Let's Go </a> -->
             <br>
         </div>
 

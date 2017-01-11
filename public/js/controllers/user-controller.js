@@ -24,11 +24,16 @@ function MainController(Account) {
   // };
 }
 
-HomeController.$inject = ["$http"]; // minification protection
-function HomeController ($http) {
+HomeController.$inject = ["$http",'$location']; // minification protection
+function HomeController ($http,$location) {
   console.log('home controller');
 
   var vm = this;
+  vm.mapFunc = function(){
+    console.log('mapfunc');
+    $location.path('/activity');
+
+      };
   // vm.posts = [];
   // vm.new_post = {}; // form data
 
@@ -127,6 +132,7 @@ function Account($http, $q, $auth, $location) {
       .then(
         function onSuccess(res) {
           console.log(res.data.user) //all user info comes back here
+          userInfo = {user:res.data.user};  //stores to global object -- user
           // console.log(res.data.token);
           $auth.setToken(res.data.token);
         },
@@ -145,7 +151,7 @@ function Account($http, $q, $auth, $location) {
       .then(
         function onSuccess(res) {
           console.log('onSuccess',res.data.user);//all user info comes back here
-          userInfo = {user:res.data.user};  //stores to global object
+          userInfo = {user:res.data.user};  //stores to global object -- user
           // console.log(response.data.token);
           $auth.setToken(res.data.token);
         },

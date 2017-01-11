@@ -1,5 +1,10 @@
 var DB = require("../models").models;
 
+DB.sequelize
+.sync({force: true}).then(function(){
+	console.log('synced')
+  process.exit();
+});
 var userCreate = function() {
 	return DB.User.create({
 	  email: 'stuff@gmail.com',
