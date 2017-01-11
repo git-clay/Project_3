@@ -1,21 +1,21 @@
-<section ng-controller='EventsController'>
+<section ng-controller='ChoicesController as cc'>
     <div class="choices_div">
     <div class="logobox">
         <span class="logo"> Roamrr</span>
     </div>
-    <div class="headline-box col-lg-8-offset-md-2">
-        <h3> Thanks {{Name}} for registering!</h3>
+    <div class="headline-box col-lg-8-offset-md-2" ng-controller='MainController as mc'>
+        <h3> Thanks {{mc.userInfo.displayName}} for registering!</h3>
         <h4>Here are your itinerary suggestions. (test)</h4>
     </div>
     <div class="card-container col-lg-8">
     <!-- Card Container -->
     <!-- RESULT     -->
     <div>
-        {{stuff}}{{name.name}}{{name}}{{name2}}{{name2.name}}
+        {{cc.stuff}}{{name.name}}{{cc.stuff.address}}{{cc.name2}}{{name2.name}}
     </div>
+ 
     <div ng-repeat='st in stuff'>
     {{st.address}}{{st.date}}{{st.phone}}
-    <event-card></event-card> test
     <div class="container">
         <div class="row">
             ww.coloradozipline.net</a>

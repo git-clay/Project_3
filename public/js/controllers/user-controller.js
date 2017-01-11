@@ -11,16 +11,16 @@ angular
   // .config(configRoutes);
 
 console.log('USER-CONTROLLER . JS');
-
+var userInfo = {};
 /********** CONTROLLERS ***************/
 MainController.$inject = ["Account"]; // minification protection
 function MainController(Account) {
   var vm = this;
   console.log('main controller');
-
-  vm.currentUser = function() {
-    return Account.currentUser();
-  };
+  vm.userInfo = userInfo.user;
+  // vm.currentUser = function() {
+  //   return userInfo;
+  // };
 }
 
 HomeController.$inject = ["$http"]; // minification protection
@@ -68,7 +68,7 @@ function LoginController (Account,$location) {
         var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
 
          vm.new_user={}; // clears form
-          $location.path('/choices'); // directs to profile page
+          $location.path('/choices'); // directs to choices page
       });
   };
 }
@@ -76,14 +76,14 @@ SignupController.$inject = ["Account", '$location']; // minification protection
 function SignupController(Account, $location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('signup controller',vm.new_user);
+  console.log('signup controller');
   vm.signup = function() {
     Account
       .signup(vm.new_user)
       .then(function () {
         document.body.className=document.body.className.replace('modal-open',''); //kills modal
         var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
-          vm.new_user={};
+          vm.new_user={}; // clears form 
           $location.path('/choices');
         }
       );
@@ -103,8 +103,6 @@ function ProfileController(Account) {
   vm.new_profile = {}; // form data
 
   vm.updateProfile = function() {
-    // TODO #14: Submit the form using the relevant `Account` method
-    // On success, clear the form
   };
 }
 
@@ -129,10 +127,10 @@ function Account($http, $q, $auth, $location) {
       $auth
       .signup(userData)
       .then(
-        function onSuccess(response) {
-          console.log(response.data.user)
-          console.log(response.data.token);
-          $auth.setToken(response.data.token);
+        function onSuccess(res) {
+          console.log(res.data.user) //all user info comes back here
+          // console.log(res.data.token);
+          $auth.setToken(res.data.token);
         },
         function onError(error) {
           console.error(error);
@@ -145,12 +143,13 @@ function Account($http, $q, $auth, $location) {
     console.log('Acount.login', userData)
     return (
       $auth
-      .login(userData) // login (https://github.com/sahat/satellizer#authloginuser-options)
+      .login(userData) // 
       .then(
-        function onSuccess(response) {
-          console.log('onSuccess')
-          console.log(response.data.token);
-          $auth.setToken(response.data.token);
+        function onSuccess(res) {
+          console.log('onSuccess',res.data.user);//all user info comes back here
+          userInfo = {user:res.data.user};
+          // console.log(response.data.token);
+          $auth.setToken(res.data.token);
         },
 
         function onError(error) {

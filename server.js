@@ -1,10 +1,10 @@
-var express = require('express'),
-   app = express(),
-   bodyParser = require('body-parser'),
-   auth = require('./controllers/auth.js'),
-   Yelp = require('yelp'),
-   bcrypt = require('bcryptjs'),
-   cities = require('cities');
+var express 	= require('express'),
+   	app 		= express(),
+   	bodyParser 	= require('body-parser'),
+   	auth 		= require('./controllers/auth.js'),
+   	Yelp 		= require('yelp'),
+   	bcrypt 		= require('bcryptjs'),
+   	cities 		= require('cities');
 
 require('dotenv').load(); // require and load dotenv
 // configure bodyParser (for receiving form data)
@@ -25,20 +25,10 @@ app.use(routes, function(req, res, next) {
 });
 /**************** DATABASE ************************/
 
-/**************** DB ************************/
 var db = require('./models'),
    User = db.models.User;
 
-/*
- * API Routes
- */
-
-//used to bypass login
-app.get('/choices', function(req, res) {
-
-   res.sendFile(__dirname + '/public/views/templates/choices.html');
-});
-
+/************ API Routes ***************/
 
 app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
    console.log('api/me')
@@ -63,6 +53,7 @@ app.put('/api/me', auth.ensureAuthenticated, function(req, res) {
       });
    });
 });
+/*********************** Yelp request function ******************************/
 
 var yelp = new Yelp({
    consumer_key: '5eu-uFPxtc1RtmeJCAlmUQ',
@@ -115,22 +106,22 @@ function yelpgo(city, res) {
  * Auth Routes
  */
 // app.get('/users')
-app.post('/auth/signup', function(req, res) {
+app.post('/auth/signup', function(req, res) {		
    console.log('POST auth/signup password', req.body.email);
-   bcrypt.genSalt(10, function(err, salt) {
+   bcrypt.genSalt(10, function(err, salt) {		//this is where passwords from the front end form are salted and hashed
       bcrypt.hash(req.body.password, salt, function(err, hash) {
          req.body.password = hash;
          console.log('hashed', req.body.password);
          console.log(req.body.password);
 
-         User.create(req.body)
+         User.create(req.body)	// opens up /models and creates a user to the psql db
             .then(function(user) {
                if (!user) return error(res, "not saved");
                console.log(user.dataValues);
                auth.createJWT(user);
 
                res.send({
-                  token: auth.createJWT(user),
+                  token: auth.createJWT(user),		//sends an authentication token to the front end (user is logged in)
                   user: user
                });
             });
@@ -146,30 +137,31 @@ app.post('/auth/login', function(req, res) {
          email: req.body.email
       }
    }).then(function(user) {
-      var compare = 'user.$modelOptions.instanceMethods.comparePassword';
+      // var compare = 'user.$modelOptions.instanceMethods.comparePassword';  // to call method stored in user model
 
       if (!user) {
          return res.status(401).send({
             message: 'Invalid email or password.'
          });
       }
-      var p1 = user.dataValues.password,
-         p2 = req.body.password;
+      // var p1 = user.dataValues.password,	// stored hash and salted password from DB
+      //    p2 = req.body.password;		// plain text password to test from form
       // user.$modelOptions.instanceMethods.comparePassword(p1,p2);
 
       validPassword = function() {
-         console.log('stored from db: ', user.dataValues.password);
-         console.log('password from login form: ', req.body.password);
-         bcrypt.compare(req.body.password, user.dataValues.password, function(err, isMatch) {
-            console.log(isMatch);
+         // console.log('stored from db: ', user.dataValues.password);
+         // console.log('password from login form: ', req.body.password);
+         bcrypt.compare(req.body.password, user.dataValues.password, function(err, isMatch) { // both 'exploded' using the has from user.dataValues
+            // console.log(isMatch);
             if (isMatch === true) {
-               res.send({
-                  token: auth.createJWT(user)
+               res.send({		//object contains token and user info
+                  token: auth.createJWT(user),
+                  user: user
                });
             }
          });
       };
-      validPassword();
+      validPassword(); 
    });
 
 });
@@ -181,20 +173,14 @@ app.get(['/'], function(req, res) { // one page app -- angular appends to index.
    res.sendFile(__dirname + '/public/views/index.html');
 });
 
-app.get('/choices', function(req, res) {
-    
-        res.sendFile(__dirname+'/public/views/templates/choices.html');
-    });
-/*********************** Yelp request function ******************************/
-
-
-// cities.gps_lookup(lat, lng);
-// var city = cities.gps_lookup(lat, lng).city;
-// console.log(city);
+app.get('/team', function(req, res) { 
+   res.sendFile(__dirname + '/public/views/team.html');
+});
 
 
 
-//console.log('env',process.env.LOGNAME)
+
+// console.log('env',process.env)
 
 /*********************** SERVER ******************************/
 app.listen(process.env.PORT || 3000, function() {

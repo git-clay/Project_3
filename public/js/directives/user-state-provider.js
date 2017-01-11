@@ -57,6 +57,7 @@ $stateProvider
         loginRequired: loginRequired
       }
     })
+        /******** Activity controller directives ***********/
     .state('activity',{
       url: '/activity',
       templateUrl: '../views/templates/activity.html',
@@ -69,12 +70,9 @@ $stateProvider
       controller: 'ChoicesController',
       controllerAs: 'choices'
     })
-    /******** Activity controller directives ***********/
-    .state('events',{
-      url: '/events',
-      templateUrl: '../views/templates/events.html',
-      controller: 'EventsController',
-      controllerAs: 'event'
+    .state('main',{
+      controller: 'MainController',
+      controllerAs: 'main'
     });
 
 
