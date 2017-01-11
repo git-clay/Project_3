@@ -12,12 +12,12 @@ angular
 
 console.log('USER-CONTROLLER . JS');
 var userInfo = {};
+var userArr =[];
 /********** CONTROLLERS ***************/
 MainController.$inject = ["Account"]; // minification protection
 function MainController(Account) {
   var vm = this;
-  userInfo = {array : [1,2,3]};
-  console.log('main controller');
+  console.log('main controller',userInfo.user);
   vm.userInfo = userInfo.user;
   // vm.currentUser = function() {
   //   return userInfo;

@@ -11,7 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular-drag-drop": "^3.0.5",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "cities": "^1.1.2",
