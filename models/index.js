@@ -1,11 +1,11 @@
 var thisComputer = process.env.LOGNAME;
 
 
-var Sequelize = require('sequelize'),
-	sequelize = new Sequelize(
-		'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
-    bcrypt = require('bcryptjs');
 
+var Sequelize = require('sequelize'),
+    sequelize = new Sequelize(
+        'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
+   bcrypt = require('bcryptjs');
 
 
 	// sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
@@ -17,7 +17,7 @@ module.exports.Sequelize = Sequelize;
 module.exports.sequelize = sequelize;
 
 
-var User 	= sequelize.import("./user");
+var User 	= sequelize.import("./user.js");
 var Event	= sequelize.import('./event-model.js');
 var Trip	= sequelize.import('./trip-model.js');
 
@@ -32,6 +32,8 @@ Trip.hasMany(Event);
 
 
 module.exports.models = {
+	sequelize:sequelize,
+
 	User : User,
 	Event : Event,
 	Trip : Trip
