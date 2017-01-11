@@ -14,9 +14,25 @@ User's can login and save custom trips to their profile.
 
 -Page 3: Display suggestions/ideas that can be re-searched if the results are not adequate.  
 
+Tools:
 
 
-Stretch would be to add the social aspect of “travel like a local” (add trips that can be voted up or down)
+"bcrypt" & "bcrypt-nodejs": Password salt and hash
+"body-parser": To more easily manage json objects
+"express"" : To more easily communicate with the database
+"postgres" & "sequellize": Used to create and update the database via SQL
+"nodemon" : used to automatically reload node after any file was saved
+"satellizer": used to register and login users
+"request": used to pull in all of these tools on the designated file
+Routes and controllers were created to make the RESTful requests more organized both within the app itself and requests from a third party api.
 
 
-You both can edit this readme with your ideas that you would like to add or change.
+    "cities":
+    "jwt-simple":
+    "moment":
+    "morgan":
+    "yelp"
+    "chai":
+    "chai-http":
+    "mocha":
+    "ng-mock":

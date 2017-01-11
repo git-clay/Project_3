@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "SET NODE_ENV=dev && node server.js",
+    "start": "node server.js",
     "test": "mocha --timeout 10000"
   },
   "keywords": [],
@@ -16,7 +16,6 @@
     "cities": "^1.1.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
-    "jQuery": "^1.7.4",
     "jquery": "^3.1.1",
     "jsdom": "^9.9.1",
     "jwt-simple": "^0.4.1",
