@@ -1,12 +1,11 @@
 <section ng-show='activity'>
 <div class="activity_div">
 
-    <div class="blue"></div>
     <div class="logobox">
         <span class="logo"> Roamrr</span>
     </div>
 
-        <form>
+        <form id ="activityFilter">
             <!--        Slider Box -->
             <div class="sliderbox">
 
@@ -34,10 +33,7 @@
                 <!--  Slider -->
 
                 <!--             Headline Box -->
-                <div class="actvty_HdBox">
-                    <h4>What kind of adventures are you interested in?</h4>
-                    <h6>Check options below and we'll put together a few ideas for you.</h6>
-                </div>
+      
                 <!--         End of Headline Box -->
 
             </div>
@@ -46,50 +42,34 @@
             <!-- Beginning of Select Box Row -->
             <div class="selectBoxRow">
 
-                <div class="selectBox col-md-6 col-lg-6">
+                <div class="selectBox col-md-8 col-lg-8">
                     <div class="well">
-                        <h5 class="text-center">THE SCENIC ROUTE</h5>
+                        <div class="actvty_HdBox">
+                            <h4>What kind of adventures are you interested in?</h4>
+                        </div>
+                        
                         <ul id="check-list-box" class="list-group checked-list-box">
+                            <li class="list-group-item" >
+                                <input type="checkbox" value= "scenic"id="scenic">The Scenic Route</li>
                             <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">Water Fun</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">Outdoor Activities</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">Local Color</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">Historical & Cultural HotSpots</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">Whatever's Awesome</li>
+                                <input type="checkbox" value= "city" id="city">The City Scene</li>                       
                         </ul>
+                           <div id="continue-button">
+                            <button type="button" id="activitySubmit" class="btn btn-primary btn-md outline" data-toggle="modal" data-target="#loginReg">Continue</button>
+
                     </div>
 
+
+                   </div>
                 </div>
 
+           
 
-                <div class="selectBox col-md-6 col-lg-6">
-                    <div class="well">
-                        <h5 class="text-center">THE CITY LIFE</h5>
-                        <ul id="check-list-box" class="list-group checked-list-box">
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">The Food Scene</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">After Dark</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">Local Color</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">Historical & Cultural HotSpots</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" ng-model="checkboxModel">Whatever's Awesome</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <br>
-                <div id="continue-button">
-                 <button type="button" class="btn btn-primary btn-md outline" data-toggle="modal" data-target="#loginReg">Continue</button></form>
-                </div>
-            </div>
-            <!-- end of Select Box Row -->
+               
+    </form>
+              
+            </div> <!-- end of Select Box Row -->
+           
 </div><!--     End of Activity Page Container Div -->
 
 <!-- Large modal -->

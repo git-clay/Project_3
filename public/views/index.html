@@ -20,20 +20,38 @@
 
 <body ng-app="roamrrApp">
 
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+        <li class"active"><a class = "visible-phone" href="/">WDI Project -Roamrr</a></li>
+        <li><a href="/team">The Team</a></li>
+        <li><a href="https://trello.com/b/g2CM30fa/project-3-travel">Trello User Stories & Sprints</a></li>
+        <li><a href="https://raw.githubusercontent.com/git-clay/Project_3/master/Wireframes/wireframes.png">Original Wireframes</a></li> 
+        <li><a href="https://github.com/git-clay/Project_3/blob/master/README.md">ReadMe</a></li>   
+      </ul>
 
-
+        <input type="button" class="reg btn btn-primary btn-md outline" value="Register">
+    </div>
+  </div> 
+</nav>
 
 
 <ui-view></ui-view>
 
-  
     <!-- Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Angular / Angular-router -->
     <script src='/bower_components/angular/angular.min.js'></script>
     <script src='/bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
-    <!-- <script src='/bower_components/angular-route/angular-route.min.js'></script> -->
-    <!-- Angular Satellizer -->
+ <!-- Angular Satellizer -->
     <script src='/bower_components/satellizer/dist/satellizer.min.js'></script>
   
     <!-- Custom js -->

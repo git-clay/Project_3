@@ -19,6 +19,18 @@ jQuery(document).ready(function() {
             });
         }
     });
+// Changes text on reg/login button when clicked
+// $('.reg').click(function(){
+//         var $this = $(this);
+//         alert("hi");
+//         $this.toggleClass('reg');
+//         if($this.hasValue('Register')){
+//             $this.text('Log Out');         
+//         } else {
+//             $this.text('Register');
+//         }
+//     });
+
 // Modal function for login/registration 
 // Javscript for Slider
     var el, newPoint, newPlace, offset;
@@ -53,7 +65,6 @@ jQuery(document).ready(function() {
         // Fake a change to position bubble at page load
         .trigger('change');
 });
-
 
 
 
@@ -213,7 +224,7 @@ function initMap() {
         map.setCenter(marker.getPosition());
         marker.setMap(map);
         markers.push(marker);
-        postFunc(nLat,nLng)
+        postFunc(nLat,nLng);
 
 
         marker.addListener('dragend', function() {
@@ -228,7 +239,7 @@ function initMap() {
         nLngArr.push(nLng);
         console.log(nLngArr[0]);
 
-        postFunc(nLat,nLng)
+        postFunc(nLat,nLng);
      
   });
          function postFunc(nLat,nLng){ 
@@ -279,3 +290,23 @@ function initMap() {
         markers = [];
     }
 }
+window.onload = function() {
+    var submit = getElementById("activitySubmit").onclick = function() {
+        function collectFilters( form ) {
+        // window.onload = function collectFilters( form ) {
+          console.log ("collectFilters function called");
+          var collected=[];
+          var inputs = document.getElementsByTagName('input');
+          console.log(inputs.length);//gets all the input tags i;n form
+            for(var i=0; i<inputs.length; i++) 
+                    {
+                        if (inputs[i].checked === true)
+                        collected.push(inputs[i].value); 
+                    }
+                localStorage.setItem('collected', JSON.stringify(collected));
+                alert(collected);
+            return collected;
+         
+        }
+    };
+};
