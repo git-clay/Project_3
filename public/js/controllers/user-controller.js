@@ -12,23 +12,33 @@ angular
 
 console.log('USER-CONTROLLER . JS');
 var userInfo = {};
-var userArr =[];
+var gps =[];
+var formInfo = {};
+var userObj;
 /********** CONTROLLERS ***************/
 MainController.$inject = ["Account"]; // minification protection
 function MainController(Account) {
   var vm = this;
-  console.log('main controller',userInfo.user);
+  console.log('main controller',userInfo.user)
+
   vm.userInfo = userInfo.user;
   // vm.currentUser = function() {
   //   return userInfo;
   // };
 }
 
-HomeController.$inject = ["$http"]; // minification protection
-function HomeController ($http) {
+HomeController.$inject = ["$http",'$location','$scope']; // minification protection
+function HomeController ($http,$location,$scope) {
+
   console.log('home controller');
 
   var vm = this;
+  vm.mapFunc = function(){
+    console.log('mapfunc');
+    $location.path('/activity');
+
+      };
+    $scope.stuff=userObj;
   // vm.posts = [];
   // vm.new_post = {}; // form data
 
@@ -47,6 +57,8 @@ console.log('activity controller')
 var vm = this;
 vm.formInfo = {};
   vm.activityForm = function(){
+    formInfo = vm.formInfo;
+
     console.log('formInfo: ',vm.formInfo);
   };
 }
@@ -64,9 +76,10 @@ function LoginController (Account,$location) {
     Account
       .login(vm.new_user)
       .then(function(){
-        document.body.className=document.body.className.replace('modal-open',''); //kills modal
-        var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
          vm.new_user={}; // clears form
+         $('#loginReg').modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
           $location.path('/choices'); // directs to choices page
       });
   };
@@ -80,10 +93,12 @@ function SignupController(Account, $location) {
     Account
       .signup(vm.new_user)
       .then(function () {
-        document.body.className=document.body.className.replace('modal-open',''); //kills modal
-        var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
           vm.new_user={}; // clears form 
+          $('#loginReg').modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
           $location.path('/choices');
+
         }
       );
   };
@@ -119,6 +134,7 @@ function Account($http, $q, $auth, $location) {
   self.updateProfile = updateProfile;
   console.log('account');
 
+
   function signup(userData) {
     console.log('signup', userData);
     return (
@@ -126,28 +142,62 @@ function Account($http, $q, $auth, $location) {
       .signup(userData)
       .then(
         function onSuccess(res) {
-          console.log(res.data.user) //all user info comes back here
+          userInfo = {user:res.data.user};  //stores to global object -- user
+
+
+          // function postFunc(gps, formInfo){ 
+          vm = this;
+          gps.push(localStorage.getItem('nLat'));
+          gps.push(localStorage.getItem('nLng'));
+          // // vm.userInfo = userInfo.user;
+          // console.log(gps);
+          // console.log(formInfo);
+          // console.log(formInfo.scenic);
+          //   console.log(formInfo.city);
+          // console.log(formInfo.days);
+           console.log(res.data.user) ;//all user info comes back here
           // console.log(res.data.token);
           $auth.setToken(res.data.token);
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
+            userArr.push(data);
+              console.log(userArr);
+            });
+
+         
         },
+
         function onError(error) {
           console.error(error);
         }
-      )
-    );
+        )
+      );
   }
+  
 
   function login(userData) {
+userArr=[];
     console.log('Acount.login', userData);
     return (
       $auth
       .login(userData) // 
       .then(
         function onSuccess(res) {
+
           console.log('onSuccess',res.data.user);//all user info comes back here
-          userInfo = {user:res.data.user};  //stores to global object
           // console.log(response.data.token);
+          userInfo = {user:res.data.user};  //stores to global object -- user
+          gps.push(localStorage.getItem('nLat'));
+          gps.push(localStorage.getItem('nLng'));
           $auth.setToken(res.data.token);
+
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
+     userObj =data.data;
+              console.log(userObj);
+              // console.log(data.);
+            });
+              
+
+
         },
 
         function onError(error) {
@@ -209,6 +259,9 @@ function Account($http, $q, $auth, $location) {
     );
   }
 }
+
+
+
 
 
 

@@ -39,30 +39,40 @@ var yelp = new Yelp({
 });
 
 
-var city;
+var city = {};
 
 app.post('/api/post', function(req, res) {
-   console.log(req.body.lat, req.body.lng);
-   var latReal = req.body.lat;
-   var lngReal = req.body.lng;
+   console.log(req.body.formInfo)
+   var infoObj = req.body.formInfo
+   var latReal = req.body.gps[0];
+   var lngReal = req.body.gps[1];
+   if (infoObj.hasOwnProperty('scenic'))
+   	var scenicProp = 'hikes';
+   if (infoObj.hasOwnProperty('city'))
+   	var cityProp = 'tourist';
    var city = cities.gps_lookup(latReal, lngReal).city;
+   console.log(city);
    yelpgo(city, res);
 });
 
-app.post('/api/yelp', function(req, res) {
-   var businesses = yelpResults;
-   res.send(businesses[0]);
-   console.log(req.body);
-});
 
-function yelpgo(city, res) {
+
+function yelpgo(city, res, cityProp, scenicProp) {
+
    yelp.search({
-         term: '',
+         term: cityProp +","+ scenicProp,
          location: city
       })
       .then(function(data) {
+      	console.log(data.businesses);
          var yelpResults = data.businesses;
          res.json(yelpResults);
+         console.log(yelpResults);
+         app.post('/api/yelp', function(req, res) {
+		   var businesses = yelpResults;
+		   res.send(businesses[0]);
+		   console.log(businesses + 'yelp shit');
+		});
          // console.log(yelpResults);
       })
       .catch(function(err) {
@@ -110,8 +120,8 @@ app.post('/auth/signup', function(req, res) {
          // console.log(req.body.password);
 
          User.create(req.body)	// opens up /models and creates a user to the psql db
-            .then(function(user) {
-               if (!user) return error(res, "not saved");
+            .done(function(user) {
+               // if (!user) return error(res, "not saved");
                console.log(user.dataValues);
                auth.createJWT(user);
 
@@ -126,7 +136,7 @@ app.post('/auth/signup', function(req, res) {
 app.post('/auth/login', function(req, res) {
    User.findOne({
       where: {email: req.body.email}})
-   		.then(function(user) {
+   		.done(function(user) {
       // var compare = 'user.$modelOptions.instanceMethods.comparePassword';  // to call method stored in user model
 
       if (!user) {

@@ -19,18 +19,6 @@ jQuery(document).ready(function() {
             });
         }
     });
-// Changes text on reg/login button when clicked
-// $('.reg').click(function(){
-//         var $this = $(this);
-//         alert("hi");
-//         $this.toggleClass('reg');
-//         if($this.hasValue('Register')){
-//             $this.text('Log Out');         
-//         } else {
-//             $this.text('Register');
-//         }
-//     });
-
 // Modal function for login/registration 
 // Javscript for Slider
     var el, newPoint, newPlace, offset;
@@ -65,6 +53,7 @@ jQuery(document).ready(function() {
         // Fake a change to position bubble at page load
         .trigger('change');
 });
+
 
 
 
@@ -224,7 +213,7 @@ function initMap() {
         map.setCenter(marker.getPosition());
         marker.setMap(map);
         markers.push(marker);
-        postFunc(nLat,nLng);
+        // postFunc(nLat,nLng)
 
 
         marker.addListener('dragend', function() {
@@ -236,36 +225,12 @@ function initMap() {
         markers.push(marker);
         console.log(nLat, nLng);
         nLatArr.push(nLat);
-        nLngArr.push(nLng);
-        console.log(nLngArr[0]);
-
-        postFunc(nLat,nLng);
-        localStorage(nLat,nLng);
-     
+        nLatArr.push(nLng);
+        console.log(nLatArr[0], nLatArr[1]);
+        localStorage.setItem('nLat', JSON.stringify(nLat));
+        localStorage.setItem('nLng', JSON.stringify(nLng));
+  
   });
-         
-
-         function localStorage(nLat,nLng){ 
-          var cordinates = 
-          localStorage.setItem('nLat, nLng', JSON.stringify(boxIds));
-         
-         }); 
-
-}
-}function postFunc(nLat,nLng){ 
-            $.ajax({
-         method: 'POST',
-         url: '/api/post',
-         data: {lat: nLat, lng: nLng},
-         success: function (data){
-            console.log(data)}
-         error: function(data) {
-                console.log(data)
-                console.log('oops');
-            },
-         
-         }); 
-
 }
 
 
@@ -291,4 +256,5 @@ function initMap() {
         clearMarkers();
         markers = [];
     }
+
 }

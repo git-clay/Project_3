@@ -1,4 +1,4 @@
-<section ng-controller='ChoicesController as cc'>
+<section ng-controller='HomeController as hc' >
     <div class="choices_div">
     <div class="logobox">
         <span class="logo"> Roamrr</span>
@@ -7,7 +7,7 @@
         <h3> Thanks {{mc.userInfo.displayName}} for registering!</h3>
         <h4>Here are your itinerary suggestions. (test)</h4>
     </div>
-    <div class="card-container col-lg-8">
+    <div class="card-container col-lg-8" >
     <!-- Card Container -->
     <!-- RESULT     -->
         <div data-drag="true"
@@ -19,15 +19,16 @@
                         placeholder:true,
                         animate:true,
                         onStart: 'startCallback'}">
-        {{stuff}}{{name.name}}{{name}}{{name2}}{{name2.name}}
     </div>
     <div>
-        {{cc.stuff}}{{name.name}}{{cc.stuff.address}}{{cc.name2}}{{name2.name}}
+        <!-- {{stuff}} -->
     </div>
  
-    <div ng-repeat='st in stuff'>
-    {{st.address}}{{st.date}}{{st.phone}}
-    <div class="container">
+    <div >
+<!--     {{stuff.id}}{{stuff.display_phone}}{{stuff.url}}
+ -->    <div class="container" ng-repeat='st in stuff'>
+        {{st.id}}{{st.display_phone}}{{st.url}}
+
         <div class="row">
             ww.coloradozipline.net</a>
             </span>
