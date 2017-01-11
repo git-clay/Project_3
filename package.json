@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha --timeout 10000",
-    "postinstall": "node ./node_modules/bower/bin/bower install"
+    "postinstall": "bower cache clean && ./public/bower install"
   },
   "keywords": [],
   "author": "",
