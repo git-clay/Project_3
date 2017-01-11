@@ -240,15 +240,25 @@ function initMap() {
         console.log(nLngArr[0]);
 
         postFunc(nLat,nLng);
+        localStorage(nLat,nLng);
      
   });
-         function postFunc(nLat,nLng){ 
+         
+
+         function localStorage(nLat,nLng){ 
+          var cordinates = 
+          localStorage.setItem('nLat, nLng', JSON.stringify(boxIds));
+         
+         }); 
+
+}
+}function postFunc(nLat,nLng){ 
             $.ajax({
          method: 'POST',
          url: '/api/post',
          data: {lat: nLat, lng: nLng},
          success: function (data){
-            console.log(data)},
+            console.log(data)}
          error: function(data) {
                 console.log(data)
                 console.log('oops');
@@ -257,15 +267,7 @@ function initMap() {
          }); 
 
 }
-}
 
-
-    
-    
-    // addMarker ();
-    // NEED TO FINISH---- convert the lat, long to a searchable yelp address using the google geocoder api.    Having trouble  pulling out the lat long variable, even though i defined at global scope...
-    //Use (0) reverse GeoCoder to covnert Long/Lat into city address: https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyB47TKXs1AAflxa1PA-WNj6UZ2Ylfd48DE
-    // https://developers.google.com/maps/documentation/geocoding/intro#GeocodingRequests
 
     // Sets the map on all markers in the array.
     function setMapOnAll(map) {
@@ -290,23 +292,3 @@ function initMap() {
         markers = [];
     }
 }
-// window.onload = function() {
-//     var submit = getElementById("activitySubmit").onclick = function() {
-//         function collectFilters( form ) {
-//         // window.onload = function collectFilters( form ) {
-//           console.log ("collectFilters function called");
-//           var collected=[];
-//           var inputs = document.getElementsByTagName('input');
-//           console.log(inputs.length);//gets all the input tags i;n form
-//             for(var i=0; i<inputs.length; i++) 
-//                     {
-//                         if (inputs[i].checked === true)
-//                         collected.push(inputs[i].value); 
-//                     }
-//                 localStorage.setItem('collected', JSON.stringify(collected));
-//                 alert(collected);
-//             return collected;
-         
-//         }
-//     };
-// };
