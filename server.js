@@ -28,31 +28,7 @@ app.use(routes, function(req, res, next) {
 var db = require('./models'),
    User = db.models.User;
 
-/************ API Routes ***************/
 
-app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
-   console.log('api/me')
-   User.findById(req.user, function(err, user) {
-      res.send(user.populate('posts'));
-   });
-});
-
-app.put('/api/me', auth.ensureAuthenticated, function(req, res) {
-   console.log('api/me "put"')
-   User.findById(req.user, function(err, user) {
-      if (!user) {
-         return res.status(400).send({
-            message: 'User not found.'
-         });
-      }
-      user.displayName = req.body.displayName || user.displayName;
-      user.username = req.body.username || user.username;
-      user.email = req.body.email || user.email;
-      user.save(function(err) {
-         res.send(user);
-      });
-   });
-});
 /*********************** Yelp request function ******************************/
 
 var yelp = new Yelp({
@@ -71,7 +47,6 @@ app.post('/api/post', function(req, res) {
    var lngReal = req.body.lng;
    var city = cities.gps_lookup(latReal, lngReal).city;
    yelpgo(city, res);
-
 });
 
 app.post('/api/yelp', function(req, res) {
@@ -79,7 +54,6 @@ app.post('/api/yelp', function(req, res) {
    res.send(businesses[0]);
    console.log(req.body);
 });
-
 
 function yelpgo(city, res) {
    yelp.search({
@@ -90,29 +64,50 @@ function yelpgo(city, res) {
          var yelpResults = data.businesses;
          res.json(yelpResults);
          // console.log(yelpResults);
-
       })
       .catch(function(err) {
          // console.error(err);
       });
    console.log(city + "you did it boss");
-
 }
 
 
 
 
-/*
- * Auth Routes
- */
-// app.get('/users')
+/*********** Auth **************/
+
+// api/me is the route used for authentication
+app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
+   console.log('api/me');
+   User.findById(req.user, function(err, user) {
+      res.send(user.populate('posts'));
+   });
+});
+
+app.put('/api/me', auth.ensureAuthenticated, function(req, res) {
+   console.log('api/me "put"');
+   User.findById(req.user, function(err, user) {
+      if (!user) {
+         return res.status(400).send({
+            message: 'User not found.'
+         });
+      }
+      user.displayName = req.body.displayName || user.displayName;
+      user.username = req.body.username || user.username;
+      user.email = req.body.email || user.email;
+      user.save(function(err) {
+         res.send(user);
+      });
+   });
+});
+
 app.post('/auth/signup', function(req, res) {		
-   console.log('POST auth/signup password', req.body.email);
+   // console.log('POST auth/signup password', req.body.email);
    bcrypt.genSalt(10, function(err, salt) {		//this is where passwords from the front end form are salted and hashed
       bcrypt.hash(req.body.password, salt, function(err, hash) {
          req.body.password = hash;
-         console.log('hashed', req.body.password);
-         console.log(req.body.password);
+         // console.log('hashed', req.body.password);
+         // console.log(req.body.password);
 
          User.create(req.body)	// opens up /models and creates a user to the psql db
             .then(function(user) {
@@ -127,16 +122,11 @@ app.post('/auth/signup', function(req, res) {
             });
       });
    });
-
-
-
 });
 app.post('/auth/login', function(req, res) {
    User.findOne({
-      where: {
-         email: req.body.email
-      }
-   }).then(function(user) {
+      where: {email: req.body.email}})
+   		.then(function(user) {
       // var compare = 'user.$modelOptions.instanceMethods.comparePassword';  // to call method stored in user model
 
       if (!user) {
@@ -163,7 +153,6 @@ app.post('/auth/login', function(req, res) {
       };
       validPassword(); 
    });
-
 });
 
 

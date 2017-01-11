@@ -10,6 +10,17 @@
     <div class="card-container col-lg-8">
     <!-- Card Container -->
     <!-- RESULT     -->
+        <div data-drag="true"
+     data-jqyoui-options="{revert: revertCard,
+                            helper: 'clone',
+                            appendTo: 'body',
+                            zIndex: 350}"
+     jqyoui-draggable="{index: 0,
+                        placeholder:true,
+                        animate:true,
+                        onStart: 'startCallback'}">
+        {{stuff}}{{name.name}}{{name}}{{name2}}{{name2.name}}
+    </div>
     <div>
         {{cc.stuff}}{{name.name}}{{cc.stuff.address}}{{cc.name2}}{{name2.name}}
     </div>
@@ -61,7 +72,7 @@
             Save</button>
         </div>
         <!-- Board Div -->
-        <div id="board">
+        <div id="board" class="lane" data-drop="true" jqyoui-droppable="{multiple: true, onDrop:  'dropCallback'}" data-jqyoui-options="{hoverClass: 'ui-state-active', tolerance: 'pointer'}">
             <h3> Drag any activities that look good to you-here.<br>
                 Save when you've finished.
             </h3>

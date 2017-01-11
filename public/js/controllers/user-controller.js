@@ -5,7 +5,7 @@ angular
   .controller('LoginController', LoginController)
   .controller('SignupController', SignupController)
   .controller('LogoutController', LogoutController)
-  .controller('ProfileController', ProfileController)
+  // .controller('ProfileController', ProfileController)
   .controller('ActivityController', ActivityController)
   .service('Account', Account);
   // .config(configRoutes);
@@ -16,6 +16,7 @@ var userInfo = {};
 MainController.$inject = ["Account"]; // minification protection
 function MainController(Account) {
   var vm = this;
+  userInfo = {array : [1,2,3]};
   console.log('main controller');
   vm.userInfo = userInfo.user;
   // vm.currentUser = function() {
@@ -46,7 +47,6 @@ console.log('activity controller')
 var vm = this;
 vm.formInfo = {};
   vm.activityForm = function(){
-
     console.log('formInfo: ',vm.formInfo);
   };
 }
@@ -59,14 +59,13 @@ LoginController.$inject = ["Account",'$location']; // minification protection
 function LoginController (Account,$location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('LoginController')
+  console.log('LoginController');
   vm.login = function() {
     Account
       .login(vm.new_user)
       .then(function(){
         document.body.className=document.body.className.replace('modal-open',''); //kills modal
         var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
-
          vm.new_user={}; // clears form
           $location.path('/choices'); // directs to choices page
       });
@@ -96,15 +95,14 @@ function LogoutController(Account, $location) {
   $location.path('/login'); //directs to login page when logged out
 }
 
-
-ProfileController.$inject = ["Account"]; // minification protection
-function ProfileController(Account) {
-  var vm = this;
-  vm.new_profile = {}; // form data
-
-  vm.updateProfile = function() {
-  };
-}
+// // not used  --- will be if we decide to add profile page 
+// ProfileController.$inject = ["Account"]; // minification protection
+// function ProfileController(Account) {
+//   var vm = this;
+//   vm.new_profile = {}; // form data
+//   vm.updateProfile = function() {
+//   };
+// }
 
 /********** SERVICES ***************/
 
@@ -119,10 +117,10 @@ function Account($http, $q, $auth, $location) {
   self.currentUser = currentUser;
   self.getProfile = getProfile;
   self.updateProfile = updateProfile;
-  console.log('account')
+  console.log('account');
 
   function signup(userData) {
-    console.log('signup', userData)
+    console.log('signup', userData);
     return (
       $auth
       .signup(userData)
@@ -140,14 +138,14 @@ function Account($http, $q, $auth, $location) {
   }
 
   function login(userData) {
-    console.log('Acount.login', userData)
+    console.log('Acount.login', userData);
     return (
       $auth
       .login(userData) // 
       .then(
         function onSuccess(res) {
           console.log('onSuccess',res.data.user);//all user info comes back here
-          userInfo = {user:res.data.user};
+          userInfo = {user:res.data.user};  //stores to global object
           // console.log(response.data.token);
           $auth.setToken(res.data.token);
         },
@@ -162,6 +160,7 @@ function Account($http, $q, $auth, $location) {
   function logout() {
     return ($auth.logout() // delete token 
       .then(function() {
+        userInfo = {}; // clears global variable
         $auth.removeToken();
         self.user = null;
       })

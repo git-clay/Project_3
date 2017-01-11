@@ -4,17 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RoamRR</title>
+    
     <!-- Bootstrap CSS -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <!-- Custom Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="../css/style.css">
       <!-- jQuery -->
-    <script src='/bower_components/jquery/dist/jquery.min.js'></script>
+    <!-- <script src='/bower_components/jquery/dist/jquery.min.js'></script> -->
 </head>
 
 <body ng-app="roamrrApp">
@@ -45,22 +48,23 @@
 
 <ui-view></ui-view>
 
+    <!--   Drag and Drop -->
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="/js/angular-dragdrop.min.js"></script>
+    
     <!-- Bootstrap -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
     <!-- Angular / Angular-router -->
-
     <script src='/bower_components/angular/angular.min.js'></script>
     <script src='/bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
-  <!--   Drag and Drop -->
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-  <script src="/js/angular-dragdrop.min.js"></script>
- <!-- Angular Satellizer -->
+
+    <!-- Angular Satellizer -->
     <script src='/bower_components/satellizer/dist/satellizer.min.js'></script>
   
     <!-- Custom js -->
     <script src="/js/front.js"></script>
-    <!-- Google Maps -->
-<!--     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB47TKXs1AAflxa1PA-WNj6UZ2Ylfd48DE&libraries=places&callback=initMap">
+
     </script> -->
     <!-- Angular directives / Controllers  -->
     <script src='/js/directives/user-state-provider.js'></script>
