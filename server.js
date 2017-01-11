@@ -110,8 +110,8 @@ app.post('/auth/signup', function(req, res) {
          // console.log(req.body.password);
 
          User.create(req.body)	// opens up /models and creates a user to the psql db
-            .then(function(user) {
-               if (!user) return error(res, "not saved");
+            .done(function(user) {
+               // if (!user) return error(res, "not saved");
                console.log(user.dataValues);
                auth.createJWT(user);
 
@@ -126,7 +126,7 @@ app.post('/auth/signup', function(req, res) {
 app.post('/auth/login', function(req, res) {
    User.findOne({
       where: {email: req.body.email}})
-   		.then(function(user) {
+   		.done(function(user) {
       // var compare = 'user.$modelOptions.instanceMethods.comparePassword';  // to call method stored in user model
 
       if (!user) {
