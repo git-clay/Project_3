@@ -146,7 +146,7 @@ app.post('/auth/login', function(req, res) {
          email: req.body.email
       }
    }).then(function(user) {
-      var compare = 'user.$modelOptions.instanceMethods.comparePassword'
+      var compare = 'user.$modelOptions.instanceMethods.comparePassword';
 
       if (!user) {
          return res.status(401).send({
@@ -158,10 +158,10 @@ app.post('/auth/login', function(req, res) {
       // user.$modelOptions.instanceMethods.comparePassword(p1,p2);
 
       validPassword = function() {
-         console.log('stored from db: ', user.dataValues.password)
-         console.log('password from login form: ', req.body.password)
+         console.log('stored from db: ', user.dataValues.password);
+         console.log('password from login form: ', req.body.password);
          bcrypt.compare(req.body.password, user.dataValues.password, function(err, isMatch) {
-            console.log(isMatch)
+            console.log(isMatch);
             if (isMatch === true) {
                res.send({
                   token: auth.createJWT(user)
@@ -171,6 +171,7 @@ app.post('/auth/login', function(req, res) {
       };
       validPassword();
    });
+
 });
 
 
@@ -180,7 +181,10 @@ app.get(['/'], function(req, res) { // one page app -- angular appends to index.
    res.sendFile(__dirname + '/public/views/index.html');
 });
 
-
+app.get('/choices', function(req, res) {
+    
+        res.sendFile(__dirname+'/public/views/templates/choices.html');
+    });
 /*********************** Yelp request function ******************************/
 
 
