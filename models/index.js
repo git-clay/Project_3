@@ -1,13 +1,18 @@
-console.log('hit index.js in models');
-
+var thisComputer = process.env.LOGNAME;
 var Sequelize = require('sequelize'),
-	sequelize = new Sequelize('postgres://claybin@localhost:5432/roamrr_models'),
+	sequelize = new Sequelize(
+		'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
     bcrypt = require('bcryptjs');
 
+
+	// sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
+	// 	'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
+ //    bcrypt = require('bcryptjs');
 
 //Export models and Sequelize for seed and dbSetup
 module.exports.Sequelize = Sequelize;
 module.exports.sequelize = sequelize;
+
 
 var User 	= sequelize.import("./user");
 var Event	= sequelize.import('./event-model.js');
