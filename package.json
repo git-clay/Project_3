@@ -24,6 +24,7 @@
     "morgan": "^1.7.0",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
+    "pgtools": "^0.2.3",
     "sequelize": "^3.28.0",
     "yelp": "^1.0.2"
   },
@@ -32,9 +33,7 @@
     "chai-http": "^3.0.0",
     "mocha": "^2.5.3",
     "ng-mock": "^0.10.10",
-    "q": "^1.4.1",
-    "request": "^2.79.0",
-    "underscore": "^1.8.3"
+    "request": "^2.79.0"
   },
   "dialect": "postgres"
 }

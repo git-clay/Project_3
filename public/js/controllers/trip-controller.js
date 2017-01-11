@@ -23,18 +23,18 @@ angular
 //   return directive;
 // }
 ChoicesController.$inject = ["$http",'$location']; // minification protection
-function ChoicesController ($http,$location, YelpFactory) {
+function ChoicesController ($http,$location) {
 console.log('choices controller');
   var vm = this;
   vm.activitiesList =[];
 
-    function queryEvents(){
-      var activityGet = YelpFactory.query({}, function(response){
-        console.log('its the response for yelp' + response);
-        vm.activitiesList = response;
-      })
-    }
-    queryEvents()
+    // function queryEvents(){
+    //   var activityGet = YelpFactory.query({}, function(response){
+    //     console.log('its the response for yelp' + response);
+    //     vm.activitiesList = response;
+    //   })
+    // }
+    // queryEvents()
 
 
     function getAllApiEvents(){
@@ -53,8 +53,8 @@ console.log('choices controller');
     
   }
 }
-  EventsController.$inject = ["$http",'$location','$scope']; // minification protection
-function EventsController ($http,$location,$scope) {
+  EventsController.$inject = ["$http",'$location','$scope','YelpFactory','$resource']; // minification protection
+function EventsController ($http,$location,$scope,YelpFactory,$resource) {
 console.log('events controller');
 // var vm = this;
 $scope.name2 = {name:'billy'};
@@ -102,6 +102,12 @@ $scope.name2 = {name:'billy'};
     }
   ];
 
-
+    function queryEvents(){
+      var activityGet = YelpFactory.query({}, function(response){
+        console.log('its the response for yelp' + response);
+        vm.activitiesList = response;
+      })
+    }
+    queryEvents()
       
 }
