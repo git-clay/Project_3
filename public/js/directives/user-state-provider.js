@@ -1,8 +1,8 @@
 console.log('state provider')
 angular
-  .module('roamrrApp', ['ui.router', 'satellizer', 'ngDragDrop']) //sets main app and dependancies
+  .module('roamrrApp', ['ui.router', 'satellizer']) //sets main app and dependancies
   .config(configRoutes);
-
+// , 'ng-drag'
 /************* ROUTES *********************/
 configRoutes.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider"]; // minification protection
 function configRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -57,6 +57,7 @@ $stateProvider
         loginRequired: loginRequired
       }
     })
+        /******** Activity controller directives ***********/
     .state('activity',{
       url: '/activity',
       templateUrl: '../views/templates/activity.html',
@@ -69,12 +70,9 @@ $stateProvider
       controller: 'ChoicesController',
       controllerAs: 'choices'
     })
-    /******** Activity controller directives ***********/
-    .state('events',{
-      url: '/events',
-      templateUrl: '../views/templates/events.html',
-      controller: 'EventsController',
-      controllerAs: 'event'
+    .state('main',{
+      controller: 'MainController',
+      controllerAs: 'main'
     });
 
 
@@ -94,7 +92,7 @@ $stateProvider
       if ($auth.isAuthenticated()) {
         deferred.resolve();
       } else {
-        console.log('fail')
+        console.log('fail');
         // $location.path('/login');
       }
       return deferred.promise;

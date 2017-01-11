@@ -5,23 +5,30 @@ angular
   .controller('LoginController', LoginController)
   .controller('SignupController', SignupController)
   .controller('LogoutController', LogoutController)
-  .controller('ProfileController', ProfileController)
+  // .controller('ProfileController', ProfileController)
   .controller('ActivityController', ActivityController)
   .service('Account', Account);
   // .config(configRoutes);
 
 console.log('USER-CONTROLLER . JS');
-
+var userInfo = {};
+var gps =[];
+var formInfo = {};
 /********** CONTROLLERS ***************/
 MainController.$inject = ["Account"]; // minification protection
 function MainController(Account) {
   var vm = this;
-  console.log('main controller');
+  console.log('main controller',userInfo.user);
+ 
+  
 
-  vm.currentUser = function() {
-    return Account.currentUser();
-  };
+  
+  
+  // vm.currentUser = function() {
+  //   return userInfo;
+  // };
 }
+
 
 HomeController.$inject = ["$http"]; // minification protection
 function HomeController ($http) {
@@ -45,8 +52,9 @@ function ActivityController (Account,$location) {
 console.log('activity controller')
 var vm = this;
 vm.formInfo = {};
-  vm.activityForm = function(){
 
+  vm.activityForm = function(){
+    formInfo = vm.formInfo;
     console.log('formInfo: ',vm.formInfo);
   };
 }
@@ -59,16 +67,15 @@ LoginController.$inject = ["Account",'$location']; // minification protection
 function LoginController (Account,$location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('LoginController')
+  console.log('LoginController');
   vm.login = function() {
     Account
       .login(vm.new_user)
       .then(function(){
         document.body.className=document.body.className.replace('modal-open',''); //kills modal
         var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
-
          vm.new_user={}; // clears form
-          $location.path('/choices'); // directs to profile page
+          $location.path('/choices'); // directs to choices page
       });
   };
 }
@@ -76,14 +83,14 @@ SignupController.$inject = ["Account", '$location']; // minification protection
 function SignupController(Account, $location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('signup controller',vm.new_user);
+  console.log('signup controller');
   vm.signup = function() {
     Account
       .signup(vm.new_user)
       .then(function () {
         document.body.className=document.body.className.replace('modal-open',''); //kills modal
         var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
-          vm.new_user={};
+          vm.new_user={}; // clears form 
           $location.path('/choices');
         }
       );
@@ -96,17 +103,14 @@ function LogoutController(Account, $location) {
   $location.path('/login'); //directs to login page when logged out
 }
 
-
-ProfileController.$inject = ["Account"]; // minification protection
-function ProfileController(Account) {
-  var vm = this;
-  vm.new_profile = {}; // form data
-
-  vm.updateProfile = function() {
-    // TODO #14: Submit the form using the relevant `Account` method
-    // On success, clear the form
-  };
-}
+// // not used  --- will be if we decide to add profile page 
+// ProfileController.$inject = ["Account"]; // minification protection
+// function ProfileController(Account) {
+//   var vm = this;
+//   vm.new_profile = {}; // form data
+//   vm.updateProfile = function() {
+//   };
+// }
 
 /********** SERVICES ***************/
 
@@ -121,36 +125,103 @@ function Account($http, $q, $auth, $location) {
   self.currentUser = currentUser;
   self.getProfile = getProfile;
   self.updateProfile = updateProfile;
-  console.log('account')
+  console.log('account');
+
+// function postFunc(gps, formInfo){ 
+//     // vm = this;
+//            gps.push(localStorage.getItem('nLat'));
+//   gps.push(localStorage.getItem('nLng'));
+//   // vm.userInfo = userInfo.user;
+//   console.log(gps);
+//   console.log(formInfo);
+//   console.log(formInfo.scenic);
+//     console.log(formInfo.city);
+//   console.log(formInfo.days);
+//     $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
+
+//       console.log(data)});
+
+//         //     return $.ajax({
+//         //  method: 'POST',
+//         //  url: '/api/post',
+//         //  data: {gps: gps, scenic: formInfo.scenic, city: formInfo.city},
+//         //  success: function (data){
+//         //     console.log(data)},
+//         // error: function(data) {
+//         //         console.log(data)
+//         //         console.log('oops')
+//         //     },
+         
+//         //  });
+//          }
+//     }
+
+
 
   function signup(userData) {
-    console.log('signup', userData)
+     
+    console.log('signup', userData);
     return (
       $auth
       .signup(userData)
       .then(
-        function onSuccess(response) {
-          console.log(response.data.user)
-          console.log(response.data.token);
-          $auth.setToken(response.data.token);
+        function onSuccess(res) {
+
+          // function postFunc(gps, formInfo){ 
+          vm = this;
+          gps.push(localStorage.getItem('nLat'));
+          gps.push(localStorage.getItem('nLng'));
+          // // vm.userInfo = userInfo.user;
+          // console.log(gps);
+          // console.log(formInfo);
+          // console.log(formInfo.scenic);
+          //   console.log(formInfo.city);
+          // console.log(formInfo.days);
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
+              console.log(data)});
+        //     return $.ajax({
+        //  method: 'POST',
+        //  url: '/api/post',
+        //  data: {gps: gps, scenic: formInfo.scenic, city: formInfo.city},
+        //  success: function (data){
+        //     console.log(data)},
+        // error: function(data) {
+        //         console.log(data)
+        //         console.log('oops')
+        //     },
+         
+        //  });
+         // }
+         // postFunc(gps, formInfo);
+
+
+         
+          console.log(res.data.user) //all user info comes back here
+          // console.log(res.data.token);
+          $auth.setToken(res.data.token);
         },
+
         function onError(error) {
           console.error(error);
         }
-      )
-    );
+        )
+      );
   }
+  
 
   function login(userData) {
-    console.log('Acount.login', userData)
+    postFunc(gps, formInfo);
+    console.log('Acount.login', userData);
     return (
       $auth
-      .login(userData) // login (https://github.com/sahat/satellizer#authloginuser-options)
+      .login(userData) // 
       .then(
-        function onSuccess(response) {
-          console.log('onSuccess')
-          console.log(response.data.token);
-          $auth.setToken(response.data.token);
+        function onSuccess(res) {
+          
+          console.log('onSuccess',res.data.user);//all user info comes back here
+          userInfo = {user:res.data.user};  //stores to global object
+          // console.log(response.data.token);
+          $auth.setToken(res.data.token);
         },
 
         function onError(error) {
@@ -163,6 +234,7 @@ function Account($http, $q, $auth, $location) {
   function logout() {
     return ($auth.logout() // delete token 
       .then(function() {
+        userInfo = {}; // clears global variable
         $auth.removeToken();
         self.user = null;
       })
@@ -211,6 +283,9 @@ function Account($http, $q, $auth, $location) {
     );
   }
 }
+
+
+
 
 
 

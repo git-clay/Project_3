@@ -11,13 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular-drag-drop": "^3.0.5",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "cities": "^1.1.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
-    "jquery": "^3.1.1",
     "jsdom": "^9.9.1",
     "jwt-simple": "^0.4.1",
     "moment": "^2.11.1",

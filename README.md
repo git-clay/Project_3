@@ -8,31 +8,29 @@ SEAN stack travel app
 Basically a simplified tripadvisor using their api for travel information and google's api to search for activities.
 User's can login and save custom trips to their profile. 
 
--Landing page: A world map. Click a region to zoom into the USA then click on Cali for example. 
+We wanted to step away from the conventional idea of planning a trip. Instead of meandering around trourist traps we wanted to create a way to visit the places the locals still enjoy because these spots are true gems! 
 
--Page 2: Then you pick city or adventure on the next screen.  
-
--Page 3: Display suggestions/ideas that can be re-searched if the results are not adequate.  
-
-Tools:
-
-
-"bcrypt" & "bcrypt-nodejs": Password salt and hash
-"body-parser": To more easily manage json objects
-"express"" : To more easily communicate with the database
-"postgres" & "sequellize": Used to create and update the database via SQL
-"nodemon" : used to automatically reload node after any file was saved
-"satellizer": used to register and login users
-"request": used to pull in all of these tools on the designated file
-Routes and controllers were created to make the RESTful requests more organized both within the app itself and requests from a third party api.
-
-
-    "cities":
-    "jwt-simple":
-    "moment":
-    "morgan":
-    "yelp"
+###Tools:
+    "angular-drag-drop": 
+    "bcrypt" & "bcrypt-nodejs": Password salt and hash
+    "body-parser": To more easily manage json objects
     "chai":
     "chai-http":
-    "mocha":
+    "cities":
+    "express"" : To more easily communicate with the database
+    "jwt-simple": Used to create authentication tokins for user login
+    "postgres" & "sequellize": Used to create and update the database via SQL
     "ng-mock":
+    "nodemon" : used to automatically reload node after any file was saved
+    "mocha":
+    "moment":
+    "morgan":
+    "satellizer": used to register and login users
+    "request": used to pull in all of these tools on the designated file
+    "yelp":
+
+
+
+
+
+    Routes and controllers were created to make the RESTful requests more organized both within the app itself and requests from a third party api.
