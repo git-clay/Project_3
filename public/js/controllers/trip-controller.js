@@ -8,9 +8,10 @@ angular
   //     , function($resource){
   //   return $resource('http://localhost:3000/api/post')
   // })
+
     //  .directive('wdiCard', wdiCard);
 
-;
+
 
 // function wdiCard(){
 //   var directive = {
@@ -24,11 +25,13 @@ angular
 //   return directive;
 // }
 
+
 // EventsController.$inject = ["$http",'$location']; // minification protection
 // function EventsController ($http,$location) {
 // console.log('Events controller');
 //   var vm = this;
 //   vm.activitiesList =[];
+
 
 //     // function queryEvents(){
 //     //   var activityGet = YelpFactory.query({}, function(response){
@@ -57,6 +60,9 @@ angular
 // }
   ChoicesController.$inject = ["$http",'$location','$scope']; // minification protection
 function ChoicesController ($http,$location,$scope) {
+  $http.post('/api/yelp', {}).then(function(data){
+              console.log(data.object)});
+
   console.log('Choices controller');
   // var vm = this;
   $scope.name2 = {name:'billy'};

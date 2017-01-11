@@ -6,6 +6,7 @@ console.log('sequelized user');
 
 //might need to capitalize user
 var User = sequelize.define('users',{
+
   email: { type: Sequelize.STRING, unique: true, lowercase: true },
   password: Sequelize.STRING,
   displayName: Sequelize.STRING,

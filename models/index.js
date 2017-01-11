@@ -61,6 +61,11 @@ var Sequelize = require('sequelize'),
     bcrypt = require('bcryptjs');
 
 
+var Sequelize = require('sequelize'),
+    sequelize = new Sequelize(
+        'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
+   bcrypt = require('bcryptjs');
+
 
 	// sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
 	// 	'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
@@ -87,6 +92,7 @@ Trip.hasMany(Event);
 
 module.exports.models = {
 	sequelize :sequelize,
+
 	User : User,
 	Event : Event,
 	Trip : Trip
