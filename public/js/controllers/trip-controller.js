@@ -3,7 +3,6 @@ console.log('trip Controller')
 angular
   .module('roamrrApp') //sets main app and dependancies
   .controller('ChoicesController',ChoicesController)
-
     // .controller('EventsController',EventsController)
     // .factory('YelpFactory')
   //     , function($resource){
@@ -25,24 +24,7 @@ angular
 //   };
 //   return directive;
 // }
-// <<<<<<< HEAD
-//  // console.log(YelpFactory);
-// ChoicesController.$inject = ["$http",'$location','YelpFactory']; // minification protection
-// function ChoicesController ($http,$location, YelpFactory) {
-// console.log('choices controller');
-//   var vm = this;
-//   vm.activitiesList =[];
 
-
-//     function queryEvents(YelpFactory){
-      
-//       var activityGet = YelpFactory.query({}, function(response){
-//         console.log('its the response for yelp' + response);
-//         vm.activitiesList = response;
-//       })
-//     }
-//     queryEvents()
-// =======
 
 // EventsController.$inject = ["$http",'$location']; // minification protection
 // function EventsController ($http,$location) {
@@ -80,6 +62,7 @@ angular
 function ChoicesController ($http,$location,$scope) {
   $http.post('/api/yelp', {}).then(function(data){
               console.log(data.object)});
+
   console.log('Choices controller');
   // var vm = this;
   $scope.name2 = {name:'billy'};

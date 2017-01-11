@@ -59,6 +59,7 @@ app.post('/api/post', function(req, res) {
 
 
 function yelpgo(city, res, cityProp, scenicProp) {
+
    yelp.search({
          term: cityProp +","+ scenicProp,
          location: city
@@ -79,7 +80,6 @@ function yelpgo(city, res, cityProp, scenicProp) {
          // console.error(err);
       });
    console.log(city + "you did it boss");
-
 }
 
 
@@ -133,7 +133,6 @@ app.post('/auth/signup', function(req, res) {
             });
       });
    });
-
 });
 app.post('/auth/login', function(req, res) {
    User.findOne({
