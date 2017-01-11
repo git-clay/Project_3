@@ -60,55 +60,7 @@ angular
 // }
   ChoicesController.$inject = ["$http",'$location','$scope']; // minification protection
 function ChoicesController ($http,$location,$scope) {
-  $http.post('/api/yelp', {}).then(function(data){
-              console.log(data.object)});
 
-  console.log('Choices controller');
-  // var vm = this;
-  $scope.name2 = {name:'billy'};
-  // vm.name = {name:'clay'}
-   $scope.stuff =[
-      {
-    created:  11/12/12,
-    address: '123 angular',
-    phone: '123-123-1234',
-    website: 'www.www.com',
-    reviews:'4 stars!',
-    cost:'1 million dollars'  
-      },
-      {
-    created:  01/12/42,
-    address: '123 angular',
-    phone: '123-123-1234',
-    website:'www.111ww.com',
-    reviews: '100 stars!',
-    cost:'3.50 dollars'  
-      },
-      {
-    created:  09/07/23,
-    address: '123 angular',
-    phone: '123-123-1234',
-    website: 'www.stuffgoeshere.com',
-    reviews:'10000 stars!',
-    cost:'20 dollars'  
-      },
-      {
-    created:  05/23/34,
-    address: '123 angular',
-    phone: '123-123-1234',
-    website: 'www.blah.com',
-    reviews:'0 stars!',
-    cost:'10 million dollars'  
-      },
-      {
-    created:  07/07/07,
-    address: '123 angular',
-    phone: '123-123-1234',
-    website: 'www.junk.com',
-    reviews:'.5 stars!',
-    cost:'1 dollar'  
-      }
-    ];
 
     // function queryEvents(){
     //   var activityGet = YelpFactory.query({}, function(response){

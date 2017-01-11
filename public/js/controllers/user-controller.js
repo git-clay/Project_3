@@ -14,7 +14,7 @@ console.log('USER-CONTROLLER . JS');
 var userInfo = {};
 var gps =[];
 var formInfo = {};
-var userArr =[];
+var userObj;
 /********** CONTROLLERS ***************/
 MainController.$inject = ["Account"]; // minification protection
 function MainController(Account) {
@@ -27,8 +27,8 @@ function MainController(Account) {
   // };
 }
 
-HomeController.$inject = ["$http",'$location']; // minification protection
-function HomeController ($http,$location) {
+HomeController.$inject = ["$http",'$location','$scope']; // minification protection
+function HomeController ($http,$location,$scope) {
 
   console.log('home controller');
 
@@ -38,6 +38,7 @@ function HomeController ($http,$location) {
     $location.path('/activity');
 
       };
+    $scope.stuff=userObj;
   // vm.posts = [];
   // vm.new_post = {}; // form data
 
@@ -154,13 +155,15 @@ function Account($http, $q, $auth, $location) {
           // console.log(formInfo.scenic);
           //   console.log(formInfo.city);
           // console.log(formInfo.days);
-          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
-              console.log(data)});
-
-          console.log(res.data.user) //all user info comes back here
+           console.log(res.data.user) ;//all user info comes back here
           // console.log(res.data.token);
-          if(res.data.token)
           $auth.setToken(res.data.token);
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
+            userArr.push(data);
+              console.log(userArr);
+            });
+
+         
         },
 
         function onError(error) {
@@ -172,8 +175,7 @@ function Account($http, $q, $auth, $location) {
   
 
   function login(userData) {
-    postFunc(gps, formInfo);
-
+userArr=[];
     console.log('Acount.login', userData);
     return (
       $auth
@@ -182,11 +184,20 @@ function Account($http, $q, $auth, $location) {
         function onSuccess(res) {
 
           console.log('onSuccess',res.data.user);//all user info comes back here
-          userInfo = {user:res.data.user};  //stores to global object-- user
           // console.log(response.data.token);
-
-
+          userInfo = {user:res.data.user};  //stores to global object -- user
+          gps.push(localStorage.getItem('nLat'));
+          gps.push(localStorage.getItem('nLng'));
           $auth.setToken(res.data.token);
+
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
+     userObj =data.data;
+              console.log(userObj);
+              // console.log(data.);
+            });
+              
+
+
         },
 
         function onError(error) {
