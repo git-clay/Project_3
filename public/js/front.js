@@ -237,17 +237,7 @@ function initMap() {
         // postFunc(nLat,nLng)
      
   });
-        //  function postFunc(nLat,nLng){ 
-        //     $.ajax({
-        //  method: 'POST',
-        //  url: '/api/post',
-        //  data: {lat: nLat, lng: nLng},
-        //  success: function (data){
-        //     console.log(data)},
-        // error: function(data) {
-        //         console.log(data)
-        //         console.log('oops')
-        //     },
+
          
         //  }); 
 

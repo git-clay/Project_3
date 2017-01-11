@@ -19,7 +19,7 @@ var userArr =[];
 MainController.$inject = ["Account"]; // minification protection
 function MainController(Account) {
   var vm = this;
-  console.log('main controller',userInfo.user);
+  console.log('main controller',userInfo.user)
 
   vm.userInfo = userInfo.user;
   // vm.currentUser = function() {
@@ -27,12 +27,17 @@ function MainController(Account) {
   // };
 }
 
+HomeController.$inject = ["$http",'$location']; // minification protection
+function HomeController ($http,$location) {
 
-HomeController.$inject = ["$http"]; // minification protection
-function HomeController ($http) {
   console.log('home controller');
 
   var vm = this;
+  vm.mapFunc = function(){
+    console.log('mapfunc');
+    $location.path('/activity');
+
+      };
   // vm.posts = [];
   // vm.new_post = {}; // form data
 
@@ -70,9 +75,10 @@ function LoginController (Account,$location) {
     Account
       .login(vm.new_user)
       .then(function(){
-        document.body.className=document.body.className.replace('modal-open',''); //kills modal
-        var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
          vm.new_user={}; // clears form
+         $('#loginReg').modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
           $location.path('/choices'); // directs to choices page
       });
   };
@@ -86,10 +92,12 @@ function SignupController(Account, $location) {
     Account
       .signup(vm.new_user)
       .then(function () {
-        document.body.className=document.body.className.replace('modal-open',''); //kills modal
-        var modal = document.getElementById('loginReg').style.display='none'; // removes modal shadow left over
           vm.new_user={}; // clears form 
+          $('#loginReg').modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
           $location.path('/choices');
+
         }
       );
   };
@@ -133,6 +141,8 @@ function Account($http, $q, $auth, $location) {
       .signup(userData)
       .then(
         function onSuccess(res) {
+          userInfo = {user:res.data.user};  //stores to global object -- user
+
 
           // function postFunc(gps, formInfo){ 
           vm = this;
@@ -149,6 +159,7 @@ function Account($http, $q, $auth, $location) {
 
           console.log(res.data.user) //all user info comes back here
           // console.log(res.data.token);
+          if(res.data.token)
           $auth.setToken(res.data.token);
         },
 
@@ -171,8 +182,10 @@ function Account($http, $q, $auth, $location) {
         function onSuccess(res) {
 
           console.log('onSuccess',res.data.user);//all user info comes back here
-          userInfo = {user:res.data.user};  //stores to global object
+          userInfo = {user:res.data.user};  //stores to global object-- user
           // console.log(response.data.token);
+
+
           $auth.setToken(res.data.token);
         },
 
