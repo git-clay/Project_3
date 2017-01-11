@@ -290,23 +290,23 @@ function initMap() {
         markers = [];
     }
 }
-window.onload = function() {
-    var submit = getElementById("activitySubmit").onclick = function() {
-        function collectFilters( form ) {
-        // window.onload = function collectFilters( form ) {
-          console.log ("collectFilters function called");
-          var collected=[];
-          var inputs = document.getElementsByTagName('input');
-          console.log(inputs.length);//gets all the input tags i;n form
-            for(var i=0; i<inputs.length; i++) 
-                    {
-                        if (inputs[i].checked === true)
-                        collected.push(inputs[i].value); 
-                    }
-                localStorage.setItem('collected', JSON.stringify(collected));
-                alert(collected);
-            return collected;
+// window.onload = function() {
+//     var submit = getElementById("activitySubmit").onclick = function() {
+//         function collectFilters( form ) {
+//         // window.onload = function collectFilters( form ) {
+//           console.log ("collectFilters function called");
+//           var collected=[];
+//           var inputs = document.getElementsByTagName('input');
+//           console.log(inputs.length);//gets all the input tags i;n form
+//             for(var i=0; i<inputs.length; i++) 
+//                     {
+//                         if (inputs[i].checked === true)
+//                         collected.push(inputs[i].value); 
+//                     }
+//                 localStorage.setItem('collected', JSON.stringify(collected));
+//                 alert(collected);
+//             return collected;
          
-        }
-    };
-};
+//         }
+//     };
+// };

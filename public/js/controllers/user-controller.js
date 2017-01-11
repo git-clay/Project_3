@@ -43,7 +43,12 @@ function HomeController ($http) {
 ActivityController.$inject = ["Account",'$location']; // minification protection
 function ActivityController (Account,$location) {
 console.log('activity controller')
+var vm = this;
+vm.formInfo = {};
+  vm.activityForm = function(){
 
+    console.log('formInfo: ',vm.formInfo);
+  };
 }
 
 

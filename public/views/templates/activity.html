@@ -5,14 +5,14 @@
         <span class="logo"> Roamrr</span>
     </div>
 
-        <form id ="activityFilter">
+        <form id ="activityFilter" ng-controller='ActivityController as ac' ng-submit='ac.activityForm()'>
             <!--        Slider Box -->
             <div class="sliderbox">
 
                 <h3> How Many Days Will You Be in {{Location}}?</h3>
 
                 <!--  Slider -->
-                <input type="range" name="days" min="0" max="14">
+                <input type="range" name="days" min="0"  max="14" ng-model='ac.formInfo.days'>
                 <output for="days" onforminput="value = days.valueAsNumber;"></output>
                 <div class="container space-between">
                     <div>1</div>
@@ -50,13 +50,13 @@
                         
                         <ul id="check-list-box" class="list-group checked-list-box">
                             <li class="list-group-item" >
-                                <input type="checkbox" value= "scenic"id="scenic">The Scenic Route</li>
+                                <input type="checkbox" value= "scenic" id="scenic" ng-model='ac.formInfo.scenic'>The Scenic Route</li>
                             <li class="list-group-item">
-                                <input type="checkbox" value= "city" id="city">The City Scene</li>                       
+                                <input type="checkbox" value= "city" id="city" ng-model='ac.formInfo.city'>The City Scene</li>                       
                         </ul>
                            <div id="continue-button">
-                            <button type="button" id="activitySubmit" class="btn btn-primary btn-md outline" data-toggle="modal" data-target="#loginReg">Continue</button>
-
+                       <!--      <button type="button"  class="btn btn-primary btn-md outline" data-toggle="modal" data-target="#loginReg">Continue</button> -->
+                        <input type="submit" id="activitySubmit" value="Continue" class="btn btn-primary btn-md outline"   data-toggle="modal" data-target="#loginReg">
                     </div>
 
 
