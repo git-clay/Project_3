@@ -1,6 +1,6 @@
 console.log('state provider')
 angular
-  .module('roamrrApp', ['ui.router', 'satellizer']) //sets main app and dependancies
+  .module('roamrrApp', ['ui.router', 'satellizer', 'ngDragDrop']) //sets main app and dependancies
   .config(configRoutes);
 
 /************* ROUTES *********************/
