@@ -14,17 +14,15 @@ User's can login and save custom trips to their profile.
 
 -Page 3: Display suggestions/ideas that can be re-searched if the results are not adequate.  
 
-Tools:
+###Tools:
+    "bcrypt" & "bcrypt-nodejs": Password salt and hash
+    "body-parser": To more easily manage json objects
+    "express"" : To more easily communicate with the database
+    "postgres" & "sequellize": Used to create and update the database via SQL
+    "nodemon" : used to automatically reload node after any file was saved
+    "satellizer": used to register and login users
+    "request": used to pull in all of these tools on the designated file
 
-
-"bcrypt" & "bcrypt-nodejs": Password salt and hash
-"body-parser": To more easily manage json objects
-"express"" : To more easily communicate with the database
-"postgres" & "sequellize": Used to create and update the database via SQL
-"nodemon" : used to automatically reload node after any file was saved
-"satellizer": used to register and login users
-"request": used to pull in all of these tools on the designated file
-Routes and controllers were created to make the RESTful requests more organized both within the app itself and requests from a third party api.
 
 
     "cities":
@@ -36,3 +34,4 @@ Routes and controllers were created to make the RESTful requests more organized 
     "chai-http":
     "mocha":
     "ng-mock":
+    Routes and controllers were created to make the RESTful requests more organized both within the app itself and requests from a third party api.
