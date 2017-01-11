@@ -5,12 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bower": "^0.6.x",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "cities": "^1.1.2",
