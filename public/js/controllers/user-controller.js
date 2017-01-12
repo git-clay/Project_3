@@ -17,10 +17,14 @@ var formInfo = {};
 var userObj;
 var storedEvents = [];
 /********** CONTROLLERS ***************/
-MainController.$inject = ["Account"]; // minification protection
-function MainController(Account) {
+MainController.$inject = ["Account", "$location"]; // minification protection
+function MainController(Account, $location) {
   var vm = this;
   console.log('main controller',userInfo.user);
+  vm.go= function (){
+    $location.path('/itinerary')
+  };
+
 
   vm.userInfo = userInfo.user;
   vm.userEvents={}; //userEvents is used to pull in saved cards user selects
@@ -33,8 +37,10 @@ HomeController.$inject = ["$http",'$location','$scope']; // minification protect
 function HomeController ($http,$location,$scope) {
 
   console.log('home controller');
-
   var vm = this;
+
+  
+  
   vm.mapFunc = function(){
     console.log('mapfunc');
     $location.path('/activity');
@@ -167,7 +173,7 @@ function Account($http, $q, $auth, $location) {
               $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
             }
            userObj =data.data;
-              console.log(userObj);
+              console.log(userObj + "city name should be in here");
             });
          
         },

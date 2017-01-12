@@ -86,6 +86,7 @@ $stateProvider
       url:'/splash',
       templateUrl:'../views/templates/splash.html'
     });
+    
 
 
     function skipIfLoggedIn($q, $auth) {
