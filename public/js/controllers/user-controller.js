@@ -193,10 +193,10 @@ userArr=[];
           gps.push(localStorage.getItem('nLng'));
           $auth.setToken(res.data.token);
 
-     //      return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
-     // userObj =data.data;
-     //          console.log(userObj);
-     //        });
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
+     userObj =data.data;
+              console.log(data);
+            });
               
 
 
