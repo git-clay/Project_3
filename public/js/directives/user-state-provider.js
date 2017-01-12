@@ -77,6 +77,14 @@ $stateProvider
     .state('itinerary',{
       url:'/itinerary',
       templateUrl:'../views/templates/itinerary.html'
+    })
+    .state('team',{
+      url:'/team',
+      templateUrl:'../views/templates/team.html'
+    })
+    .state('splash',{
+      url:'/splash',
+      templateUrl:'../views/templates/splash.html'
     });
 
 

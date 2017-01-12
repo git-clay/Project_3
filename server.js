@@ -173,9 +173,6 @@ app.get(['/'], function(req, res) { // one page app -- angular appends to index.
    res.sendFile(__dirname + '/public/views/index.html');
 });
 
-app.get('/team', function(req, res) { 
-   res.sendFile(__dirname + '/public/views/team.html');
-});
 
 app.get('/splash', function(req, res) { 
    res.sendFile(__dirname + '/public/views/Splash.html');
