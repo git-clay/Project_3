@@ -2,7 +2,7 @@
   "name": "travel-p3",
   "description": "",
   "main": "server.js",
-  "directory": "/public",
+  "directory": "public/components",
   "license": "ISC",
   "homepage": "https://github.com/git-clay/Project_3",
   "dependencies": {
