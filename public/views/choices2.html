@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RoamRR</title>
+    <!-- ***** CSS ****** -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<body ng-app="roamrrApp">
 
 <section ng-controller='HomeController as hc' >
     <div class="choices_div">
@@ -5,13 +24,8 @@
         <span class="logo"> Roamrr</span>
     </div>
     <div class="headline-box col-lg-8-offset-md-2" ng-controller='MainController as mc'>
-
         <h3 style="padding-top: 50px;"> Thanks {{mc.userInfo.displayName}} for registering!</h3>
         <h4>Here are your itinerary suggestions. (test)</h4>
-
-        <h3> Thanks {{mc.userInfo.displayName}} for registering!</h3>
-        <h4>Here is your {{mc.formInfo.days}} itinerary {{mc.location.city}} suggestions:</h4>
-
     </div>
 
     <div class="card-container col-lg-8" >
@@ -61,16 +75,19 @@
        <!--      End of Result -->
 </div>
     <!-- End Of Choices-Div -->
-           <div ng-controller='MainController as mc'> 
+            <div id="fixed-button" ng-controller='MainController as mc'>
+                <button  type="button" class="btn btn-primary btn-md outline">Save</button>
+            </div>
         <!-- Board Div -->
         <div ng-model='mc.userEvents' id="board" class="lane" data-drop="true" jqyoui-droppable="{multiple: true, onDrop:  'dropCallback'}" data-jqyoui-options="{hoverClass: 'ui-state-active', tolerance: 'pointer'}">
-        <form id="fixed-button" ng-submit='mc.go()'>
-                <input  type="submit" class="btn btn-primary btn-md outline"></input>
-        </form>
             <h3> Drag any activities that look good to you-here.<br>
                 Save when you've finished.
             </h3>
         </div>
-        </div>
         <!-- End of Board Div -->
 </section>
+
+        <!-- ***** SCRIPTs ****** -->
+</body>
+
+</html>
