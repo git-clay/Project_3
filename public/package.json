@@ -5,13 +5,7 @@
   "scripts": {
     "postinstall": "bower cache clean && bower install"
   },
-  "keywords": [],
   "author": "",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-  ],
   "license": "ISC",
   "dependencies": {
     "bower": "^1.6.x"
