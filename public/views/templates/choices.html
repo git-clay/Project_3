@@ -24,41 +24,39 @@
  
     
     <div class="container" ng-repeat='st in stuff'>
-        {{st.id}}{{st.display_phone}}{{st.url}}
+        
 
         <div class="row">
-            ww.coloradozipline.net</a>
+            </a>
             </span>
             <div id="result" class="col-lg-4">
                 <div class="result-card">
                     <div id="pic">
-                        <img src="/views/images/zipline.jpg" alt="">
+                        <img src={{st.image_url}} alt="">
                     </div>
                     <div id="card-content">
-                        <h3 class="result-title">AVA Cliffside Zipline</h3>
+                        <h3 class="result-title">{{st.name}}</h3>
                         <br>
-                        <span class="detail">Address: 431 CO-103, Idaho Springs,
+                        <span class="detail">{{st.location.display_address}}
                         <br>
-                        CO 80452
+                        Phone: {{st.display_phone}}
                         <br>
-                        Phone: (970) 423-7031
-                        <br>
-                        Website: <a href="http://www.coloradozipline.net">http://www.coloradozipline.net</a>
+                        Website: <a href={{st.url}}>Visit Website Here!</a>
                         </span>
                     </div>
                     <div class="stars">
-                        <img src="images/stars_4.png"/>
+                       Rating: {{st.rating}}/5
                     </div>
                     <p class="description">
-                        "So much fun! Tony and Travis made the experience easy and fun. It was cool that there was other "optional" things to do throughout the course. I'd definitely go back again!"
+                        {{st.snippet_text}}
                     </p>
                     <hr>
-                    <span class="acqua">
+                    <!-- <span class="acqua">
                         <h4>COST</h4>
-                    </span>
-                    <p class="price">
+                    </span> -->
+                    <!-- <p class="price">
                         $89 per person for adults and $79 for children (12 and under) for a half day trip
-                    </p>
+                    </p> -->
                     <br>
                 </div>
             </div>
