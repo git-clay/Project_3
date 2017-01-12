@@ -15,17 +15,17 @@ var userInfo = {};
 var gps =[];
 var formInfo = {};
 var userObj;
+var storedEvents = [];
 /********** CONTROLLERS ***************/
 MainController.$inject = ["Account"]; // minification protection
 function MainController(Account) {
   var vm = this;
-  console.log('main controller',userInfo.user)
+  console.log('main controller',userInfo.user);
 
   vm.userInfo = userInfo.user;
-  // vm.currentUser = function() {
-  //   return userInfo;
-  // };
-}
+  vm.userEvents={}; //userEvents is used to pull in saved cards user selects
+  storedEvents = vm.userEvents; //saved cards stored globally
+  }
 
 HomeController.$inject = ["$http",'$location','$scope']; // minification protection
 function HomeController ($http,$location,$scope) {
@@ -77,6 +77,7 @@ function LoginController (Account,$location) {
       .login(vm.new_user)
       .then(function(){
          vm.new_user={}; // clears form
+         console.log('loginloginloginloginlogin')
          $('#loginReg').modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
@@ -94,7 +95,7 @@ function SignupController(Account, $location) {
       .signup(vm.new_user)
       .then(function () {
           vm.new_user={}; // clears form 
-          $('#loginReg').modal('hide');
+          $('#loginReg').modal('hide'); //jquery to kill everything on modal
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
           $location.path('/choices');
@@ -136,6 +137,8 @@ function Account($http, $q, $auth, $location) {
 
 
   function signup(userData) {
+    userArr=[];
+
     console.log('signup', userData);
     return (
       $auth
@@ -158,17 +161,20 @@ function Account($http, $q, $auth, $location) {
            console.log(res.data.user) ;//all user info comes back here
           // console.log(res.data.token);
           $auth.setToken(res.data.token);
-          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
-            userArr.push(data);
-              console.log(userArr);
-            });
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo})
+          .then(function(data){
+            if(data.status===-1){console.log('error!!!!');
+              $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
+            }
 
+           userObj =data.data;
+              console.log(userObj);
+            });
          
         },
-
-        function onError(error) {
-          console.error(error);
-        }
+          function onError(error) {
+            console.error(error);
+          }
         )
       );
   }
@@ -190,11 +196,10 @@ userArr=[];
           gps.push(localStorage.getItem('nLng'));
           $auth.setToken(res.data.token);
 
-          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
-     userObj =data.data;
-              console.log(userObj);
-              // console.log(data.);
-            });
+     //      return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
+     // userObj =data.data;
+     //          console.log(userObj);
+     //        });
               
 
 

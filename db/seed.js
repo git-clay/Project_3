@@ -1,8 +1,10 @@
 var DB = require("../models").models;
+var sequelize = require('../models/index.js').sequelize;
 
-DB.sequelize
-.sync({force: true}).then(function(){
-	console.log('synced')
+sequelize
+.sync({force: true}).then(function(err){
+	if(err){console.log(err)};
+	console.log('synced');
   process.exit();
 });
 

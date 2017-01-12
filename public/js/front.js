@@ -229,23 +229,8 @@ function initMap() {
         console.log(nLatArr[0], nLatArr[1]);
         localStorage.setItem('nLat', JSON.stringify(nLat));
         localStorage.setItem('nLng', JSON.stringify(nLng));
-        
-
-
-
-
-        // postFunc(nLat,nLng)
-     
   });
-
-         
-        //  }); 
-
 }
-
-
-
-    
     
     // addMarker ();
     // NEED TO FINISH---- convert the lat, long to a searchable yelp address using the google geocoder api.    Having trouble  pulling out the lat long variable, even though i defined at global scope...

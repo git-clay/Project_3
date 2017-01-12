@@ -102,6 +102,8 @@
                                       <br>
                                         <br>
                                 </div>
+                                <div id='errorBox'>
+                                </div>
                     </div> 
 
 <!-- End of Left Content Area -->
@@ -121,21 +123,21 @@
                                     <label for="email" class="col-sm-2 control-label">
                                         Email</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email1" placeholder="email"  ng-model="lc.new_user.email"/>
+                                        <input type="email" class="form-control" required="" id="email1" placeholder="email"  ng-model="lc.new_user.email"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="col-sm-2 control-label">
                                         Password</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="password" placeholder="password" ng-model="lc.new_user.password"/>
+                                        <input type="password" class="form-control" required="" id="password" placeholder="password" ng-model="lc.new_user.password"/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
                                     </div>
                                     <div class="col-sm-10">
-                                        <input type="submit" value="Log In" class="btn btn-primary btn-md outline" data-toggle="modal" data-target="#loginReg">
+                                        <input type="submit" value="Log In"  class="btn btn-primary btn-md outline" >
 
                                        
                                         <a href="#">Forgot your password?</a>
@@ -155,14 +157,14 @@
                                     <label for="name" class="col-sm-2 control-label">
                                         Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="name" value='' placeholder="First Name"  ng-model="sc.new_user.displayName"/>
+                                        <input type="text" class="form-control" id="name" value='' required="" placeholder="First Name"  ng-model="sc.new_user.displayName"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">
                                         Email</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" value='' placeholder="email"  ng-model="sc.new_user.email"/>
+                                        <input type="email" class="form-control" id="email" value='' required="" placeholder="email"  ng-model="sc.new_user.email"/>
                                     </div>
                                 </div>
                     
@@ -170,7 +172,7 @@
                                     <label for="password" class="col-sm-2 control-label">
                                         Password</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="password" placeholder="password" value='' ng-model="sc.new_user.password"/>
+                                        <input type="password" class="form-control" id="password" required="" placeholder="password" value='' ng-model="sc.new_user.password"/>
                                     </div>
                                 </div>
 

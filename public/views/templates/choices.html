@@ -20,13 +20,10 @@
                         animate:true,
                         onStart: 'startCallback'}">
     </div>
-    <div>
-        <!-- {{stuff}} -->
-    </div>
+  
  
-    <div >
-<!--     {{stuff.id}}{{stuff.display_phone}}{{stuff.url}}
- -->    <div class="container" ng-repeat='st in stuff'>
+    
+    <div class="container" ng-repeat='st in stuff'>
         {{st.id}}{{st.display_phone}}{{st.url}}
 
         <div class="row">
@@ -68,17 +65,17 @@
             <!-- END OF RESULT     -->
         </div>
         <!-- End of Card Container -->
-        <div id="fixed-button">
-            <button type="button" class="btn btn-primary btn-md outline">
-            Save</button>
-        </div>
+
+    </div>
+    <!-- End Of Choices-Div -->
+            <div id="fixed-button" ng-controller='MainController as mc'>
+                <button  type="button" class="btn btn-primary btn-md outline">Save</button>
+            </div>
         <!-- Board Div -->
-        <div id="board" class="lane" data-drop="true" jqyoui-droppable="{multiple: true, onDrop:  'dropCallback'}" data-jqyoui-options="{hoverClass: 'ui-state-active', tolerance: 'pointer'}">
+        <div ng-model='mc.userEvents' id="board" class="lane" data-drop="true" jqyoui-droppable="{multiple: true, onDrop:  'dropCallback'}" data-jqyoui-options="{hoverClass: 'ui-state-active', tolerance: 'pointer'}">
             <h3> Drag any activities that look good to you-here.<br>
                 Save when you've finished.
             </h3>
         </div>
         <!-- End of Board Div -->
-    </div>
-    <!-- End Of Choices-Div -->
 </section>
