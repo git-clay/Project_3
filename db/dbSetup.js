@@ -6,7 +6,7 @@ var thisComputer = process.env.LOGNAME;
 var pg = require('pg');
 
 pg.defaults.ssl = true;
-pg.connect(process.env.DATABASE_URL, function(err,client){
+pg.connect(process.env.ROAMRR_DB_URL, function(err,client){
   if(err)throw err;
   console.log('connected to postgres! Getting schemas....');
 

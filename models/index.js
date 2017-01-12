@@ -67,7 +67,7 @@
 
 var thisComputer = process.env.LOGNAME;  //username to insert into new Sequelize
 var Sequelize = require('sequelize'),
-	sequelize = new Sequelize( 
+	sequelize = new Sequelize( process.env.ROAMRR_DB_URL ||
 		'postgres://'+thisComputer+'@localhost:5432/roamrr_models' ),
     bcrypt = require('bcryptjs'); 
 
