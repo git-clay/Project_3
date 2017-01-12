@@ -7,14 +7,11 @@
     <div class="headline-box col-lg-8-offset-md-2" ng-controller='MainController as mc'>
 
         <h3 style="padding-top: 50px;"> Thanks {{mc.userInfo.displayName}} for registering!</h3>
-        <h4>Here are your itinerary suggestions. (test)</h4>
-
-        <h3> Thanks {{mc.userInfo.displayName}} for registering!</h3>
         <h4>Here is your {{mc.formInfo.days}} itinerary {{mc.location.city}} suggestions:</h4>
 
     </div>
 
-    <div class="card-container col-lg-8" >
+    <div class="col-lg-8" >
     <!-- Card Container -->
     <!-- RESULT     -->
         <div data-drag="true"
@@ -30,14 +27,13 @@
   
  
     
-    <div class="container" ng-repeat='st in stuff'>
+    <div class="container-card col-sm-12">
         
 
-    <div class="row">
-        
+
 <!--          Result -->
-            <div id="result" class="col-lg-4">
-                <div class="result-card">
+            <!-- <div id="result" class="col-lg-4"> -->
+                <div class="result-card col-lg-4"  ng-repeat='st in stuff'>
                     <div id="pic">
                         <img src={{st.image_url}} alt="">
                     </div>
@@ -57,9 +53,8 @@
                         </p>
                         </div>
                 </div>
-            </div>
+            <!-- </div> -->
        <!--      End of Result -->
-</div>
     <!-- End Of Choices-Div -->
            <div ng-controller='MainController as mc'> 
         <!-- Board Div -->

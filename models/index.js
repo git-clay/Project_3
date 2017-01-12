@@ -15,6 +15,9 @@
 //   var sequelize = new Sequelize(config.url, config);
 // }
 
+
+
+
 // //Load all the models
 // fs
 //   .readdirSync(__dirname)
