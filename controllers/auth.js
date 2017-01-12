@@ -5,6 +5,7 @@ module.exports = {
   /* Login Required Middleware */
   ensureAuthenticated: function (req, res, next) {
     console.log('in auth ensureAuthenticated')
+    
     if (!req.headers.authorization) {
       return res.status(401).send({ message: 'Please make sure your request has an Authorization header.' });
     }
@@ -13,7 +14,7 @@ module.exports = {
     var payload = null;
     console.log('ensureauth')
     try {
-      payload = jwt.decode(token, process.env.TOKEN_SECRET);
+      payload = jwt.decode(token, process.env.TOKEN_SECRET );
     }
     catch (err) {
       return res.status(401).send({ message: err.message });
@@ -29,7 +30,6 @@ module.exports = {
   * Generate JSON Web Token
   */
   createJWT: function (user) {
-    console.log(process.env)
     var payload = {
       sub: user._id,
       iat: moment().unix(),
