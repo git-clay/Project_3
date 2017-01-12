@@ -6,9 +6,7 @@
   "license": "ISC",
   "homepage": "https://github.com/git-clay/Project_3",
   "install":{
-    "path":{
-      "/public"
-    }
+    "path":"/public"
   },
   "dependencies": {
     "angular-drag-drop": "^2.1.3",
