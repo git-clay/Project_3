@@ -2,9 +2,14 @@
   "name": "travel-p3",
   "description": "",
   "main": "server.js",
-  "directory": "public/components",
+  "directory": "public",
   "license": "ISC",
   "homepage": "https://github.com/git-clay/Project_3",
+  "install":{
+    "path":{
+      "/public"
+    }
+  },
   "dependencies": {
     "angular-drag-drop": "^2.1.3",
     "angular-ui-router": "^0.3.2",
