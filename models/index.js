@@ -18,16 +18,16 @@
 // //Load all the models
 // fs
 //   .readdirSync(__dirname)
-//   .filter(function(file) {
+//   .filter(function(file) {	//automatically finds models js files
 //     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
 //   })
-//   .forEach(function(file) {
+//   .forEach(function(file) { // imports the db model name
 //     var model = sequelize['import'](path.join(__dirname, file));
 //     db[model.name] = model;
 //   });
 
 // Object.keys(db).forEach(function(modelName) {
-//   if (db[modelName].associate) {
+//   if (db[modelName].associate) { //gives the db keys
 //     db[modelName].associate(db);
 //   }
 // });
@@ -38,6 +38,7 @@
 
 // module.exports = db;
 
+/*    ^^es6 - might be best for heroku db^^   */
 
 
 
@@ -45,31 +46,19 @@
 
 
 
-
-
-
-
-
-
-
-var thisComputer = process.env.LOGNAME;
+var thisComputer = process.env.LOGNAME;  //username to insert into new Sequelize
 
 
 var Sequelize = require('sequelize'),
 	sequelize = new Sequelize( process.env.ROAMRR_DB_URL ||
 		'postgres://'+thisComputer+'@localhost:5432/roamrr_models' ),
-    bcrypt = require('bcryptjs');
+    bcrypt = require('bcryptjs'); 
 
 
-var Sequelize = require('sequelize'),
-    sequelize = new Sequelize(
-        'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
-   bcrypt = require('bcryptjs');
+sequelize.sync(); //if the tables dont match the models >> new table is created
 
 
-	// sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
-	// 	'postgres://'+thisComputer+'@localhost:5432/roamrr_models'),
- //    bcrypt = require('bcryptjs');
+// sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
 
 //Export models and Sequelize for seed and dbSetup
 module.exports.Sequelize = Sequelize;
@@ -91,8 +80,6 @@ Trip.hasMany(Event);
 
 
 module.exports.models = {
-	sequelize :sequelize,
-
 	User : User,
 	Event : Event,
 	Trip : Trip

@@ -229,6 +229,7 @@ function initMap() {
         console.log(nLatArr[0], nLatArr[1]);
         localStorage.setItem('nLat', JSON.stringify(nLat));
         localStorage.setItem('nLng', JSON.stringify(nLng));
+
   
   });
 }
