@@ -34,11 +34,11 @@ $stateProvider
     .state('login', {
       url: '/login',
       templateUrl: '../views/templates/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc',
-      resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
-      }
+      // controller: 'LoginController',
+      // controllerAs: 'lc',
+      // resolve: {
+      //   skipIfLoggedIn: skipIfLoggedIn
+      // }
     })
     .state('logout', {
       url: '/logout',
