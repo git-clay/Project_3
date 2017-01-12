@@ -159,14 +159,14 @@ function Account($http, $q, $auth, $location) {
            console.log(res.data.user) ;//all user info comes back here
           // console.log(res.data.token);
           $auth.setToken(res.data.token);
-          // return  $http.post('/api/post', {gps: gps, formInfo: formInfo})
-          // .then(function(data){
-          //   if(data.status===-1){console.log('error!!!!');
-          //     $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
-          //   }
-          //  userObj =data.data;
-          //     console.log(userObj);
-          //   });
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo})
+          .then(function(data){
+            if(data.status===-1){console.log('error!!!!');
+              $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
+            }
+           userObj =data.data;
+              console.log(userObj);
+            });
          
         },
           function onError(error) {

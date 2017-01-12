@@ -177,7 +177,9 @@ app.get('/team', function(req, res) {
    res.sendFile(__dirname + '/public/views/team.html');
 });
 
-
+app.get('/splash', function(req, res) { 
+   res.sendFile(__dirname + '/public/views/Splash.html');
+});
 
 
 // console.log('env',process.env)

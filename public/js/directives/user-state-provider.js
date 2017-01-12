@@ -73,6 +73,10 @@ $stateProvider
     .state('main',{
       controller: 'MainController',
       controllerAs: 'main'
+    })
+    .state('itinerary',{
+      url:'/itinerary',
+      templateUrl:'../views/templates/itinerary.html'
     });
 
 
