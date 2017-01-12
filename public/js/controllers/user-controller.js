@@ -25,6 +25,8 @@ function MainController(Account) {
   vm.userInfo = userInfo.user;
   vm.userEvents={}; //userEvents is used to pull in saved cards user selects
   storedEvents = vm.userEvents; //saved cards stored globally
+  
+
   }
 
 HomeController.$inject = ["$http",'$location','$scope']; // minification protection
