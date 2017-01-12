@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000",
+    "postinstall": "bower cache clean && bower install"
   },
   "keywords": [],
   "author": "",
@@ -13,14 +14,16 @@
   "dependencies": {
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
+    "bower": "^1.6.x",
     "cities": "^1.1.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "jquery": "^3.1.1",
     "jsdom": "^9.9.1",
     "jwt-simple": "^0.4.1",
     "moment": "^2.11.1",
     "morgan": "^1.7.0",
-    "pg": "^6.1.2",
+    "pg": "6.1.2",
     "pg-hstore": "^2.3.2",
     "pgtools": "^0.2.3",
     "request": "^2.79.0",

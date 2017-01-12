@@ -7,7 +7,7 @@ var express 	= require('express'),
    	cities 		= require('cities');
 
 require('dotenv').load(); // require and load dotenv
-console.log(process.env)
+    // console.log(process.env)
 // configure bodyParser (for receiving form data)
 app.use(bodyParser.urlencoded({
    extended: true
@@ -169,14 +169,12 @@ app.post('/auth/login', function(req, res) {
 
 
 
-app.get(['/'], function(req, res) { // one page app -- angular appends to index.html using ui-view
+app.get('/', function(req, res) { // one page app -- angular appends to index.html using ui-view
    res.sendFile(__dirname + '/public/views/index.html');
 });
 
 
-app.get('/splash', function(req, res) { 
-   res.sendFile(__dirname + '/public/views/Splash.html');
-});
+
 
 
 // console.log('env',process.env)
