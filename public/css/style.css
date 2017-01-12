@@ -22,6 +22,120 @@ a:hover {
     color: #FFE84D;
     text-decoration: none;
 }
+/*Splash page magic*/
+.lineImage{
+    max-width: 100%; 
+    height: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bpad {
+    padding-bottom: 45%;
+}
+.tpad {
+    padding-top: 45%;
+}
+#dotcontainer {
+  margin-top: 20px;
+  margin-left: 30px;
+  position: relative;
+  background: #45453f;
+  position: absolute;
+    bottom: 60%;logo
+}
+.pulse {
+  width: 10px;
+  height: 10px;
+  border: 5px solid #f7f14c;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  background-color: #716f42;
+  z-index: 10;
+  position: absolute;
+}
+
+.dot {
+  border: 10px solid #fff601;
+  background: transparent;
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  border-radius: 60px;
+  height: 50px;
+  width: 50px;
+  -webkit-animation: pulse 3s ease-out;
+  -moz-animation: pulse 3s ease-out;
+  animation: pulse 3s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  position: absolute;
+  top: -25px;
+  left: -25px;
+  z-index: 1;
+  opacity: 0;
+}
+
+@-moz-keyframes pulse {
+ 0% {
+    -moz-transform: scale(0);
+    opacity: 0.0;
+ }
+ 25% {
+    -moz-transform: scale(0);
+    opacity: 0.1;
+ }
+ 50% {
+    -moz-transform: scale(0.1);
+    opacity: 0.3;
+ }
+ 75% {
+    -moz-transform: scale(0.5);
+    opacity: 0.5;
+ }
+ 100% {
+    -moz-transform: scale(1);
+    opacity: 0.0;
+ }
+}
+
+@-webkit-keyframes "pulse" {
+ 0% {
+    -webkit-transform: scale(0);
+    opacity: 0.0;
+ }
+ 25% {
+    -webkit-transform: scale(0);
+    opacity: 0.1;
+ }
+ 50% {
+    -webkit-transform: scale(0.1);
+    opacity: 0.3;
+ }
+ 75% {
+    -webkit-transform: scale(0.5);
+    opacity: 0.5;
+ }
+ 100% {
+    -webkit-transform: scale(1);
+    opacity: 0.0;
+ }
+}
+
+.splash {
+    background-image: url('../views/images/guy-lake.jpg');
+  background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  height: 100vh;
+}
+/*Splash page magic*/
 .container-fluid {
  padding-right: 0px; 
     padding-left: 0px;
@@ -78,8 +192,7 @@ header {
     -o-background-size: cover;
     text-align: center;
     color: white;
-    width: 100%;
-    height: auto;
+    height: 100vh;
 }
 header .intro-text {
     padding-top: 50px;
@@ -146,9 +259,7 @@ header .intro-text .intro-heading {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-    width: 100%;
-    height: auto;
-    min-height: 500px;
+    height: 100vh;
 }
 /*Activity Selection Page Stylings*/
 
@@ -162,17 +273,20 @@ header .intro-text .intro-heading {
 .actvty_HdBox {
     padding: 20px;
 }
-.container.selectBoxRow {
-    justify-content: space-between;
+.selectBoxRow {
+/*    justify-content: space-between;*/
 }
 .selectBox {
-    display: flex-item;
+display: flex;
+margin-left:50px;
+margin-right: 50px;
 }
 .well {
     background-color: rgba(242, 242, 242, 0.35);
     border: rgba(255, 0, 0, 0.3);
-    margin-left: 10px;
-    margin-right: 10px;
+margin:auto;
+width:75%;
+
 }
 .list-group-item {
     background-color: rgba(242, 242, 242, 0.75);
@@ -217,6 +331,13 @@ input[type=checkbox] {
 }
 #continue-button {
     text-align: center;
+}
+
+.btn-warning{
+    color: #white;
+    border-radius: 0px;
+    background-color: #FEC82D;
+    border:0px;  
 }
 /*Slider styling*/
 
@@ -347,7 +468,11 @@ output:after {
     margin-left: -5px;
     margin-top: -1px;
 }
-
+.selectBox {
+margin:auto;
+display: flex;
+width:100%;
+}
 /*Login-Registration Modal Styling*/
 .nav-tabs {
     margin-bottom: 15px;
@@ -382,9 +507,7 @@ div#OR {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-    width: 100%;
-    min-height: auto;
-/*    min-height:600;*/
+    height: 100vh;
 }
 .card-container {
 /*    margin-top: 20px;*/
@@ -470,7 +593,7 @@ hr {
     margin:0;
 }
 .headline-box{
-    margin-top: 50px;
+/*    margin-top: 50px;*/
     width:50%;
     padding: 20px 0px 0px 20px;
 }
@@ -498,6 +621,30 @@ hr {
     margin-bottom: 10px;
 
 }
+
+
+/*Itinerary Page styling*/
+
+#itin-div {
+    background-image: url('../views/images/mountain.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height: 100vh;
+}
+#itinerary {
+    margin-top: 50px;
+
+}
+#pic-it {
+max-width: 250px; 
+height: auto;
+position: fixed;
+}
+
 /**************************************************************************************/
 /*Default styling above is for -mobile first. Below is larger format styles*/
 
@@ -559,7 +706,7 @@ hr {
     }
     /*Slider styling*/
     
-    .container.space-between {
+    .container.space-between {logo
         justify-content: space-between;
         display: flex;
         width: 65%;
@@ -592,5 +739,6 @@ hr {
     width:33%;
 
 }
+
  
 }
