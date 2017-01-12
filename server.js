@@ -7,7 +7,7 @@ var express 	= require('express'),
    	cities 		= require('cities');
 
 require('dotenv').load(); // require and load dotenv
-    console.log(process.env)
+    // console.log(process.env)
 // configure bodyParser (for receiving form data)
 app.use(bodyParser.urlencoded({
    extended: true
