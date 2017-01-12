@@ -29,6 +29,7 @@ module.exports = {
   * Generate JSON Web Token
   */
   createJWT: function (user) {
+    console.log(process.env)
     var payload = {
       sub: user._id,
       iat: moment().unix(),

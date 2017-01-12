@@ -1,4 +1,3 @@
-var DB = require("../models").models;
 var sequelize = require('../models/index.js').sequelize;
 
 sequelize
@@ -7,6 +6,7 @@ sequelize
 	console.log('synced');
   process.exit();
 });
+var DB = require("../models").models;
 
 var userCreate = function() {
 	return DB.User.create({

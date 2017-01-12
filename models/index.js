@@ -42,21 +42,26 @@
 
 
 
-
+// init will help start db
+// //import Sequelize from 'sequelize';
+// import init from 'sequelize-init'
+ 
+// let sequelize = new Sequelize('database', 'username', 'password');
+// let db = init(sequelize, __dirname, {exclude: ['index.js']});
+ 
+// export default db;
 
 
 
 var thisComputer = process.env.LOGNAME;  //username to insert into new Sequelize
-
-
 var Sequelize = require('sequelize'),
-	sequelize = new Sequelize( process.env.ROAMRR_DB_URL ||
+	sequelize = new Sequelize( 
 		'postgres://'+thisComputer+'@localhost:5432/roamrr_models' ),
     bcrypt = require('bcryptjs'); 
 
 
-sequelize.sync(); //if the tables dont match the models >> new table is created
-
+// sequelize.sync(); //if the tables dont match the models >> new table is created
+// console.log(sequelize);
 
 // sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
 
