@@ -144,7 +144,7 @@ function Account($http, $q, $auth, $location) {
           $auth.setToken(res.data.token);  // authentication token set for user to proceed
           return  $http.post('/api/post', {gps: gps, formInfo: formInfo})
           .then(function(res){
-            if(data.status===-1){console.log('error!!!!');
+            if(res.status===-1){console.log('error!!!!');
               $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
             }
            userObj =res.data;
