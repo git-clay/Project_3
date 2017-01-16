@@ -2,19 +2,20 @@ console.log('state provider');
 angular
   .module('roamrrApp', ['ui.router', 'satellizer']) //sets main app and dependancies
   .config(configRoutes);
+
 // , 'ng-drag'
 /************* ROUTES *********************/
 configRoutes.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider"]; // minification protection
 function configRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
 console.log('config routes');
+
   //this allows us to use routes without hash params!
   $locationProvider.html5Mode({
     enabled: true,
     requireBase: false
   });
 
-  // for any unmatched URL redirect to /
-  $urlRouterProvider.otherwise("/");
+
 
 $stateProvider
     .state('home', {
@@ -29,16 +30,17 @@ $stateProvider
       controllerAs: 'sc',
       resolve: {
         skipIfLoggedIn: skipIfLoggedIn
+
       }
     })
     .state('login', {
       url: '/login',
       templateUrl: '../views/templates/login.html',
-      // controller: 'LoginController',
-      // controllerAs: 'lc',
-      // resolve: {
-      //   skipIfLoggedIn: skipIfLoggedIn
-      // }
+      controller: 'LoginController',
+      controllerAs: 'lc',
+      resolve: {
+        skipIfLoggedIn: skipIfLoggedIn
+      }
     })
     .state('logout', {
       url: '/logout',
@@ -87,13 +89,19 @@ $stateProvider
       templateUrl:'../views/templates/splash.html'
     });
     
-
+    //$urlRouterProvider.otherwise('/auth');
+      $urlRouterProvider.otherwise(function($injector, $location) {
+          console.log("Could not find " + $location);
+          $location.path('/');
+      });
 
     function skipIfLoggedIn($q, $auth) {
       console.log('skipIfLoggedIn')
       var deferred = $q.defer();
       if ($auth.isAuthenticated()) {
         deferred.reject();
+        $location.path('/');
+
       } else {
         deferred.resolve();
       }
