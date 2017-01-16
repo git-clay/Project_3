@@ -1,22 +1,56 @@
-// 'use strict';
+/********** this must be on for heroku *************/
+var pg = require('pg');
+//Create a Sequelize connection to the database using the URL in config/config.js
+if (process.env.DATABASE_URL||process.env.ROAMRR_DB_URL) {
+pg.defaults.ssl = true;
+pg.connect(process.env.DATABASE_URL || process.env.ROAMRR_DB_URL, function(err,client){
+  if(err)throw err;
+  console.log('connected to postgres! Getting schemas....');
 
-// var fs        = require('fs');
-// var path      = require('path');
-// var Sequelize = require('sequelize');
-// var basename  = path.basename(module.filename);
-// var env       = process.env.NODE_ENV || 'development';
-// var config    = require(__dirname + '/../config/config')[env];
-// var db        = {};
+  client
+  .query('Select table_schema,table_name FROM information_schema.tables;')
+  .on('row',function(row){
+    console.log(JSON.stringify(row));
+  });
+});
+}
 
-// //Create a Sequelize connection to the database using the URL in config/config.js
-// if (config.use_env_variable) {
-//   var sequelize = new Sequelize(process.env[config.use_env_variable]);
-// } else {
-//   var sequelize = new Sequelize(config.url, config);
-// }
-
+var thisComputer = process.env.LOGNAME;  //username to insert into new Sequelize
+var Sequelize = require('sequelize'),
+	sequelize = new Sequelize( process.env.ROAMRR_DB_URL || process.env.DATABASE_URL ||
+		'postgres://'+thisComputer+'@localhost:5432/roamrr_models' ),
+    bcrypt = require('bcryptjs'); 
 
 
+// sequelize.sync(); //if the tables dont match the models >> new table is created
+// console.log(sequelize);
+
+// sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
+
+//Export models and Sequelize for seed and dbSetup
+module.exports.Sequelize = Sequelize;
+module.exports.sequelize = sequelize;
+
+
+var User 	= sequelize.import("./user.js");
+var Event	= sequelize.import('./event-model.js');
+var Trip	= sequelize.import('./trip-model.js');
+
+Event.belongsTo(User);
+User.hasMany(Event);
+
+Trip.belongsTo(User);
+User.hasMany(Event);
+
+Event.belongsTo(Trip);
+Trip.hasMany(Event);
+
+
+module.exports.models = {
+	User : User,
+	Event : Event,
+	Trip : Trip
+};
 
 // //Load all the models
 // fs
@@ -53,54 +87,3 @@
 // let db = init(sequelize, __dirname, {exclude: ['index.js']});
  
 // export default db;
-
-// var pg = require('pg');
-
-// pg.defaults.ssl = true;
-// pg.connect(process.env.DATABASE_URL, function(err,client){
-//   if(err)throw err;
-//   console.log('connected to postgres! Getting schemas....');
-
-//   client
-//   .query('Select table_schema,table_name FROM information_schema.tables;')
-//   .on('row',function(row){
-//     console.log(JSON.stringify(row));
-//   });
-// });
-
-var thisComputer = process.env.LOGNAME;  //username to insert into new Sequelize
-var Sequelize = require('sequelize'),
-	sequelize = new Sequelize( process.env.ROAMRR_DB_URL ||
-		'postgres://'+thisComputer+'@localhost:5432/roamrr_models' ),
-    bcrypt = require('bcryptjs'); 
-
-
-// sequelize.sync(); //if the tables dont match the models >> new table is created
-// console.log(sequelize);
-
-// sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
-
-//Export models and Sequelize for seed and dbSetup
-module.exports.Sequelize = Sequelize;
-module.exports.sequelize = sequelize;
-
-
-var User 	= sequelize.import("./user.js");
-var Event	= sequelize.import('./event-model.js');
-var Trip	= sequelize.import('./trip-model.js');
-
-Event.belongsTo(User);
-User.hasMany(Event);
-
-Trip.belongsTo(User);
-User.hasMany(Event);
-
-Event.belongsTo(Trip);
-Trip.hasMany(Event);
-
-
-module.exports.models = {
-	User : User,
-	Event : Event,
-	Trip : Trip
-};
