@@ -10,7 +10,6 @@ angular
   .service('Account', Account);
   // .config(configRoutes);
 
-console.log('USER-CONTROLLER . JS');
 var userInfo = {};
 var gps =[];
 var formInfo = {};
@@ -20,11 +19,9 @@ var storedEvents = [];
 MainController.$inject = ["Account", "$location"]; // minification protection
 function MainController(Account, $location) {
   var vm = this;
-  console.log('main controller',userInfo.user);
   vm.go= function (){
     $location.path('/itinerary')
   };
-
 
   vm.userInfo = userInfo.user;
   vm.userEvents={}; //userEvents is used to pull in saved cards user selects
@@ -35,25 +32,13 @@ function MainController(Account, $location) {
 
 HomeController.$inject = ["$http",'$location','$scope']; // minification protection
 function HomeController ($http,$location,$scope) {
-
-  console.log('home controller');
   var vm = this;
 
-  
-  
   vm.mapFunc = function(){
     console.log('mapfunc');
-    $location.path('/activity');
-
+    $location.path('/activity'); //routes to next page
       };
-    $scope.stuff=userObj;
-  // vm.posts = [];
-  // vm.new_post = {}; // form data
-
-  // $http.post('/api/posts')
-  //   .then(function (response) {
-  //     vm.posts = response.data;
-  //   });
+    $scope.stuff=userObj; // this is pulling in the global variable of trip info from yelp
 }
 
 
@@ -141,41 +126,30 @@ function Account($http, $q, $auth, $location) {
   self.currentUser = currentUser;
   self.getProfile = getProfile;
   self.updateProfile = updateProfile;
-  console.log('account');
 
 
   function signup(userData) {
     userArr=[];
 
-    console.log('signup', userData);
     return (
       $auth
       .signup(userData)
       .then(
         function onSuccess(res) {
           userInfo = {user:res.data.user};  //stores to global object -- user
-          // function postFunc(gps, formInfo){ 
           vm = this;
           gps.push(localStorage.getItem('nLat'));
           gps.push(localStorage.getItem('nLng'));
-          // // vm.userInfo = userInfo.user;
-          // console.log(gps);
-          // console.log(formInfo);
-          // console.log(formInfo.scenic);
-          //   console.log(formInfo.city);
-          // console.log(formInfo.days);
            console.log(res.data.user) ;//all user info comes back here
-          // console.log(res.data.token);
-          $auth.setToken(res.data.token);
+          $auth.setToken(res.data.token);  // authentication token set for user to proceed
           return  $http.post('/api/post', {gps: gps, formInfo: formInfo})
-          .then(function(data){
+          .then(function(res){
             if(data.status===-1){console.log('error!!!!');
               $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
             }
-           userObj =data.data;
+           userObj =res.data;
               console.log(userObj + "city name should be in here");
             });
-         
         },
           function onError(error) {
             console.error('onError line 176:',error);
@@ -195,7 +169,6 @@ userArr=[];
         function onSuccess(res) {
 
           console.log('onSuccess',res.data.user);//all user info comes back here
-          // console.log(response.data.token);
           userInfo = {user:res.data.user};  //stores to global object -- user
           gps.push(localStorage.getItem('nLat'));
           gps.push(localStorage.getItem('nLng'));
@@ -205,11 +178,7 @@ userArr=[];
      userObj =data.data;
               console.log(data);
             });
-              
-
-
         },
-
         function onError(error) {
           console.error(error);
         }
@@ -250,7 +219,6 @@ userArr=[];
     );
     self.user = promise = deferred.promise;
     return promise;
-
   }
 
   function getProfile() {
@@ -269,13 +237,6 @@ userArr=[];
     );
   }
 }
-
-
-
-
-
-
-
 
 
 

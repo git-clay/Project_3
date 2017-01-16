@@ -7,7 +7,6 @@ var express 	= require('express'),
    	cities 		= require('cities');
 
 require('dotenv').load(); // require and load dotenv
-    console.log(process.env)
 // configure bodyParser (for receiving form data)
 app.use(bodyParser.urlencoded({
    extended: true
@@ -19,11 +18,11 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', '/views');
 
 /*********************** ROUTES ******************************/
-var routes = require('./routes/routes.js');
-app.use(routes, function(req, res, next) {
-   console.log('server routes')
-   next();
-});
+// var routes = require('./routes/routes.js');
+// app.use(routes, function(req, res, next) {
+//    console.log('server routes')
+//    next();
+// });
 /**************** DATABASE ************************/
 
 var db = require('./models'),
@@ -43,7 +42,7 @@ var yelp = new Yelp({
 var city = {};
 
 app.post('/api/post', function(req, res) {
-   console.log(req.body.formInfo)
+   // console.log(req.body.formInfo)
    var infoObj = req.body.formInfo
    var latReal = req.body.gps[0];
    var lngReal = req.body.gps[1];
@@ -52,7 +51,7 @@ app.post('/api/post', function(req, res) {
    if (infoObj.hasOwnProperty('city'))
    	var cityProp = 'tourist';
    var city = cities.gps_lookup(latReal, lngReal).city;
-   console.log(city);
+   // console.log(city);
    yelpgo(city, res);
 });
 
@@ -65,14 +64,14 @@ function yelpgo(city, res, cityProp, scenicProp) {
          location: city
       })
       .then(function(data) {
-      	console.log(data.businesses);
+      	// console.log(data.businesses);
          var yelpResults = data.businesses;
          res.json(yelpResults);
-         console.log(yelpResults);
+         // console.log(yelpResults);
          app.post('/api/yelp', function(req, res) {
 		   var businesses = yelpResults;
 		   res.send(businesses[0]);
-		   console.log(businesses + 'yelp shit');
+		   // console.log(businesses);
 		});
          // console.log(yelpResults);
       })
@@ -118,8 +117,6 @@ app.post('/auth/signup', function(req, res) {
       bcrypt.hash(req.body.password, salt, function(err, hash) {
          req.body.password = hash;
          // console.log('hashed', req.body.password);
-         // console.log(req.body.password);
-
          User.create(req.body)	// opens up /models and creates a user to the psql db
             .done(function(user) {
                // if (!user) return error(res, "not saved");
@@ -150,10 +147,7 @@ app.post('/auth/login', function(req, res) {
       // user.$modelOptions.instanceMethods.comparePassword(p1,p2);
 
       validPassword = function() {
-         // console.log('stored from db: ', user.dataValues.password);
-         // console.log('password from login form: ', req.body.password);
          bcrypt.compare(req.body.password, user.dataValues.password, function(err, isMatch) { // both 'exploded' using the has from user.dataValues
-            // console.log(isMatch);
             if (isMatch === true) {
                res.send({		//object contains token and user info
                   token: auth.createJWT(user),
