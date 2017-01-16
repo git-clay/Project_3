@@ -25,6 +25,15 @@ var User = sequelize.define('user',{
   		}
   }
 });
+User.sync(function(){
+  User.create({ from: "foo@bar" })
+  .validate()
+  .success(function(errors) {
+    console.log(errors)
+  })
+})
 	return User;
 };
+
+
 

@@ -14,19 +14,31 @@ var userInfo = {};
 var gps =[];
 var formInfo = {};
 var userObj;
-var storedEvents = [];
+var storedEvents = {};
 /********** CONTROLLERS ***************/
-MainController.$inject = ["Account", "$location"]; // minification protection
-function MainController(Account, $location) {
+MainController.$inject = ['$http',"Account", "$location"]; // minification protection
+function MainController($http,Account, $location) {
   var vm = this;
-  vm.go= function (){
-    $location.path('/itinerary')
-  };
+
 
   vm.userInfo = userInfo.user;
   vm.userEvents={}; //userEvents is used to pull in saved cards user selects
-  storedEvents = vm.userEvents; //saved cards stored globally
+  // storedEvents = vm.userEvents; //saved cards stored globally
+  storedEvents=userObj;
+  vm.go= function (res){
+    storedEvents.user_id=vm.userInfo.id;
+      console.log('line29',storedEvents)
+
+   return $http.post('/api/trips',storedEvents)
+    .then(function(res){
+     if(res.status===-1){console.log('error!!!!');}
+
+      console.log(res.body)
+        console.log('stored:',storedEvents)
+          $location.path('/itinerary')
+    })
   
+  };
 
   }
 
@@ -148,7 +160,7 @@ function Account($http, $q, $auth, $location) {
               $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
             }
            userObj =res.data;
-              console.log(userObj + "city name should be in here");
+              console.log(userObj, "city name should be in here");
             });
         },
           function onError(error) {
@@ -167,7 +179,7 @@ userArr=[];
       .login(userData) // 
       .then(
         function onSuccess(res) {
-
+          var vm = this
           console.log('onSuccess',res.data.user);//all user info comes back here
           userInfo = {user:res.data.user};  //stores to global object -- user
           gps.push(localStorage.getItem('nLat'));

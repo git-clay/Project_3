@@ -16,13 +16,14 @@ pg.connect(process.env.DATABASE_URL || process.env.ROAMRR_DB_URL, function(err,c
 }
 
 var thisComputer = process.env.LOGNAME;  //username to insert into new Sequelize
+var db = require('.')
 var Sequelize = require('sequelize'),
 	sequelize = new Sequelize( process.env.ROAMRR_DB_URL || process.env.DATABASE_URL ||
 		'postgres://'+thisComputer+'@localhost:5432/roamrr_models' ),
     bcrypt = require('bcryptjs'); 
 
 
-// sequelize.sync(); //if the tables dont match the models >> new table is created
+sequelize.sync(); //if the tables dont match the models >> new table is created
 // console.log(sequelize);
 
 // sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
@@ -33,22 +34,21 @@ module.exports.sequelize = sequelize;
 
 
 var User 	= sequelize.import("./user.js");
-var Event	= sequelize.import('./event-model.js');
+// var Event	= sequelize.import('./event-model.js');
 var Trip	= sequelize.import('./trip-model.js');
-
-Event.belongsTo(User);
-User.hasMany(Event);
+// Event.belongsTo(User);
+// User.hasMany(models.Event);
 
 Trip.belongsTo(User);
-User.hasMany(Event);
+User.hasMany(Trip);
 
-Event.belongsTo(Trip);
-Trip.hasMany(Event);
+// Event.belongsTo(Trip);
+// Trip.hasMany(Event);
 
 
 module.exports.models = {
 	User : User,
-	Event : Event,
+	// Event : Event,
 	Trip : Trip
 };
 

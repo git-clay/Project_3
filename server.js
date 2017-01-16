@@ -4,7 +4,8 @@ var express 	= require('express'),
    	auth 		= require('./controllers/auth.js'),
    	Yelp 		= require('yelp'),
    	bcrypt 		= require('bcryptjs'),
-   	cities 		= require('cities');
+   	cities 		= require('cities'),
+      Sequelize   = require('sequelize');
 
 require('dotenv').load(); // require and load dotenv
 // configure bodyParser (for receiving form data)
@@ -26,7 +27,8 @@ app.set('views', '/views');
 /**************** DATABASE ************************/
 
 var db = require('./models'),
-   User = db.models.User;
+   User = db.models.User,
+   Trip = db.models.Trip;
 
 
 /*********************** Yelp request function ******************************/
@@ -81,9 +83,40 @@ function yelpgo(city, res, cityProp, scenicProp) {
    console.log(city + "you did it boss");
 }
 
+/**** saves to trip db table ****/
+app.post('/api/trips',function(req,res){
+            req.body.forEach(function(e){
+               var cur={
+                  user_id:  e.user_id,
+                  name: e.name,
+                  image_url: e.image_url,
+                  display_address: e.display_address,
+                  display_phone: e.display_phone,
+                  rating: e.rating,
+                  snippet_text: e.snippet_text
+            }
+            console.log('cur',cur)
 
-
-
+             Trip.create(cur)
+                  .then(function(trip){
+                     console.log('trip',trip)
+                     res.send(trip);
+                  })
+                  .catch(Sequelize.ValidationError,function(err){
+                     console.log(err)
+                  })
+                  .catch(function(err){
+                     console.log(err)
+                  })
+      })
+})
+// api/me is the route used for authentication
+app.get('/api/trips', function(req, res) {
+   console.log('api/trips');
+   Trip.find({},function(err, trip) {
+      res.send(trip);
+   });
+});
 /*********** Auth **************/
 
 // api/me is the route used for authentication
@@ -94,22 +127,22 @@ app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
    });
 });
 
-app.put('/api/me', auth.ensureAuthenticated, function(req, res) {
-   console.log('api/me "put"');
-   User.findById(req.user, function(err, user) {
-      if (!user) {
-         return res.status(400).send({
-            message: 'User not found.'
-         });
-      }
-      user.displayName = req.body.displayName || user.displayName;
-      user.username = req.body.username || user.username;
-      user.email = req.body.email || user.email;
-      user.save(function(err) {
-         res.send(user);
-      });
-   });
-});
+// app.put('/api/me', auth.ensureAuthenticated, function(req, res) {
+//    console.log('api/me "put"');
+//    User.findById(req.user, function(err, user) {
+//       if (!user) {
+//          return res.status(400).send({
+//             message: 'User not found.'
+//          });
+//       }
+//       user.displayName = req.body.displayName || user.displayName;
+//       user.username = req.body.username || user.username;
+//       user.email = req.body.email || user.email;
+//       user.save(function(err) {
+//          res.send(user);
+//       });
+//    });
+// });
 
 app.post('/auth/signup', function(req, res) {		
    // console.log('POST auth/signup password', req.body.email);
