@@ -32,13 +32,17 @@ var db = require('./models'),
 
 
 /*********************** Yelp request function ******************************/
+var yelpArr=[process.env.consumer_key,process.env.consumer_secret,
+               process.env.token,process.env.token_secret];
 
+// console.log(yelpArr)
 var yelp = new Yelp({
-   consumer_key: '5eu-uFPxtc1RtmeJCAlmUQ',
-   consumer_secret: 'ZwJB35PXcr0_oPYt2-l-XDCd6TE',
-   token: 'INavbmqjPrFTdqM3i5ZTNkjyfeInIWfl',
-   token_secret: 'pGqF4hywcR8_4HFGn05hZbxYKrU',
+   consumer_key: yelpArr[0],
+   consumer_secret: yelpArr[1],
+   token: yelpArr[2],
+   token_secret: yelpArr[3]
 });
+
 
 
 var city = {};
@@ -85,9 +89,13 @@ function yelpgo(city, res, cityProp, scenicProp) {
 
 /**** saves to trip db table ****/
 app.post('/api/trips',function(req,res){
+   var r = req.body
+   var len =r.length;
+console.log('LOOKING FOR USERID',r[(len-1)],r[(len-1)].user_id)
+
             req.body.forEach(function(e){
                var cur={
-                  user_id:  e.user_id,
+                  user_id:  r[(len-1)].user_id,
                   name: e.name,
                   image_url: e.image_url,
                   display_address: e.display_address,
@@ -95,20 +103,18 @@ app.post('/api/trips',function(req,res){
                   rating: e.rating,
                   snippet_text: e.snippet_text
             }
-            console.log('cur',cur)
+            // console.log('cur',cur)
 
              Trip.create(cur)
-                  .then(function(trip){
-                     console.log('trip',trip)
-                     res.send(trip);
-                  })
                   .catch(Sequelize.ValidationError,function(err){
                      console.log(err)
                   })
                   .catch(function(err){
                      console.log(err)
                   })
+                  
       })
+            res.send('success')
 })
 // api/me is the route used for authentication
 app.get('/api/trips', function(req, res) {
@@ -145,24 +151,41 @@ app.get('/api/me', auth.ensureAuthenticated, function(req, res) {
 // });
 
 app.post('/auth/signup', function(req, res) {		
-   // console.log('POST auth/signup password', req.body.email);
-   bcrypt.genSalt(10, function(err, salt) {		//this is where passwords from the front end form are salted and hashed
+   // console.log('POST auth/signup password',ÿreq.body.email);
+   User.find({where:{email:req.body.email}})
+      .then(function(doc,err){
+      if(err){console.log('ERROR1!!!',err); return res.send(err)}
+      else if(!doc){ //if no current users are found
+      bcrypt.genSalt(10, function(err, salt) {     //this is where passwords from the front end form are salted and hashed
       bcrypt.hash(req.body.password, salt, function(err, hash) {
          req.body.password = hash;
          // console.log('hashed', req.body.password);
-         User.create(req.body)	// opens up /models and creates a user to the psql db
+         User.create(req.body)   // opens up /models and creates a user to the psql db
             .done(function(user) {
                // if (!user) return error(res, "not saved");
-               console.log(user.dataValues);
                auth.createJWT(user);
-
-               res.send({
-                  token: auth.createJWT(user),		//sends an authentication token to the front end (user is logged in)
+               return res.send({
+                  token: auth.createJWT(user),     //sends an authentication token to the front end (user is logged in)
                   user: user
-               });
-            });
-      });
-   });
+               })
+            })
+            // .catch(function(err){
+            //    console.log('ERROR2!!!',err)
+            //   return res.send(err)
+            // })
+            })
+            })
+      } else {
+         console.log('failed',res.body,req.body)
+         res.send('Sorry, but that e-mail has already been registered.')
+      }
+
+   })
+
+
+
+
+
 });
 app.post('/auth/login', function(req, res) {
    User.findOne({

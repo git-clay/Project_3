@@ -14,27 +14,26 @@ var userInfo = {};
 var gps =[];
 var formInfo = {};
 var userObj;
-var storedEvents = {};
+var storedEvents = [];
 /********** CONTROLLERS ***************/
 MainController.$inject = ['$http',"Account", "$location"]; // minification protection
 function MainController($http,Account, $location) {
   var vm = this;
 
 
-  vm.userInfo = userInfo.user;
+  vm.userInfo = userInfo;
   vm.userEvents={}; //userEvents is used to pull in saved cards user selects
   // storedEvents = vm.userEvents; //saved cards stored globally
   storedEvents=userObj;
   vm.go= function (res){
-    storedEvents.user_id=vm.userInfo.id;
+    storedEvents.push({user_id:userInfo.id});
       console.log('line29',storedEvents)
 
    return $http.post('/api/trips',storedEvents)
     .then(function(res){
      if(res.status===-1){console.log('error!!!!');}
 
-      console.log(res.body)
-        console.log('stored:',storedEvents)
+        console.log('stored:',res)
           $location.path('/itinerary')
     })
   
@@ -83,10 +82,6 @@ function LoginController (Account,$location) {
       .then(function(){
          vm.new_user={}; // clears form
          console.log('loginloginloginloginlogin')
-         $('#loginReg').modal('hide');
-          $('body').removeClass('modal-open');
-          $('.modal-backdrop').remove();
-          $location.path('/choices'); // directs to choices page
       });
   };
 }
@@ -100,10 +95,7 @@ function SignupController(Account, $location) {
       .signup(vm.new_user)
       .then(function () {
           vm.new_user={}; // clears form 
-          $('#loginReg').modal('hide'); //jquery to kill everything on modal
-          $('body').removeClass('modal-open');
-          $('.modal-backdrop').remove();
-          $location.path('/choices');
+ 
 
         }
       );
@@ -139,6 +131,14 @@ function Account($http, $q, $auth, $location) {
   self.getProfile = getProfile;
   self.updateProfile = updateProfile;
 
+function theyPassed(passInfo){
+        userInfo = passInfo.user;  //stores to global object -- user
+        $('#loginReg').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $auth.setToken(passInfo.token);  // authentication token set for user to proceed
+        $location.path('/choices');
+        }; 
 
   function signup(userData) {
     userArr=[];
@@ -147,29 +147,36 @@ function Account($http, $q, $auth, $location) {
       $auth
       .signup(userData)
       .then(
-        function onSuccess(res) {
-          userInfo = {user:res.data.user};  //stores to global object -- user
+        function onSuccess(res,err) {
+          console.log('returned',res)
+          if(res.data.token!==undefined) {
           vm = this;
+          var passInfo = res.data;
+         
+
           gps.push(localStorage.getItem('nLat'));
           gps.push(localStorage.getItem('nLng'));
-           console.log(res.data.user) ;//all user info comes back here
-          $auth.setToken(res.data.token);  // authentication token set for user to proceed
+           // console.log(res.data.user) ;//all user info comes back here
+
           return  $http.post('/api/post', {gps: gps, formInfo: formInfo})
-          .then(function(res){
-            if(res.status===-1){console.log('error!!!!');
-              $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
-            }
-           userObj =res.data;
-              console.log(userObj, "city name should be in here");
-            });
-        },
-          function onError(error) {
-            console.error('onError line 176:',error);
-          }
-        )
-      );
+                        .then(function(res){
+                          if(res.status===-1){console.log('error!!!!');
+                            $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
+                          }
+                            userObj =res.data;
+                             theyPassed(passInfo)
+                            console.log(userObj, "city name should be in here");
+                          });
+        }
+          else if(err){
+          $('div#errorBox').html('There was a problem with the login',err);
+          } else if(res.data =='Sorry, but that e-mail has already been registered.'){
+            console.log(res.data)
+          $('div#errorBox').html(res.data);
+          } 
+        }))
   }
-  
+
 
   function login(userData) {
 userArr=[];
@@ -180,15 +187,15 @@ userArr=[];
       .then(
         function onSuccess(res) {
           var vm = this
-          console.log('onSuccess',res.data.user);//all user info comes back here
-          userInfo = {user:res.data.user};  //stores to global object -- user
-          gps.push(localStorage.getItem('nLat'));
+          var passInfo = res.data;
+          // console.log('onSuccess',res.data.user);//all user info comes back here
+         gps.push(localStorage.getItem('nLat'));
           gps.push(localStorage.getItem('nLng'));
-          $auth.setToken(res.data.token);
+          return  $http.post('/api/post', {gps: gps, formInfo: formInfo})
+          .then(function(resp){
+            userObj =resp.data;
+          theyPassed(passInfo)
 
-          return  $http.post('/api/post', {gps: gps, formInfo: formInfo}).then(function(data){
-     userObj =data.data;
-              console.log(data);
             });
         },
         function onError(error) {

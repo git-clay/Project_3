@@ -1,190 +1,166 @@
 <section ng-show='activity'>
-<div class="activity_div">
-
-    <div class="logobox">
-        <span class="logo"> Roamrr</span>
-    </div>
-
-        <form id ="activityFilter" ng-controller='ActivityController as ac' ng-submit='ac.activityForm()'>
-            <!--        Slider Box -->
-            <div class="sliderbox">
-
-                <h3> How Many Days Will You Be in {{Location}}?</h3>
-
-                <!--  Slider -->
-                <input type="range" name="days" min="0"  max="14" ng-model='ac.formInfo.days'>
-                <output for="days" onforminput="value = days.valueAsNumber;"></output>
-                <div class="container space-between">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                    <div>7</div>
-                    <div>8</div>
-                    <div>9</div>
-                    <div>10</div>
-                    <div>11</div>
-                    <div>12</div>
-                    <div>13</div>
-                    <div>14</div>
-                </div>
-                <!--  Slider -->
-
-           
-   
-         <!--        <div class="selectBox"> -->
-                    <div class="well">
-                        <div class="actvty_HdBox">
-                            <h4>What kind of adventures are you interested in?</h4>
-                        </div>
-                        
-                        <ul id="check-list-box" class="list-group checked-list-box">
-                            <li class="list-group-item" >
-                                <input type="checkbox" value= "scenic" id="scenic" ng-model='ac.formInfo.scenic'>The Scenic Route</li>
-                            <li class="list-group-item">
-                                <input type="checkbox" value= "city" id="city" ng-model='ac.formInfo.city'>The City Scene</li>                       
-                        </ul>
-                    <div id="continue-button">
-       
-                        <input type="submit" id="activitySubmit" value="Continue" class="btn btn-warning"   data-toggle="modal" data-target="#loginReg">
-                    </div>
-                    </div>
-
-               
-    </form>
-              
-    </div> 
-           
-
-
-<!-- Large modal -->
-<div class="modal fade" id="loginReg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  <div class="activity_div">
+  <div class="logobox">
+    <span class="logo"> Roamrr</span>
+  </div>
+  <form id ="activityFilter" ng-controller='ActivityController as ac' ng-submit='ac.activityForm()'>
+    <!--        Slider Box -->
+    <div class="sliderbox">
+      <h3> How Many Days Will You Be in {{Location}}?</h3>
+      <!--  Slider -->
+      <input type="range" name="days" min="0"  max="14" ng-model='ac.formInfo.days'>
+      <output for="days" onforminput="value = days.valueAsNumber;"></output>
+      <div class="container space-between">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
+        <div>13</div>
+        <div>14</div>
+      </div>
+      <!--  Slider -->
+      <!--        <div class="selectBox"> -->
+      <div class="well">
+        <div class="actvty_HdBox">
+          <h4>What kind of adventures are you interested in?</h4>
+        </div>
+        <ul id="check-list-box" class="list-group checked-list-box">
+          <li class="list-group-item" >
+            <input type="checkbox" value= "scenic" id="scenic" ng-model='ac.formInfo.scenic'>The Scenic Route
+          </li>
+          <li class="list-group-item">
+            <input type="checkbox" value= "city" id="city" ng-model='ac.formInfo.city'>The City Scene
+          </li>
+        </ul>
+        <div id="continue-button">
+          <input type="submit" id="activitySubmit" value="Continue" class="btn btn-warning"   data-toggle="modal" data-target="#loginReg">
+        </div>
+      </div>
+  </form>
+  </div> 
+  <!-- Large modal -->
+  <div class="modal fade" id="loginReg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        ×</button>
-                       <h4 class="modal-title" id="login-reg">
-                        Login/Registration </h4>                  
-          
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×</button>
+          <h4 class="modal-title" id="login-reg">
+            Login/Registration 
+          </h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Left Content Area for Pop Up -->
+            <div class="col-md-4">
+              <div >
+                We're putting your itinerary together, but in the meantime please create an account with us.
+                <br>
+                Thanks!
+                <br>
+                <br>
+                <span font-style="italic">-The Team at </span>
+                <br>
+                <span class="logo">Roamrr</span> 
+                <br>
+                <br>
+              </div>
+              <div id='errorBox'>
+              </div>
+            </div>
+            <!-- End of Left Content Area -->
+            <div class="col-md-8" style="border-left: 1px dotted #C2C2C2;padding-right: 30px;">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item"><a href="#Login" data-toggle="tab">Login</a></li>
+                <li class="nav-item active"><a href="#Registration" data-toggle="tab">Register</a></li>
+              </ul>
+              <!-- Login Tab Content -->
+              <div class="tab-content">
+                <div class="tab-pane" id="Login" ng-controller='LoginController as lc'>
+                  <form  role="form" class="form-horizontal"  ng-submit="lc.login()">
+                    <div class="form-group">
+                      <label for="email" class="col-sm-2 control-label">
+                      Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" required="" id="email1" placeholder="email"  ng-model="lc.new_user.email"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="password" class="col-sm-2 control-label">
+                      Password</label>
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" required="" id="password" placeholder="password" ng-model="lc.new_user.password"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2">
+                      </div>
+                      <div class="col-sm-10">
+                        <input type="submit" value="Log In"  class="btn btn-primary btn-md outline" >
+                        <a href="#">Forgot your password?</a>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-            <div class="modal-body">
-                <div class="row">
-
-        <!-- Left Content Area for Pop Up -->
-                    <div class="col-md-4">
-                                <div >
-
-                                    We're putting your itinerary together, but in the meantime please create an account with us.
-                                    <br>
-                                    Thanks!
-                                     <br>
-                                       <br>
-                                    <span font-style="italic">-The Team at </span>
-                                    <br>
-                                         <span class="logo">Roamrr</span> 
-                                      <br>
-                                        <br>
-                                </div>
-                                <div id='errorBox'>
-                                </div>
-                    </div> 
-
-<!-- End of Left Content Area -->
-                    <div class="col-md-8" style="border-left: 1px dotted #C2C2C2;padding-right: 30px;">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#Login" data-toggle="tab">Login</a></li>
-                            <li class="nav-item active"><a href="#Registration" data-toggle="tab">Register</a></li>
-                        </ul>
-
-                <!-- Login Tab Content -->
-                        <div class="tab-content">
-                            <div class="tab-pane" id="Login" ng-controller='LoginController as lc'>
-                   
-                                <form  role="form" class="form-horizontal"  ng-submit="lc.login()">
-                                <div class="form-group">
-                                    <label for="email" class="col-sm-2 control-label">
-                                        Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" required="" id="email1" placeholder="email"  ng-model="lc.new_user.email"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="col-sm-2 control-label">
-                                        Password</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" required="" id="password" placeholder="password" ng-model="lc.new_user.password"/>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <input type="submit" value="Log In"  class="btn btn-primary btn-md outline" >
-
-                                       
-                                        <a href="#">Forgot your password?</a>
-                                    </div>
-                                </div>
-                                </form>
-                            </div>   
-
-               <!-- End of Login Tab -->
-                    <!-- Registration Tab Content-->               
-                            <div class="tab-pane active" id="Registration" ng-controller='SignupController as sc'>
-
-
-
-                                <form role="form" class="form-horizontal" ng-submit="sc.signup()">
-                                 <div class="form-group">
-                                    <label for="name" class="col-sm-2 control-label">
-                                        Name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="name" value='' required="" placeholder="First Name"  ng-model="sc.new_user.displayName"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="col-sm-2 control-label">
-                                        Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" value='' required="" placeholder="email"  ng-model="sc.new_user.email"/>
-                                    </div>
-                                </div>
-                    
-                                <div class="form-group">
-                                    <label for="password" class="col-sm-2 control-label">
-                                        Password</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="password" required="" placeholder="password" value='' ng-model="sc.new_user.password"/>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <input type="submit"  value="Sign Up" class="btn btn-primary btn-md outline"   >
-
-
-
-                                        <button type="button" class="btn btn-secondary btn-md outline">
-                                            Cancel</button>
-                                    </div>
-                                </div>
-                                </form>
-                            </div>
-<!--                  End of Registration Tab -->
-                    
-                    </div>   <!--     Tab class closing div -->
-              
-            </div> <!-- Col 8 CLosing div -->
-        </div><!--  Row closing Div -->
-</div> <!-- Modal Body Closing Div -->
-</div> <!--  Modal-content Closing Div -->
-</div> <!-- Modal-dialog Closing Div -->
-</div> <!-- Modal fade Closing Div -->
+                <!-- End of Login Tab -->
+                <!-- Registration Tab Content-->               
+                <div class="tab-pane active" id="Registration" ng-controller='SignupController as sc'>
+                  <form role="form" class="form-horizontal" ng-submit="sc.signup()">
+                    <div class="form-group">
+                      <label for="name" class="col-sm-2 control-label">
+                      Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" value='' required="" placeholder="First Name"  ng-model="sc.new_user.displayName"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="email" class="col-sm-2 control-label">
+                      Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" value='' required="" placeholder="email"  ng-model="sc.new_user.email"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="password" class="col-sm-2 control-label">
+                      Password</label>
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password" required="" placeholder="password" value='' ng-model="sc.new_user.password"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2">
+                      </div>
+                      <div class="col-sm-10">
+                        <input type="submit"  value="Sign Up" class="btn btn-primary btn-md outline"   >
+                        <button type="button" class="btn btn-secondary btn-md outline">
+                        Cancel</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!--                  End of Registration Tab -->
+              </div>
+              <!--     Tab class closing div -->
+            </div>
+            <!-- Col 8 CLosing div -->
+          </div>
+          <!--  Row closing Div -->
+        </div>
+        <!-- Modal Body Closing Div -->
+      </div>
+      <!--  Modal-content Closing Div -->
+    </div>
+    <!-- Modal-dialog Closing Div -->
+  </div>
+  <!-- Modal fade Closing Div -->
 </section>
