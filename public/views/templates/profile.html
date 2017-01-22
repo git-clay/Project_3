@@ -1,9 +1,12 @@
+
+
 <h3>{{main.currentUser.displayName}}</h3>
 <hr>
-<p><strong>Email:</strong> {{main.currentUser().email}}</p>
-<p><strong>Username:</strong> {{main.currentUser().username}}</p>
-<p><strong>Joined:</strong> {{main.currentUser().created}}</p>
-<p><strong>Posts:</strong> {{main.currentUser().posts.length}}</p>
+<p><strong>Username:</strong> {{mc.currentUser().username}}</p>
+<p><strong>Email:</strong> {{mc.currentUser().email}}</p>
+
+<p><strong>Joined:</strong> {{mc.currentUser().created}}</p>
+<p><strong>Posts:</strong> {{mc.currentUser().posts.length}}</p>
 
 <hr>
 <a href="#" ng-click="profile.showEditForm=true" ng-hide="profile.showEditForm" class="btn btn-default"><i class="fa fa-pencil"></i> Edit Profile</a>
@@ -15,3 +18,51 @@
 	<p><strong>Joined:</strong> {{main.currentUser().created}}</p>
 	<p><strong>Posts:</strong> {{main.currentUser().posts.length}}</p>
 </div>
+
+<section ng-controller='HomeController as hc'>
+  <div class="itin-div">
+  <div class="logobox">
+    <span class="logo"> Roamrr</span>
+  </div>
+  <div class="main-itin" ng-controller='MainController as mc'>
+    <div id="itin_header">
+      <h3> Thanks {{mc.userInfo.displayName}} for registering!</h3>
+      <br>
+      <h4>Here's your itinerary: </h4>
+      <h5>(Have fun!)</h5>
+      <div class="friend-box">
+        <span style="margin-right:10px;font-size:1.25em;padding-bottom:5px;" >Share your plans with your friends!</span>
+        <div class="col-sm-6">
+          <input type="email" class="form-control" placeholder="Enter your friends email address" ng-required="true" required ng-model="lc.new_user.email" />
+        </div>
+        <input type="submit" id="friendsSubmit" value="Share" class="btn btn-primary btn-md outline" data-toggle="modal" data-target="#">
+      </div>
+    </div>
+    <div class="container" ng-repeat='st in stuff'>
+      <div class="itin-collection">
+        <!-- Itinerary- results to repeat on following div-->
+        <div id="itinerary">
+          <div id="leftbox">
+            <img class="pic-it" src={{st.image_url}} alt="">
+          </div>
+          <div id="rightbox">
+            <h3 class="itin-title">{{st.name}}</h3>
+            <br>
+            <span class="detail">{{st.location.display_address}}
+            <br>
+            Phone: {{st.display_phone}}
+            <br>
+            Website: <a href={{st.url}}>Got to the Site!</a>
+            </span>
+            <hr>
+            <!-- <span class="aqua"><h5>COST</h5></span> -->
+            <!--  <p class="price">
+              $89 per person for adults and $79 for children (12 and under) for a half day trip
+              </p> -->
+          </div>
+        </div>
+        <!--           End of Itinerary Div -->
+      </div>
+    </div>
+  </div>
+</section>
