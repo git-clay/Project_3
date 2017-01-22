@@ -27,18 +27,11 @@ function MainController($http, Account, $location,$auth,$scope) {
   vm.userEvents = {}; //userEvents is used to pull in saved cards user selects
   storedEvents = userObj;
   vm.go = function (res) {
-    // storedEvents.push({
-    //   user_id: userInfo.id
-    // });
-    // console.log('line29', storedEvents)
-
     return $http.post('/api/trips', storedEvents)
       .then(function (res) {
         if (res.status === -1) {
           console.log('error!!!!');
         }
-
-        console.log('stored:', res)
         $location.path('/itinerary')
       })
 
@@ -51,7 +44,6 @@ function HomeController($http, $location, $scope) {
   var vm = this;
 
   vm.mapFunc = function () {
-    console.log('mapfunc');
     $location.path('/activity'); //routes to next page
   };
   $scope.stuff = userObj; // this is pulling in the global variable of trip info from yelp
@@ -64,8 +56,6 @@ function ActivityController(Account, $location) {
   vm.formInfo = {};
   vm.activityForm = function () {
     formInfo = vm.formInfo;
-
-    console.log('formInfo: ', vm.formInfo);
   };
 }
 
@@ -73,7 +63,6 @@ LoginController.$inject = ["Account", '$location']; // minification protection
 function LoginController(Account, $location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('LoginController');
   vm.login = function () {
     Account
       .login(vm.new_user)
@@ -86,7 +75,6 @@ SignupController.$inject = ["Account", '$location']; // minification protection
 function SignupController(Account, $location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('signup controller');
   vm.signup = function () {
     Account
       .signup(vm.new_user)
@@ -107,7 +95,6 @@ ProfileController.$inject = ["Account", '$location']; // minification protection
 function ProfileController(Account, $location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('LoginController');
   vm.login = function () {
     Account
       .login(vm.new_user)
@@ -131,12 +118,12 @@ function Account($http, $q, $auth, $location) {
   self.getProfile = getProfile;
   self.updateProfile = updateProfile;
 
-  function theyPassed(passInfo) {
-    userInfo = passInfo.user; //stores to global object -- user
+  function theyPassed(userObj) {
+    userInfo = userObj.user; //stores to global object -- user
     $('#loginReg').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-    $auth.setToken(passInfo.token); // authentication token set for user to proceed
+    $auth.setToken(userObj.token); // authentication token set for user to proceed
     $location.path('/choices');
   };
 
@@ -151,7 +138,7 @@ function Account($http, $q, $auth, $location) {
           console.log('returned', res)
           if (res.data.token !== undefined) {
             vm = this;
-            var passInfo = res.data;
+            var userObj = res.data; //user info from db and
 
             gps.push(localStorage.getItem('nLat'));
             gps.push(localStorage.getItem('nLng'));
@@ -166,8 +153,8 @@ function Account($http, $q, $auth, $location) {
                   $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
                 }
                 userObj = res.data;
-                theyPassed(passInfo)
-                console.log(userObj, "city name should be in here");
+                theyPassed(userObj)
+                // console.log(userObj, "city name should be in here");
               });
           } else if (err) {
             $('div#errorBox').html('There was a problem with the login', err);
@@ -180,14 +167,13 @@ function Account($http, $q, $auth, $location) {
 
   function login(userData) {
     userArr = [];
-    console.log('Account.login', userData);
     return (
       $auth
       .login(userData) // 
       .then(
         function onSuccess(res) {
           var vm = this
-          var passInfo = res.data;
+          var userObj = res.data;
           gps.push(localStorage.getItem('nLat'));
           gps.push(localStorage.getItem('nLng'));
           return $http.post('/api/post', {
@@ -195,17 +181,17 @@ function Account($http, $q, $auth, $location) {
               formInfo: formInfo
             })
             .then(function (resp) {
-              userObj = resp.data;
+              userObj = resp.data; //resp is the user info and token
               var u = window.location.href,
                 len = u.length;
               var urlEnd = u.slice((len - 6), (len)) // checks for '/login' in url
               if (urlEnd === '/login') {
-                userInfo = passInfo.user; //stores to global object -- user
-                $auth.setToken(passInfo.token); // authentication token set for user to proceed
+                userInfo = userObj.user; //stores to global object -- user
+                $auth.setToken(userObj.token); // authentication token set for user to proceed
                 $location.path('/account');
                 return;
               } else {
-                theyPassed(passInfo) //bunch of stuff to do when authenticated
+                theyPassed(userObj) //bunch of stuff to do when authenticated
               }
             });
         },
@@ -223,6 +209,7 @@ function Account($http, $q, $auth, $location) {
     return ($auth.logout() // delete token 
       .then(function () {
         userInfo = {}; // clears global variable
+        userObj = {};
         $auth.removeToken();
         self.user = null;
       })

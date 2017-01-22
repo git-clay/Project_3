@@ -18,7 +18,8 @@
       </ul>
 
 
-        <button ng-if='!mc.isAuth' class="reg btn btn-primary btn-md outline" ><a id="logBtn" href="/login" >Go to Account</a></button>
+        <button ng-if='!mc.isAuth' class="reg btn btn-primary btn-md outline" ><a id="logBtn" href="/login" >Log In</a></button>
+        <button ng-if='mc.isAuth' class="reg btn btn-primary btn-md outline" ><a id="logBtn" href="/profile" >Go To Profile</a></button>
         <button ng-if='mc.isAuth' class="reg btn btn-primary btn-md outline" ><a id="logBtn" href="/logout" >Logout</a></button>
     
     </div>
