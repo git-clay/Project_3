@@ -44,7 +44,6 @@ function HomeController($http, $location, $scope) {
   var vm = this;
 
   vm.mapFunc = function () {
-    console.log('mapFunc')
     $location.path('/activity'); //routes to next page
   };
   $scope.stuff = userObj; // this is pulling in the global variable of trip info from yelp
