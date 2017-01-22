@@ -3,16 +3,13 @@ var jwt = require('jwt-simple'),
 console.log('auth.js')
 module.exports = {
   /* Login Required Middleware */
-  ensureAuthenticated: function (req, res, next) {
-    console.log('in auth ensureAuthenticated')
-    
+  ensureAuthenticated: function (req, res, next) {    
     if (!req.headers.authorization) {
       return res.status(401).send({ message: 'Please make sure your request has an Authorization header.' });
     }
 
     var token = req.headers.authorization.split(' ')[1];
     var payload = null;
-    console.log('ensureauth')
     try {
       payload = jwt.decode(token, process.env.TOKEN_SECRET );
     }

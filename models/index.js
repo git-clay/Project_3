@@ -10,7 +10,7 @@ pg.connect(process.env.DATABASE_URL || process.env.ROAMRR_DB_URL, function(err,c
   client
   .query('Select table_schema,table_name FROM information_schema.tables;')
   .on('row',function(row){
-    console.log(JSON.stringify(row));
+    // console.log(JSON.stringify(row));
   });
 });
 }
@@ -23,7 +23,6 @@ var Sequelize = require('sequelize'),
     bcrypt = require('bcryptjs'); 
 
 
-sequelize.sync(); //if the tables dont match the models >> new table is created
 // console.log(sequelize);
 
 // sequelize = new Sequelize(process.env.DATABASE_URL||process.env||
@@ -34,22 +33,23 @@ module.exports.sequelize = sequelize;
 
 
 var User 	= sequelize.import("./user.js");
-// var Event	= sequelize.import('./event-model.js');
+var Event	= sequelize.import('./event-model.js');
 var Trip	= sequelize.import('./trip-model.js');
-// Event.belongsTo(User);
-// User.hasMany(models.Event);
+
+Event.belongsTo(Trip);
+Trip.hasMany(Event);
 
 Trip.belongsTo(User);
 User.hasMany(Trip);
 
-// Event.belongsTo(Trip);
-// Trip.hasMany(Event);
+sequelize.sync(); //if the tables dont match the models >> new table is created
+
 
 
 module.exports.models = {
 	User : User,
-	// Event : Event,
-	Trip : Trip
+	Trip : Trip, 
+  Event : Event
 };
 
 // //Load all the models

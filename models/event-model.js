@@ -1,19 +1,26 @@
-console.log('event model . js');
+console.log('Event model . js');
+var sequelize	= require('./index.js');
 
 module.exports = function(sequelize, Sequelize){
-console.log('sequelized event');
+  // console.log('sequelized Event',sequelize);
 
-	var eventModel = sequelize.define('Event',{
-	name: Sequelize.STRING,
-	created:  Sequelize.DATE,
-	address: Sequelize.STRING,
-	phone: Sequelize.STRING,
-	website:Sequelize.STRING,
-	reviews:Sequelize.STRING,
-	cost:Sequelize.STRING
+var Event = sequelize.define("event",{
+  	name:Sequelize.STRING,
+  	image_url:Sequelize.STRING,
+  	display_address:Sequelize.STRING,
+  	display_phone:Sequelize.STRING,
+  	rating:Sequelize.STRING,
+  	snippet_text:Sequelize.STRING
 	});
 
-	return eventModel;
+Event.sync(function(){
+  Event.create({ user_id:999999999999 })
+  .validate()
+  .success(function(errors) {
+    console.log(errors)
+  })
+})
+	return Event;
 
 };
 

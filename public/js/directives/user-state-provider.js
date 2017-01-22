@@ -1,4 +1,3 @@
-console.log('state provider');
 angular
   .module('roamrrApp', ['ui.router', 'satellizer']) //sets main app and dependancies
   .config(configRoutes);
@@ -7,8 +6,6 @@ angular
 /************* ROUTES *********************/
 configRoutes.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider"]; // minification protection
 function configRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
-console.log('config routes');
-
   //this allows us to use routes without hash params!
   $locationProvider.html5Mode({
     enabled: true,
@@ -16,30 +13,35 @@ console.log('config routes');
   });
 
 
-
 $stateProvider
     .state('home', {
       url: '/', //when '/'
-      templateUrl: '../views/templates/map.html',  //append this template to ui-router on index.html
-      controller: 'HomeController', //using homecontroller
-      controllerAs: 'home'  // call the controller using 'home'
-    }).state('signup', {
-      url: '/signup',
-      templateUrl: '../views/templates/signup.html',
-      controller: 'SignupController',
-      controllerAs: 'sc',
-      resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
-
+      views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
+          templateUrl: '../views/templates/map.html',  //append this template to ui-router on index.html
+          controller: 'HomeController', //using homecontroller
+          controllerAs: 'home'  // call the controller using 'home'
+          }
       }
     })
     .state('login', {
       url: '/login',
+      views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
       templateUrl: '../views/templates/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc',
-      resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
+      controller: 'ProfileController',
+      controllerAs: 'pc'
+          }
       }
     })
     .state('logout', {
@@ -52,41 +54,109 @@ $stateProvider
     })
     .state('profile', {
       url: '/profile',
-      templateUrl: '../views/templates/profile.html',
-      controller: 'ProfileController',
-      controllerAs: 'profile',
-      resolve: {
-        loginRequired: loginRequired
-      }
+        views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
+          templateUrl: '../views/templates/profile.html',
+          controller: 'ProfileController',
+          controllerAs: 'profile',
+          resolve: {
+            loginRequired: loginRequired
+          }
+          }
+        }
     })
         /******** Activity controller directives ***********/
     .state('activity',{
       url: '/activity',
-      templateUrl: '../views/templates/activity.html',
-      controller: 'ActivityController',
-      controllerAs: 'activity'
+            views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
+          templateUrl: '../views/templates/activity.html',
+          controller: 'ActivityController',
+          controllerAs: 'activity'
+          }
+      }
+
     })
     .state('choices',{
       url: '/choices',
-      templateUrl: '../views/templates/choices.html',
-      controller: 'ChoicesController',
-      controllerAs: 'choices'
-    })
-    .state('main',{
-      controller: 'MainController',
-      controllerAs: 'main'
+            views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
+          templateUrl: '../views/templates/choices.html',
+          controller: 'ChoicesController',
+          controllerAs: 'choices'
+          }
+      }
+
     })
     .state('itinerary',{
       url:'/itinerary',
+            views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
       templateUrl:'../views/templates/itinerary.html'
+      }
+    }
     })
     .state('team',{
       url:'/team',
-      templateUrl:'../views/templates/team.html'
+        views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
+              templateUrl:'../views/templates/team.html'
+          }
+      }
     })
     .state('splash',{
       url:'/splash',
-      templateUrl:'../views/templates/splash.html'
+            views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
+            templateUrl:'../views/templates/splash.html'
+          }
+      }
+    })
+    .state('account', {
+      url: '/account',
+            views:{
+        'navbar':{
+          templateUrl:'../views/templates/navbar.html',
+          controller:'MainController',
+          controllerAs:'mc'
+          },
+        '':{  
+          templateUrl: '../views/templates/profile.html',
+          controller: 'ProfileController',
+          controllerAs: 'pc'
+          }
+      }
+
     });
     
     //$urlRouterProvider.otherwise('/auth');
@@ -113,7 +183,7 @@ $stateProvider
       if ($auth.isAuthenticated()) {
         deferred.resolve();
       } else {
-        console.log('fail');
+        console.log('login required');
         // $location.path('/login');
       }
       return deferred.promise;

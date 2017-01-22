@@ -1,5 +1,3 @@
-console.log("Front.js loaded");
-
 // Add smooth scrolling to all links
 $(document).ready(function() {
     $("a").on('click', function(event) {
@@ -20,6 +18,12 @@ $(document).ready(function() {
         }
     });
 // Modal function for login/registration 
+
+// switched between login / logout button in the nav bar
+if(userInfo.id!==undefined){
+   $('#logBtn').attr('href','/logout').html('Logout')
+} 
+
 // Javscript for Slider
     var el, newPoint, newPlace, offset;
     // Select all range inputs, watch for change
