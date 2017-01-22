@@ -96,9 +96,7 @@ $stateProvider
           controllerAs:'mc'
           },
         '':{  
-          templateUrl: '../views/templates/choices.html',
-          controller: 'ChoicesController',
-          controllerAs: 'choices'
+          templateUrl: '../views/templates/choices.html'
           }
       }
 
