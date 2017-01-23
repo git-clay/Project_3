@@ -160,10 +160,10 @@ $stateProvider
     });
     
     //$urlRouterProvider.otherwise('/auth');
-      $urlRouterProvider.otherwise(function($injector, $location) {
-          console.log("Could not find " + $location);
-          $location.path('/');
-      });
+      // $urlRouterProvider.otherwise(function($injector, $location) {
+      //     console.log("Could not find " + $location);
+      //     $location.path('/');
+      // });
 
     function skipIfLoggedIn($q, $auth) {
       console.log('skipIfLoggedIn')
