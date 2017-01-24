@@ -75,11 +75,11 @@ function yelpgo(city, res, cityProp, scenicProp) {
          var yelpResults = data.businesses;
          res.json(yelpResults);
          // console.log(yelpResults);
-         app.post('/api/yelp', function(req, res) {
-         var businesses = yelpResults;
-         res.send(businesses[0]);
-         // console.log(businesses);
-      });
+      //    app.post('/api/yelp', function(req, res) {
+      //    var businesses = yelpResults;
+      //    res.send(businesses[0]);
+      //    // console.log(businesses);
+      // });
          // console.log(yelpResults);
       })
       .catch(function(err) {
