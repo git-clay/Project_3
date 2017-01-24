@@ -80,10 +80,10 @@ function yelpgo(city, res, cityProp, scenicProp) {
       //    res.send(businesses[0]);
       //    // console.log(businesses);
       // });
-         // console.log(yelpResults);
+         console.log(yelpResults);
       })
       .catch(function(err) {
-         // console.error(err);
+         console.error(err);
       });
    console.log(city + "you did it boss");
 }
