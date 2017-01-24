@@ -133,7 +133,6 @@ function Account($http, $q, $auth, $location) {
 
   function theyPassed(passInfo) {
     userInfo = passInfo.user; //stores to global object -- user
-    console.log(userInfo)
     $('#loginReg').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
@@ -150,11 +149,7 @@ function Account($http, $q, $auth, $location) {
       .then(
         function onSuccess(res, err) {
           console.log('returned', res)
-         $auth.setToken(res.data.token); // authentication token set for user to proceed
-
-          if ($auth.isAuthenticated()) {
-                $location.path('/choices');
-
+          if (res.data.token !== undefined) {
             vm = this;
             var passInfo = res.data;
 
