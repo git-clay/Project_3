@@ -153,6 +153,8 @@ function Account($http, $q, $auth, $location) {
          $auth.setToken(res.data.token); // authentication token set for user to proceed
 
           if ($auth.isAuthenticated()) {
+                $location.path('/choices');
+
             vm = this;
             var passInfo = res.data;
 
