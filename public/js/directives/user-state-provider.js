@@ -2,6 +2,7 @@ angular
   .module('roamrrApp', ['ui.router', 'satellizer']) //sets main app and dependancies
   .config(configRoutes);
 
+
 // , 'ng-drag'
 /************* ROUTES *********************/
 configRoutes.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider"]; // minification protection

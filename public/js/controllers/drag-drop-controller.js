@@ -1,35 +1,104 @@
-// It makes sure that the clone element doesn’t grow to take up the whole screen (because its size is not limited by its parent anymore).
-// It hides it by setting its opacity to 0.
-$scope.startCallback = function (event, ui) {
-	var $draggable = $(event.target);
-	ui.helper.width($draggable.width());
-	ui.helper.height($draggable.height());
-	$draggable.css('display', 'none');
-};
-// This callback does two things:
+var app = angular.module('roamrrApp');
+console.log("drag");
 
-$scope.revertCard = function (valid) {
-	if (!valid) {
-		var that = this;
-		setTimeout(function () {
-			$(that).css('display', 'block');
-		}, 500);
-	}
-	return !valid;
-};
+app.directive('draggable', function() {
+  return function(scope, element) {
+    // this gives us the native JS object
+    var el = element[0];
+    
+    el.draggable = true;
+    
+    el.addEventListener(
+      'dragstart',
+      function(e) {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('Text', this.id);
+        this.classList.add('drag');
+        return false;
+      },
+      false
+    );
+    
+    el.addEventListener(
+      'dragend',
+      function(e) {
+        this.classList.remove('drag');
+        return false;
+      },
+      false
+    );
+  };
+});
 
-// This callback does two things:
-// It updates the model so that the card is displayed on the lane it was dropped on.
-// It prevents dropping the card on the lane it was on before dragging.
+app.directive('droppable', function() {
+  return {
+    scope: {
+      drop: '&',
+      board: '='
+    },
+    link: function(scope, element) {
+      // again we need the native object
+      var el = element[0];
+      
+      el.addEventListener(
+        'dragover',
+        function(e) {
+          e.dataTransfer.dropEffect = 'move';
+          // allows us to drop
+          if (e.preventDefault) e.preventDefault();
+          this.classList.add('over');
+          return false;
+        },
+        false
+      );
+      
+      el.addEventListener(
+        'dragenter',
+        function(e) {
+          this.classList.add('over');
+          return false;
+        },
+        false
+      );
+      
+      el.addEventListener(
+        'dragleave',
+        function(e) {
+          this.classList.remove('over');
+          return false;
+        },
+        false
+      );
+      
+      el.addEventListener(
+        'drop',
+        function(e) {
+          // Stops some browsers from redirecting.
+          if (e.stopPropagation) e.stopPropagation();
+          
+          this.classList.remove('over');
+          
+          var boardId = this.id;
+          var result = document.getElementById(e.dataTransfer.getData('Text'));
+          this.appendChild(result);
+          // call the passed drop function
+          scope.$apply(function(scope) {
+            var fn = scope.drop();
+            if ('undefined' !== typeof fn) {            
+              fn(result.id, boardId);
+            }
+          });
+          
+          return false;
+        },
+        false
+      );
+    }
+  };
+});
 
-$scope.dropCallback = function (event, ui) {
-	var $lane = $(event.target);
-	var $card = ui.draggable;
-	if ($card.scope().card.lane != $lane.scope().lane.id) {
-		$card.scope().card.lane = $lane.scope().lane.id;
-	}
-	else {
-		
-		return false;
-	}
-};
+app.controller('DragDropCtrl', function($scope) {
+  $scope.handleDrop = function(result, board) {
+
+  };
+});

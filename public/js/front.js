@@ -1,27 +1,26 @@
 // Add smooth scrolling to all links
-$(document).ready(function() {
-    $("a").on('click', function(event) {
-        // Make sure this.hash has a value before overriding default behavior
-        if (this.hash !== "") {
-            // Prevent default anchor click behavior
-            event.preventDefault();
-            // Store hash
-            var hash = this.hash;
-            // Using $'s animate() method to add smooth page scroll
-            // The number (800) specifies the number of milliseconds it takes to scroll to the specified area
-            $('html, body').animate({
-                scrollTop: $(hash).offset().top
-            }, 600, function() {
-                // Add hash (#) to URL when done scrolling (default click behavior)
-                window.location.hash = hash;
-            });
-        }
+
+    $(function() {
+        console.log ("loaded scroll finction");
+      // Select link by id and add click event
+      $('#scroll').click(function() {
+
+        // Animate Scroll to #bottom
+        $('html,body').animate({
+          scrollTop: $("#mapdiv").offset().top }, // Tell it to scroll to the top #bottom
+          '3000' // How long scroll will take in milliseconds
+        );
+
+        // Prevent default behavior of link
+        return false;
+      });
     });
+
 // Modal function for login/registration 
 
 // switched between login / logout button in the nav bar
-if(userInfo.id!==undefined){
-   $('#logBtn').attr('href','/logout').html('Logout')
+if (userInfo.id!==undefined){
+   $('#logBtn').attr('href','/logout').html('Logout');
 } 
 
 // Javscript for Slider
@@ -56,7 +55,6 @@ if(userInfo.id!==undefined){
         })
         // Fake a change to position bubble at page load
         .trigger('change');
-});
 
 
 

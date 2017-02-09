@@ -22,15 +22,15 @@ function MainController($http, Account, $location,$auth,$scope) {
   vm.isAuth = $auth.isAuthenticated();
   vm.userInfo = userInfo;
   vm.userEvents = {}; //userEvents is used to pull in saved cards user selects
-  console.log(userInfo,yelpObj)
+  console.log(userInfo,yelpObj);
   vm.go = function (res) {
     return $http.post('/api/trips', yelpObj)
       .then(function (res) {
         if (res.status === -1) {
           console.log('error!!!!');
         }
-        $location.path('/itinerary')
-      })
+        $location.path('/itinerary');
+      });
 
   };
 
@@ -48,7 +48,7 @@ function HomeController($http, $location, $scope) {
 
 ActivityController.$inject = ["Account", '$location']; // minification protection
 function ActivityController(Account, $location) {
-  console.log('activity controller')
+  console.log('activity controller');
   var vm = this;
   vm.formInfo = {};
   vm.activityForm = function () {
@@ -99,9 +99,11 @@ function ProfileController(Account, $location,$scope) {
         vm.new_user = {}; // clears form
       });
   };
-  $scope.savedTrips ; // this needs to be set up with a connection to db trips table
+  // $scope.savedTrips ; // this needs to be set up with a connection to db trips table
 
 }
+
+
 
 /********** SERVICES ***************/
 
@@ -124,7 +126,7 @@ function Account($http, $q, $auth, $location) {
     $('.modal-backdrop').remove();
     $auth.setToken(passInfo.token); // authentication token set for user to proceed
     $location.path('/choices');
-  };
+  }
 
   function signup(userData) {
     userArr = [];
@@ -134,7 +136,7 @@ function Account($http, $q, $auth, $location) {
       .signup(userData)
       .then(
         function onSuccess(res, err) {
-          console.log('returned', res)
+          console.log('returned', res);
           if (res.data.token !== undefined) {
             vm = this;
             var passInfo = res.data; //user info from db and
@@ -152,16 +154,16 @@ function Account($http, $q, $auth, $location) {
                   $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
                 }
                 yelpObj = res.data;
-                theyPassed(passInfo)
+                theyPassed(passInfo);
                 // console.log(yelpObj, "city name should be in here");
               });
           } else if (err) {
             $('div#errorBox').html('There was a problem with the login', err);
           } else if (res.data == 'Sorry, but that e-mail has already been registered.') {
-            console.log(res.data)
+            console.log(res.data);
             $('div#errorBox').html(res.data);
           }
-        }))
+        }));
   }
 
   function login(userData) {
@@ -171,7 +173,7 @@ function Account($http, $q, $auth, $location) {
       .login(userData) // 
       .then(
         function onSuccess(res) { //res gives token and user info from db
-          var vm = this
+          var vm = this;
           var passInfo = res.data;
           gps.push(localStorage.getItem('nLat'));
           gps.push(localStorage.getItem('nLng'));
@@ -180,18 +182,18 @@ function Account($http, $q, $auth, $location) {
               formInfo: formInfo
             })
             .then(function (resp) {
-              console.log(resp)
+              console.log(resp);
               yelpObj = resp.data; 
               var u = window.location.href,
                 len = u.length;
-              var urlEnd = u.slice((len - 6), (len)) // checks for '/login' in url
+              var urlEnd = u.slice((len - 6), (len)); // checks for '/login' in url
               if (urlEnd === '/login') {
                 userInfo = passInfo.user; //stores to global object -- user
                 $auth.setToken(passInfo.token); // authentication token set for user to proceed
                 $location.path('/account');
                 return;
               } else {
-                theyPassed(passInfo) //bunch of stuff to do when authenticated
+                theyPassed(passInfo); //bunch of stuff to do when authenticated
               }
             });
         },
@@ -199,7 +201,7 @@ function Account($http, $q, $auth, $location) {
           console.error(error);
           $('div#errorBox').html('The e-mail password combination does not match our records');
 
-          $
+          
         }
       )
     );
@@ -241,7 +243,7 @@ function Account($http, $q, $auth, $location) {
   }
 
   function getProfile() {
-    return $http.get('/api/me')
+    return $http.get('/api/me');
   }
 
   function updateProfile(profileData) {
