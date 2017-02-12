@@ -225,6 +225,8 @@ app.post('/auth/login', function(req, res) {
                   token: auth.createJWT(user),
                   user: user
                });
+            } else{
+               res.send('error: that password does not match')
             }
          });
       };

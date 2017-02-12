@@ -7,16 +7,13 @@ angular
   .controller('LogoutController', LogoutController)
   .controller('ProfileController', ProfileController)
   .controller('ActivityController', ActivityController)
-  .service('Account', Account)
-  
-    ;
-// .config(configRoutes);
+  .service('Account', Account);
 
 //global storage
 var userInfo = {},
     gps = [],
     formInfo = {},
-    userObj,
+    yelpObj, //stores events from yelp
     storedEvents = [];
 /********** CONTROLLERS ***************/
 MainController.$inject = ['$http', "Account", "$location",'$auth','$scope']; // minification protection
@@ -25,22 +22,15 @@ function MainController($http, Account, $location,$auth,$scope) {
   vm.isAuth = $auth.isAuthenticated();
   vm.userInfo = userInfo;
   vm.userEvents = {}; //userEvents is used to pull in saved cards user selects
-  storedEvents = userObj;
+  console.log(userInfo,yelpObj);
   vm.go = function (res) {
-    // storedEvents.push({
-    //   user_id: userInfo.id
-    // });
-    // console.log('line29', storedEvents)
-
-    return $http.post('/api/trips', storedEvents)
+    return $http.post('/api/trips', yelpObj)
       .then(function (res) {
         if (res.status === -1) {
           console.log('error!!!!');
         }
-
-        console.log('stored:', res)
-        $location.path('/itinerary')
-      })
+        $location.path('/itinerary');
+      });
 
   };
 
@@ -51,21 +41,18 @@ function HomeController($http, $location, $scope) {
   var vm = this;
 
   vm.mapFunc = function () {
-    console.log('mapfunc');
     $location.path('/activity'); //routes to next page
   };
-  $scope.stuff = userObj; // this is pulling in the global variable of trip info from yelp
+  $scope.stuff = yelpObj; // this is pulling in the global variable of trip info from yelp
 }
 
 ActivityController.$inject = ["Account", '$location']; // minification protection
 function ActivityController(Account, $location) {
-  console.log('activity controller')
+  console.log('activity controller');
   var vm = this;
   vm.formInfo = {};
   vm.activityForm = function () {
     formInfo = vm.formInfo;
-
-    console.log('formInfo: ', vm.formInfo);
   };
 }
 
@@ -73,7 +60,6 @@ LoginController.$inject = ["Account", '$location']; // minification protection
 function LoginController(Account, $location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('LoginController');
   vm.login = function () {
     Account
       .login(vm.new_user)
@@ -86,7 +72,6 @@ SignupController.$inject = ["Account", '$location']; // minification protection
 function SignupController(Account, $location) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('signup controller');
   vm.signup = function () {
     Account
       .signup(vm.new_user)
@@ -100,14 +85,13 @@ function SignupController(Account, $location) {
 LogoutController.$inject = ["Account", '$location']; // minification protection
 function LogoutController(Account, $location) {
   Account.logout();
-  $location.path('/login'); //directs to login page when logged out
+  $location.path('/'); 
 }
 
-ProfileController.$inject = ["Account", '$location']; // minification protection
-function ProfileController(Account, $location) {
+ProfileController.$inject = ["Account", '$location','$scope']; // minification protection
+function ProfileController(Account, $location,$scope) {
   var vm = this;
   vm.new_user = {}; // form data
-  console.log('LoginController');
   vm.login = function () {
     Account
       .login(vm.new_user)
@@ -115,7 +99,11 @@ function ProfileController(Account, $location) {
         vm.new_user = {}; // clears form
       });
   };
+  // $scope.savedTrips ; // this needs to be set up with a connection to db trips table
+
 }
+
+
 
 /********** SERVICES ***************/
 
@@ -138,7 +126,7 @@ function Account($http, $q, $auth, $location) {
     $('.modal-backdrop').remove();
     $auth.setToken(passInfo.token); // authentication token set for user to proceed
     $location.path('/choices');
-  };
+  }
 
   function signup(userData) {
     userArr = [];
@@ -148,10 +136,10 @@ function Account($http, $q, $auth, $location) {
       .signup(userData)
       .then(
         function onSuccess(res, err) {
-          console.log('returned', res)
+          console.log('returned', res);
           if (res.data.token !== undefined) {
             vm = this;
-            var passInfo = res.data;
+            var passInfo = res.data; //user info from db and
 
             gps.push(localStorage.getItem('nLat'));
             gps.push(localStorage.getItem('nLng'));
@@ -165,28 +153,27 @@ function Account($http, $q, $auth, $location) {
                   console.log('error!!!!');
                   $('div#errorBox').html('Sorry, There is an error with our server. Please Try again');
                 }
-                userObj = res.data;
-                theyPassed(passInfo)
-                console.log(userObj, "city name should be in here");
+                yelpObj = res.data;
+                theyPassed(passInfo);
+                // console.log(yelpObj, "city name should be in here");
               });
           } else if (err) {
             $('div#errorBox').html('There was a problem with the login', err);
           } else if (res.data == 'Sorry, but that e-mail has already been registered.') {
-            console.log(res.data)
+            console.log(res.data);
             $('div#errorBox').html(res.data);
           }
-        }))
+        }));
   }
 
   function login(userData) {
     userArr = [];
-    console.log('Account.login', userData);
     return (
       $auth
       .login(userData) // 
       .then(
-        function onSuccess(res) {
-          var vm = this
+        function onSuccess(res) { //res gives token and user info from db
+          var vm = this;
           var passInfo = res.data;
           gps.push(localStorage.getItem('nLat'));
           gps.push(localStorage.getItem('nLng'));
@@ -195,17 +182,18 @@ function Account($http, $q, $auth, $location) {
               formInfo: formInfo
             })
             .then(function (resp) {
-              userObj = resp.data;
+              console.log(resp);
+              yelpObj = resp.data; 
               var u = window.location.href,
                 len = u.length;
-              var urlEnd = u.slice((len - 6), (len)) // checks for '/login' in url
+              var urlEnd = u.slice((len - 6), (len)); // checks for '/login' in url
               if (urlEnd === '/login') {
                 userInfo = passInfo.user; //stores to global object -- user
                 $auth.setToken(passInfo.token); // authentication token set for user to proceed
                 $location.path('/account');
                 return;
               } else {
-                theyPassed(passInfo) //bunch of stuff to do when authenticated
+                theyPassed(passInfo); //bunch of stuff to do when authenticated
               }
             });
         },
@@ -213,7 +201,7 @@ function Account($http, $q, $auth, $location) {
           console.error(error);
           $('div#errorBox').html('The e-mail password combination does not match our records');
 
-          $
+          
         }
       )
     );
@@ -255,7 +243,7 @@ function Account($http, $q, $auth, $location) {
   }
 
   function getProfile() {
-    return $http.get('/api/me')
+    return $http.get('/api/me');
   }
 
   function updateProfile(profileData) {
